@@ -1,0 +1,394 @@
+# Default values for jumpserver.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+  imagePullSecrets: []
+  # - name: yourImagePullSecret
+
+ingress:
+  enabled: true
+  annotations:
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+    compute-full-forwarded-for: "true"
+    use-forwarded-headers: "true"
+  hosts:
+    - "test.jumpserver.org"
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+core:
+  enabled: true
+
+  labels:
+    app.jumpserver.org/name: jms-core
+
+  config:
+    # Generate a new random secret key by execute `cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 50`
+    secretKey: ""
+    # Generate a new random bootstrap token by execute `cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 16`
+    bootstrapToken: ""
+    # Enabled it for debug
+    debug: false
+    log:
+      level: ERROR
+    # Fill it with your mysql config
+    db:
+      engine: mysql
+      host: ""
+      port: 3306
+      user: jumpserver
+      password: ""
+      name: jumpserver
+    # Fill it with your redis config
+    redis:
+      host: ""
+      port: 6379
+      password: ""
+
+  replicaCount: 1
+
+  image:
+    repository: docker.io/jumpserver/jms_core
+    tag: v2.10.3
+    pullPolicy: IfNotPresent
+
+  command: []
+
+  env: []
+
+  livenessProbe:
+    failureThreshold: 30
+    httpGet:
+      path: /api/health/
+      port: web
+
+  readinessProbe:
+    failureThreshold: 30
+    httpGet:
+      path: /api/health/
+      port: web
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    web:
+      port: 8080
+    ws:
+      port: 8070
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 1000m
+    #   memory: 2048Mi
+    # requests:
+    #   cpu: 500m
+    #   memory: 1024Mi
+
+  persistence:
+    type: pvc
+    storageClass: nfs
+    storageClassName: jumpserver-data
+    accessModes:
+      - ReadWriteMany
+    size: 10Gi
+    # annotations: {}
+    finalizers:
+      - kubernetes.io/pvc-protection
+    # subPath: ""
+    # existingClaim:
+
+  volumeMounts: []
+
+  volumes: []
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+koko:
+  enabled: true
+
+  labels:
+    app.jumpserver.org/name: jms-koko
+
+  config:
+    log:
+      level: ERROR
+    share_room_type: redis
+    redis:
+      host: ""
+      port: 6379
+      password: ""
+
+  replicaCount: 1
+
+  image:
+    repository: docker.io/jumpserver/jms_koko
+    tag: v2.10.3
+    pullPolicy: IfNotPresent
+
+  command: []
+
+  env: []
+
+  livenessProbe:
+    failureThreshold: 30
+    tcpSocket:
+      port: web
+
+  readinessProbe:
+    failureThreshold: 30
+    tcpSocket:
+      port: web
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    web:
+      port: 5000
+    ssh:
+      port: 2222
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  persistence:
+    type: pvc
+    storageClass: nfs
+    storageClassName: jumpserver-data
+    accessModes:
+      - ReadWriteMany
+    size: 10Gi
+    # annotations: {}
+    finalizers:
+      - kubernetes.io/pvc-protection
+
+  volumeMounts: []
+
+  volumes: []
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+lion:
+  enabled: true
+
+  labels:
+    app.jumpserver.org/name: jms-lion
+
+  config:
+    log:
+      level: ERROR
+    share_room_type: redis
+    redis:
+      host: ""
+      port: 6379
+      password: ""
+
+  replicaCount: 1
+
+  image:
+    repository: docker.io/jumpserver/jms_lion
+    tag: v2.10.3
+    pullPolicy: IfNotPresent
+
+  command: []
+
+  env: []
+
+  livenessProbe:
+    failureThreshold: 30
+    httpGet:
+      path: /lion/health/
+      port: web
+
+  readinessProbe:
+    failureThreshold: 30
+    httpGet:
+      path: /lion/health/
+      port: web
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    web:
+      port: 8081
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 512Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 512Mi
+
+  persistence:
+    type: pvc
+    storageClass: nfs
+    storageClassName: jumpserver-data
+    accessModes:
+      - ReadWriteMany
+    size: 10Gi
+    # annotations: {}
+    finalizers:
+      - kubernetes.io/pvc-protection
+
+  volumeMounts: []
+
+  volumes: []
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+nginx:
+  enabled: true
+
+  labels:
+    app.jumpserver.org/name: jms-nginx
+
+  replicaCount: 1
+
+  image:
+    repository: docker.io/jumpserver/jms_nginx
+    tag: v2.10.3
+    pullPolicy: IfNotPresent
+
+  command: []
+
+  env: []
+
+  livenessProbe:
+    failureThreshold: 30
+    httpGet:
+      path: /api/health/
+      port: web
+
+  readinessProbe:
+    failureThreshold: 30
+    httpGet:
+      path: /api/health/
+      port: web
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    web:
+      port: 80
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  persistence:
+    type: pvc
+    storageClass: nfs
+    storageClassName: jumpserver-data
+    accessModes:
+      - ReadWriteMany
+    size: 1Gi
+    # annotations: {}
+    finalizers:
+      - kubernetes.io/pvc-protection
+
+  volumeMounts: []
+
+  volumes: []
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+  ## PodSecurityPolicy configuration
+  ## ref: https://kubernetes.io/docs/concepts/policy/pod-security-policy/
+  ##
+  podSecurityPolicy:
+    ## Specifies whether a PodSecurityPolicy should be created
+    ##
+    create: false

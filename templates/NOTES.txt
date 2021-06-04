@@ -1,0 +1,11 @@
+1. Get the Jumpserver URL by running these commands:
+{{- if .Values.ingress.enabled }}
+{{- range $host := .Values.ingress.hosts }}
+  http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $host }}
+{{- end }}
+{{- end }}
+
+2. Access the Jumpserver SSH server by running these commands:
+{{- if eq .Values.koko.service.type "LoadBalancer" }}
+  ssh -p{{ .Values.koko.service.ssh.port }} admin@{{ .Values.koko.service.loadBalancerIP }}
+{{- end }}

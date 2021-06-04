@@ -1,0 +1,15 @@
+{{- if .Values.core.enabled }}
+{{- with .Values.core }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-core" }}
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "jumpserver.labels" $ | nindent 4 }}
+    {{- toYaml .labels | nindent 4 }}
+data:
+{{- $path := printf "%s/%s/%s" "configs" "jms-core" "config.yml" -}}
+{{- tpl (($.Files.Glob $path ).AsConfig) $ | nindent 2 }}
+{{- end }}
+{{- end }}

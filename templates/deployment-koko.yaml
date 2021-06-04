@@ -1,0 +1,96 @@
+{{- if .Values.koko.enabled }}
+{{- with .Values.koko }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-koko" }}
+{{- $containerName := "jms-koko" }}
+{{- $image := printf "%s:%s" .image.repository .image.tag }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "jumpserver.labels" $ | nindent 4 }}
+    {{- toYaml .labels | nindent 4 }}
+spec:
+  replicas: {{ .replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "jumpserver.name" $ }}
+      app.kubernetes.io/instance: {{ $.Release.Name }}
+      {{- toYaml .labels | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "jumpserver.name" $ }}
+        app.kubernetes.io/instance: {{ $.Release.Name }}
+        {{- toYaml .labels | nindent 8 }}
+    spec:
+      serviceAccountName: {{ template "jumpserver.serviceAccountName" $ }}
+      securityContext:
+        {{- toYaml .podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ $containerName }}
+          securityContext:
+            {{- toYaml .securityContext | nindent 12 }}
+          image: "{{$image}}"
+          imagePullPolicy: {{ .image.pullPolicy }}
+          {{- with .command }}
+          command:
+            {{- tpl (toYaml .) $ | nindent 12 }}
+          {{- end }}
+          env:
+            - name: CORE_HOST
+              value: http://{{include "jumpserver.fullname" $}}-jms-core:{{$.Values.core.service.web.port}}
+            - name: "REDIS_HOST"
+              value: "{{.config.redis.host}}"
+            - name: "REDIS_PORT"
+              value: "{{.config.redis.port}}"
+          {{- with .env }}
+            {{- tpl (toYaml .) $ | nindent 12 }}
+          {{- end }}
+          ports:
+            - name: web
+              containerPort: {{ .service.web.port }}
+              protocol: TCP
+            - name: ssh
+              containerPort: {{ .service.ssh.port }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .livenessProbe | nindent 12}}
+          readinessProbe:
+            {{- toYaml .readinessProbe | nindent 12}}
+          resources:
+            {{- toYaml .resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: "/opt/koko/config.yml"
+              name: "jms-koko-config"
+              subPath: "config.yml"
+            - mountPath: "/opt/koko/data"
+              name: "jms-koko-data"
+          {{- with .volumeMounts }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      restartPolicy: Always
+      volumes:
+        - configMap:
+            name: '{{include "jumpserver.fullname" $}}-jms-koko'
+          name: "jms-koko-config"
+        - persistentVolumeClaim:
+            claimName: '{{include "jumpserver.fullname" $}}-jms-koko-data'
+          name: "jms-koko-data"
+      {{- with .volumes }}
+        {{- tpl (toYaml .) $ | nindent 8 }}
+      {{- end }}
+      {{- with .nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+{{- end }}
+{{- end }}
