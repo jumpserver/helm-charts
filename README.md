@@ -118,3 +118,4 @@ $ helm install my-release -f values.yaml ./jumpserver
 
 - https://github.com/jumpserver/jumpserver
 - https://github.com/wojiushixiaobai/Dockerfile
+- https://github.com/xiaomaimuchanyiyiba/jumpserver
