@@ -21,6 +21,7 @@ ingress:
     # kubernetes.io/tls-acme: "true"
     compute-full-forwarded-for: "true"
     use-forwarded-headers: "true"
+
   hosts:
     - "test.jumpserver.org"
   tls: []

@@ -19,6 +19,10 @@ spec:
       targetPort: ws
       protocol: TCP
       name: ws
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
   selector:
     app.kubernetes.io/name: {{ include "jumpserver.name" $ }}
     app.kubernetes.io/instance: {{ $.Release.Name }}

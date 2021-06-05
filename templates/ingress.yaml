@@ -1,9 +1,5 @@
 {{- if .Values.ingress.enabled }}
-{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
-apiVersion: networking.k8s.io/v1beta1
-{{- else -}}
-apiVersion: extensions/v1beta1
-{{- end }}
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ include "jumpserver.fullname" . }}
@@ -29,9 +25,12 @@ spec:
     - host: {{ . }}
       http:
         paths:
-        - path: /
+        - pathType: Prefix
+          path: /
           backend:
-            serviceName: '{{printf "%s-%s" (include "jumpserver.fullname" $) "jms-nginx"}}'
-            servicePort: web
+            service:
+              name: '{{printf "%s-%s" (include "jumpserver.fullname" $) "jms-nginx"}}'
+              port:
+                number: 80
   {{- end }}
 {{- end }}

@@ -21,6 +21,10 @@ spec:
       targetPort: ssh
       protocol: TCP
       name: ssh
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
   selector:
     app.kubernetes.io/name: {{ include "jumpserver.name" $ }}
     app.kubernetes.io/instance: {{ $.Release.Name }}
