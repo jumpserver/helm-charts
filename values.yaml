@@ -112,7 +112,6 @@ core:
 
   persistence:
     type: pvc
-    storageClass: nfs
     storageClassName: jumpserver-data
     accessModes:
       - ReadWriteMany
@@ -201,7 +200,6 @@ koko:
 
   persistence:
     type: pvc
-    storageClass: nfs
     storageClassName: jumpserver-data
     accessModes:
       - ReadWriteMany
@@ -288,7 +286,6 @@ lion:
 
   persistence:
     type: pvc
-    storageClass: nfs
     storageClassName: jumpserver-data
     accessModes:
       - ReadWriteMany
@@ -366,7 +363,6 @@ nginx:
 
   persistence:
     type: pvc
-    storageClass: nfs
     storageClassName: jumpserver-data
     accessModes:
       - ReadWriteMany

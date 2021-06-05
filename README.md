@@ -11,28 +11,35 @@ $ helm install my-release ./jumpserver
 
 ## 介绍
 
-当前Chart包含了Jumpserver所需的基本组件
+当前 Chart 包含了 Jumpserver 所需的基本组件
 
 ## 依赖
 
-- Kubernetes 1.12+
-- Helm 2.11+ 或 Helm 3.0-beta3+
-- PV provisioner 支持
+- Kubernetes 1.20+
+- Helm 3.0
 - [wojiushixiaobai](https://github.com/wojiushixiaobai/Dockerfile) 的镜像支持
 
 ## 安装
 
-发布名为 `my-release` 的release:
+发布名为 `my-release` 的 release:
 
 ```bash
-$ helm install my-release ./jumpserver
+$ cd helm
+$ helm install my-release ./
 ```
 
-上条命令把默认配置的Jumpserver部署到了kubernetes集群中，[参数](#parameters)一节中列出了配置参数
+安装到指定 namespace
+
+```bash
+$ cd helm
+$ helm install my-release ./ -n default
+```
+
+上条命令把默认配置的 JumpServer 部署到了 kubernetes 集群中，[参数](#parameters)一节中列出了配置参数
 
 > **Tip**: List all releases using `helm list`
 
-## Uninstalling the Chart
+## 卸载
 
 删除 `my-release` release:
 
@@ -40,7 +47,7 @@ $ helm install my-release ./jumpserver
 $ helm delete my-release
 ```
 
-上条命令删除了所有包含在release中的组件
+上条命令删除了所有包含在 release 中的组件
 
 ## 参数
 
@@ -75,6 +82,9 @@ $ helm delete my-release
 | `redis.host`     | redisIP地址                                                             | `nil`                  |
 | `redis.port`     | redis端口                                                               | `6379`                 |
 | `redis.password` | redis密码                                                               | `nil`                  |
+| `replicaCount`   | 副本数量                                                                | `1`                     |
+| `tag`            | 版本号                                                                  | `nil`                  |
+| `persistence`    | 持久化存储相关设置                                                       | `nil`                  |
 
 ### koko.config
 
@@ -85,6 +95,9 @@ $ helm delete my-release
 | `redis.host`          | redis 地址                                                 | `nil`   |
 | `redis.port`          | redis 端口                                                 | `6379`  |
 | `redis.password`      | redis 密码                                                 | `nil`   |
+| `replicaCount`        | 副本数量                                                   | `1`      |
+| `tag`                 | 版本号                                                     | `nil`    |
+| `persistence`         | 持久化存储相关设置                                          | `nil`    |
 
 ### lion.config
 
@@ -95,8 +108,11 @@ $ helm delete my-release
 | `redis.host`          | redis 地址                                                 | `nil`   |
 | `redis.port`          | redis 端口                                                 | `6379`  |
 | `redis.password`      | redis 密码                                                 | `nil`   |
+| `replicaCount`        | 副本数量                                                   | `1`     |
+| `tag`                 | 版本号                                                     | `nil`   |
+| `persistence`         | 持久化存储相关设置                                          | `nil`   |
 
-在`helm install`时通过 `--set key=value[,key=value]` 指定参数. 举例,
+在 `helm install` 时通过 `--set key=value[,key=value]` 指定参数. 举例:
 
 ```bash
 $ helm install my-release \
@@ -104,9 +120,9 @@ $ helm install my-release \
     ./jumpserver
 ```
 
-上条命令开启了ingress.
+上条命令开启了 ingress.
 
-也可以通过 `-f file` 的形式指定一个或多个values.yaml文件. 举例,
+也可以通过 `-f file` 的形式指定一个或多个 values.yaml 文件. 举例:
 
 ```bash
 $ helm install my-release -f values.yaml ./jumpserver
