@@ -62,7 +62,7 @@ core:
 
   image:
     repository: docker.io/jumpserver/jms_core
-    tag: v2.11.2
+    tag: v2.11.3
     pullPolicy: IfNotPresent
 
   command: []
@@ -152,7 +152,7 @@ koko:
 
   image:
     repository: docker.io/jumpserver/jms_koko
-    tag: v2.11.2
+    tag: v2.11.3
     pullPolicy: IfNotPresent
 
   command: []
@@ -238,7 +238,7 @@ lion:
 
   image:
     repository: docker.io/jumpserver/jms_lion
-    tag: v2.11.2
+    tag: v2.11.3
     pullPolicy: IfNotPresent
 
   command: []
@@ -315,7 +315,7 @@ nginx:
 
   image:
     repository: docker.io/jumpserver/jms_nginx
-    tag: v2.11.2
+    tag: v2.11.3
     pullPolicy: IfNotPresent
 
   command: []
