@@ -52,7 +52,7 @@ spec:
           livenessProbe:
             exec:
               command:
-                - /opt/py3/bin/python /opt/jumpserver/jms status task | grep stopped && exit 1 || exit 0
+                - ./jms status task | grep stopped && exit 1 || exit 0
           resources:
             {{- toYaml .resources | nindent 12 }}
           volumeMounts:
