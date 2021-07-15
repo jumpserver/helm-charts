@@ -61,8 +61,8 @@ core:
   replicaCount: 1
 
   image:
-    repository: docker.io/jumpserver/jms_core
-    tag: v2.11.4
+    repository: docker.io/jumpserver/core
+    tag: v2.12.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -151,8 +151,8 @@ koko:
   replicaCount: 1
 
   image:
-    repository: docker.io/jumpserver/jms_koko
-    tag: v2.11.4
+    repository: docker.io/jumpserver/koko
+    tag: v2.12.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -239,8 +239,8 @@ lion:
   replicaCount: 1
 
   image:
-    repository: docker.io/jumpserver/jms_lion
-    tag: v2.11.4
+    repository: docker.io/jumpserver/lion
+    tag: v2.12.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -316,8 +316,8 @@ nginx:
   replicaCount: 1
 
   image:
-    repository: docker.io/jumpserver/jms_nginx
-    tag: v2.11.4
+    repository: docker.io/jumpserver/nginx
+    tag: v2.12.0
     pullPolicy: IfNotPresent
 
   command: []
