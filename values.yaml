@@ -316,7 +316,7 @@ nginx:
   replicaCount: 1
 
   image:
-    repository: docker.io/jumpserver/web
+    repository: docker.io/jumpserver/nginx
     tag: v2.12.2
     pullPolicy: IfNotPresent
 
