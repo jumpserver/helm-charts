@@ -21,6 +21,10 @@ ingress:
     # kubernetes.io/tls-acme: "true"
     compute-full-forwarded-for: "true"
     use-forwarded-headers: "true"
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+       proxy_set_header Upgrade "websocket";
+       proxy_set_header Connection "Upgrade";
 
   hosts:
     - "test.jumpserver.org"
@@ -62,7 +66,7 @@ core:
 
   image:
     repository: docker.io/jumpserver/core
-    tag: v2.12.1
+    tag: v2.12.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -152,7 +156,7 @@ koko:
 
   image:
     repository: docker.io/jumpserver/koko
-    tag: v2.12.1
+    tag: v2.12.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -240,7 +244,7 @@ lion:
 
   image:
     repository: docker.io/jumpserver/lion
-    tag: v2.12.1
+    tag: v2.12.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -317,7 +321,7 @@ nginx:
 
   image:
     repository: docker.io/jumpserver/nginx
-    tag: v2.12.1
+    tag: v2.12.2
     pullPolicy: IfNotPresent
 
   command: []

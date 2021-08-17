@@ -1,0 +1,63 @@
+{{- if .Values.core.enabled }}
+{{- with .Values.core }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-init-db" }}
+{{- $containerName := "jms-init-db" }}
+{{- $image := printf "%s:%s" .image.repository .image.tag }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ $fullName }}
+  labels:
+    app.jumpserver.org/name: {{ $containerName }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-5"
+    "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
+spec:
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "jumpserver.name" $ }}
+        app.kubernetes.io/instance: {{ $.Release.Name }}
+        {{- toYaml .labels | nindent 8 }}
+    spec:
+      serviceAccountName: {{ template "jumpserver.serviceAccountName" $ }}
+      securityContext:
+        {{- toYaml .podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ $containerName }}
+          securityContext:
+            {{- toYaml .securityContext | nindent 12 }}
+          image: "{{$image}}"
+          imagePullPolicy: {{ .image.pullPolicy }}
+          command:
+            - /bin/bash
+            - "-c"
+            - cd /opt/jumpserver && ./jms upgrade_db
+          env:
+            - name: "SECRET_KEY"
+              value: "{{.config.secretKey}}"
+            - name: "BOOTSTRAP_TOKEN"
+              value: "{{.config.bootstrapToken}}"
+            - name: "DB_HOST"
+              value: "{{.config.db.host}}"
+            - name: "DB_PORT"
+              value: "{{.config.db.port}}"
+            - name: "DB_USER"
+              value: "{{.config.db.user}}"
+            - name: "DB_PASSWORD"
+              value: "{{.config.db.password}}"
+            - name: "DB_NAME"
+              value: "{{.config.db.name}}"
+            - name: "REDIS_HOST"
+              value: "{{.config.redis.host}}"
+            - name: "REDIS_PORT"
+              value: "{{.config.redis.port}}"
+            - name: "REDIS_PASSWORD"
+              value: "{{.config.redis.password}}"
+          {{- with .env }}
+            {{- tpl (toYaml .) $ | nindent 12 }}
+          {{- end }}
+      restartPolicy: Never
+{{- end }}
+{{- end }}
