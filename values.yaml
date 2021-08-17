@@ -21,6 +21,10 @@ ingress:
     # kubernetes.io/tls-acme: "true"
     compute-full-forwarded-for: "true"
     use-forwarded-headers: "true"
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+       proxy_set_header Upgrade "websocket";
+       proxy_set_header Connection "Upgrade";
 
   hosts:
     - "test.jumpserver.org"
