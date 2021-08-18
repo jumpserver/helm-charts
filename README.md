@@ -17,7 +17,6 @@ $ helm install my-release ./jumpserver
 
 - Kubernetes 1.20+
 - Helm 3.0
-- [wojiushixiaobai](https://github.com/wojiushixiaobai/Dockerfile) 的镜像支持
 
 ## 安装
 
@@ -130,8 +129,6 @@ $ helm install my-release -f values.yaml ./jumpserver
 
 > **注**: 默认使用 [values.yaml](values.yaml)
 
-## 相关项目
+## 鸣谢说明
 
-- https://github.com/jumpserver/jumpserver
-- https://github.com/wojiushixiaobai/Dockerfile
-- https://github.com/xiaomaimuchanyiyiba/jumpserver
+本项目初始代码是由 [xiaomaimuchanyiyiba](https://github.com/xiaomaimuchanyiyiba) 贡献。[原仓库地址](https://github.com/xiaomaimuchanyiyiba/jumpserver)
