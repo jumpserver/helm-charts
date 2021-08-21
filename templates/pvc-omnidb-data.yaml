@@ -1,6 +1,6 @@
-{{- if .Values.web.enabled }}
-{{- with .Values.web }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-web-logs" }}
+{{- if .Values.xpack.enabled }}
+{{- with .Values.omnidb }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-omnidb-data" }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

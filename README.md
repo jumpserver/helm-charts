@@ -54,7 +54,7 @@ $ helm delete my-release
 
 ### 总览
 
-| 参数                   | 描述               | 默认值  |
+| 参数                   | 描述                | 默认值  |
 | ---------------------- | ------------------ | ------- |
 | `nameOveride`          | name override      | `nil`   |
 | `fullNameOveride`      | full name override | `nil`   |
@@ -62,13 +62,14 @@ $ helm delete my-release
 | `core.enabled`         | 开启 core          | `true`  |
 | `koko.enabled`         | 开启 koko          | `true`  |
 | `lion.enabled`         | 开启 lion          | `true`  |
-| `nginx.enabled`        | 开启 nginx         | `true`  |
+| `web.enabled`          | 开启 web           | `true`  |
+| `xpack.enable`         | 开启 xpack         | `false` |
 
-### core.config
+### core
 
 | 参数             | 描述                                                                    | 默认值                 |
-| ---------------- | ----------------------------------------------------------------------- | --------------------- |
-| `secretKey`      | 加密秘钥 生产环境中请修改为随机字符串，请勿外泄, 可使用命令生成              | `nil`                  |
+| ---------------- | ---------------------------------------------------------------------- | ---------------------- |
+| `secretKey`      | 加密秘钥 生产环境中请修改为随机字符串，请勿外泄, 可使用命令生成              | `nil`                 |
 | `bootstrapToken` | 预共享Token coco和guacamole用来注册服务账号，不在使用原来的注册接受机制     | `nil`                  |
 | `debug`          | 开启 debug 模式                                                         | `false`                |
 | `log.level`      | 日志等级                                                                | `ERROR`                |
@@ -81,32 +82,15 @@ $ helm delete my-release
 | `redis.host`     | redisIP地址                                                             | `nil`                  |
 | `redis.port`     | redis端口                                                               | `6379`                 |
 | `redis.password` | redis密码                                                               | `nil`                  |
-| `replicaCount`   | 副本数量                                                                | `1`                     |
+| `replicaCount`   | 副本数量                                                                | `1`                    |
 | `tag`            | 版本号                                                                  | `nil`                  |
 | `persistence`    | 持久化存储相关设置                                                       | `nil`                  |
 
-### koko.config
+### 其他组件
 
 | 参数                  | 描述                                                       | 默认值  |
 | --------------------- | --------------------------------------------------------- | ------- |
 | `log.level`           | 日志等级                                                   | `INFO`  |
-| `share_room_type`     | 会话共享                                                   | `redis` |
-| `redis.host`          | redis 地址                                                 | `nil`   |
-| `redis.port`          | redis 端口                                                 | `6379`  |
-| `redis.password`      | redis 密码                                                 | `nil`   |
-| `replicaCount`        | 副本数量                                                   | `1`      |
-| `tag`                 | 版本号                                                     | `nil`    |
-| `persistence`         | 持久化存储相关设置                                          | `nil`    |
-
-### lion.config
-
-| 参数                  | 描述                                                       | 默认值  |
-| --------------------- | --------------------------------------------------------- | ------- |
-| `log.level`           | 日志等级                                                   | `INFO`  |
-| `share_room_type`     | 会话共享                                                   | `redis` |
-| `redis.host`          | redis 地址                                                 | `nil`   |
-| `redis.port`          | redis 端口                                                 | `6379`  |
-| `redis.password`      | redis 密码                                                 | `nil`   |
 | `replicaCount`        | 副本数量                                                   | `1`     |
 | `tag`                 | 版本号                                                     | `nil`   |
 | `persistence`         | 持久化存储相关设置                                          | `nil`   |
@@ -127,7 +111,7 @@ $ helm install my-release \
 $ helm install my-release -f values.yaml ./jumpserver
 ```
 
-> **注**: 默认使用 [values.yaml](values.yaml)
+**注**: 默认使用 [values.yaml](values.yaml)
 
 ## 鸣谢说明
 

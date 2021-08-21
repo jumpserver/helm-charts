@@ -39,11 +39,21 @@ spec:
           {{- end }}
           env:
             - name: CORE_HOST
-              value: http://{{include "jumpserver.fullname" $}}-jms-core:{{$.Values.core.service.web.port}}
-            - name: "REDIS_HOST"
-              value: "{{.config.redis.host}}"
-            - name: "REDIS_PORT"
-              value: "{{.config.redis.port}}"
+              value: http://{{ include "jumpserver.fullname" $}}-jms-core:{{$.Values.core.service.web.port}}
+            - name: BOOTSTRAP_TOKEN
+              value: "{{ $.Values.core.config.bootstrapToken }}"
+            - name: LOG_LEVEL
+              value: "{{ .config.log.level }}"
+            - name: HTTPD_PORT
+              value: "{{ .service.web.port }}"
+            - name: SHARE_ROOM_TYPE
+              value: redis
+            - name: REDIS_HOST
+              value: "{{ $.Values.core.config.redis.host }}"
+            - name: REDIS_PORT
+              value: "{{ $.Values.core.config.redis.port }}"
+            - name: REDIS_PASSWORD
+              value: "{{ $.Values.core.config.redis.password }}"
           {{- with .env }}
             {{- tpl (toYaml .) $ | nindent 12 }}
           {{- end }}
@@ -58,9 +68,6 @@ spec:
           resources:
             {{- toYaml .resources | nindent 12 }}
           volumeMounts:
-            - mountPath: "/opt/lion/config.yml"
-              name: "jms-lion-config"
-              subPath: "config.yml"
             - mountPath: "/opt/lion/data"
               name: "jms-lion-data"
           {{- with .volumeMounts }}
@@ -68,9 +75,6 @@ spec:
           {{- end }}
       restartPolicy: Always
       volumes:
-        - configMap:
-            name: '{{include "jumpserver.fullname" $}}-jms-lion'
-          name: "jms-lion-config"
         - persistentVolumeClaim:
             claimName: '{{include "jumpserver.fullname" $}}-jms-lion-data'
           name: "jms-lion-data"

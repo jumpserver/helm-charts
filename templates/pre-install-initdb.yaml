@@ -21,7 +21,10 @@ spec:
         app.kubernetes.io/instance: {{ $.Release.Name }}
         {{- toYaml .labels | nindent 8 }}
     spec:
-      serviceAccountName: {{ template "jumpserver.serviceAccountName" $ }}
+      {{- if $.Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{ toYaml $.Values.imagePullSecrets | indent 8 }}
+      {{- end }}
       securityContext:
         {{- toYaml .podSecurityContext | nindent 8 }}
       containers:
@@ -35,26 +38,28 @@ spec:
             - "-c"
             - cd /opt/jumpserver && ./jms upgrade_db
           env:
-            - name: "SECRET_KEY"
-              value: "{{.config.secretKey}}"
-            - name: "BOOTSTRAP_TOKEN"
-              value: "{{.config.bootstrapToken}}"
-            - name: "DB_HOST"
-              value: "{{.config.db.host}}"
-            - name: "DB_PORT"
-              value: "{{.config.db.port}}"
-            - name: "DB_USER"
-              value: "{{.config.db.user}}"
-            - name: "DB_PASSWORD"
-              value: "{{.config.db.password}}"
-            - name: "DB_NAME"
-              value: "{{.config.db.name}}"
-            - name: "REDIS_HOST"
-              value: "{{.config.redis.host}}"
-            - name: "REDIS_PORT"
-              value: "{{.config.redis.port}}"
-            - name: "REDIS_PASSWORD"
-              value: "{{.config.redis.password}}"
+            - name: SECRET_KEY
+              value: "{{ .config.secretKey }}"
+            - name: BOOTSTRAP_TOKEN
+              value: "{{ .config.bootstrapToken }}"
+            - name: DB_ENGINE
+              value: "{{ .config.db.engine }}"
+            - name: DB_HOST
+              value: "{{ .config.db.host }}"
+            - name: DB_PORT
+              value: "{{ .config.db.port }}"
+            - name: DB_USER
+              value: "{{ .config.db.user }}"
+            - name: DB_PASSWORD
+              value: "{{ .config.db.password }}"
+            - name: DB_NAME
+              value: "{{ .config.db.name }}"
+            - name: REDIS_HOST
+              value: "{{ .config.redis.host }}"
+            - name: REDIS_PORT
+              value: "{{ .config.redis.port }}"
+            - name: REDIS_PASSWORD
+              value: "{{ .config.redis.password }}"
           {{- with .env }}
             {{- tpl (toYaml .) $ | nindent 12 }}
           {{- end }}

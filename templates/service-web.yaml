@@ -1,6 +1,6 @@
-{{- if .Values.core.enabled }}
-{{- with .Values.core }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-core" }}
+{{- if .Values.web.enabled }}
+{{- with .Values.web }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-web" }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -17,10 +17,6 @@ spec:
       targetPort: web
       protocol: TCP
       name: web
-    - port: {{ .service.ws.port }}
-      targetPort: ws
-      protocol: TCP
-      name: ws
   sessionAffinity: ClientIP
   sessionAffinityConfig:
     clientIP:

@@ -40,10 +40,22 @@ spec:
           env:
             - name: CORE_HOST
               value: http://{{include "jumpserver.fullname" $}}-jms-core:{{$.Values.core.service.web.port}}
-            - name: "REDIS_HOST"
-              value: "{{.config.redis.host}}"
-            - name: "REDIS_PORT"
-              value: "{{.config.redis.port}}"
+            - name: BOOTSTRAP_TOKEN
+              value: "{{ $.Values.core.config.bootstrapToken }}"
+            - name: LOG_LEVEL
+              value: "{{ .config.log.level }}"
+            - name: SSHD_PORT
+              value: "{{ .service.ssh.port }}"
+            - name: HTTPD_PORT
+              value: "{{ .service.web.port }}"
+            - name: SHARE_ROOM_TYPE
+              value: redis
+            - name: REDIS_HOST
+              value: "{{ $.Values.core.config.redis.host }}"
+            - name: REDIS_PORT
+              value: "{{ $.Values.core.config.redis.port }}"
+            - name: REDIS_PASSWORD
+              value: "{{ $.Values.core.config.redis.password }}"
           {{- with .env }}
             {{- tpl (toYaml .) $ | nindent 12 }}
           {{- end }}
@@ -61,9 +73,6 @@ spec:
           resources:
             {{- toYaml .resources | nindent 12 }}
           volumeMounts:
-            - mountPath: "/opt/koko/config.yml"
-              name: "jms-koko-config"
-              subPath: "config.yml"
             - mountPath: "/opt/koko/data"
               name: "jms-koko-data"
           {{- with .volumeMounts }}
@@ -71,9 +80,6 @@ spec:
           {{- end }}
       restartPolicy: Always
       volumes:
-        - configMap:
-            name: '{{include "jumpserver.fullname" $}}-jms-koko'
-          name: "jms-koko-config"
         - persistentVolumeClaim:
             claimName: '{{include "jumpserver.fullname" $}}-jms-koko-data'
           name: "jms-koko-data"

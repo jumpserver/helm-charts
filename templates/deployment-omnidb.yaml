@@ -1,7 +1,7 @@
-{{- if .Values.web.enabled }}
-{{- with .Values.web }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-web" }}
-{{- $containerName := "jms-web" }}
+{{- if .Values.xpack.enabled }}
+{{- with .Values.omnidb }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-omnidb" }}
+{{- $containerName := "jms-omnidb" }}
 {{- $image := printf "%s:%s" .image.repository .image.tag }}
 apiVersion: apps/v1
 kind: Deployment
@@ -37,13 +37,26 @@ spec:
           command:
             {{- tpl (toYaml .) $ | nindent 12 }}
           {{- end }}
-          {{- with .env }}
           env:
+            - name: CORE_HOST
+              value: http://{{include "jumpserver.fullname" $}}-jms-core:{{$.Values.core.service.web.port}}
+            - name: BOOTSTRAP_TOKEN
+              value: "{{ $.Values.core.config.bootstrapToken }}"
+            - name: LOG_LEVEL
+              value: "{{ .config.log.level }}"
+            - name: websocket_port
+              value: "{{ .service.ws.port }}"
+            - name: listening_port
+              value: "{{ .service.web.port }}"
+          {{- with .env }}
             {{- tpl (toYaml .) $ | nindent 12 }}
           {{- end }}
           ports:
             - name: web
               containerPort: {{ .service.web.port }}
+              protocol: TCP
+            - name: ws
+              containerPort: {{ .service.ws.port }}
               protocol: TCP
           livenessProbe:
             {{- toYaml .livenessProbe | nindent 12}}
@@ -52,27 +65,16 @@ spec:
           resources:
             {{- toYaml .resources | nindent 12 }}
           volumeMounts:
-            - mountPath: "/etc/nginx/conf.d/default.conf"
-              name: "jms-web-config"
-              subPath: "default.conf"
-            - mountPath: "/opt/jumpserver/data"
-              name: "jms-core-data"
-            - mountPath: "/var/log/web"
-              name: "jms-web-logs"
+            - mountPath: "/opt/omnidb/data"
+              name: "jms-omnidb-data"
           {{- with .volumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
       restartPolicy: Always
       volumes:
-        - configMap:
-            name: '{{include "jumpserver.fullname" $}}-jms-web'
-          name: "jms-web-config"
         - persistentVolumeClaim:
-            claimName: '{{include "jumpserver.fullname" $}}-jms-core-data'
-          name: "jms-core-data"
-        - persistentVolumeClaim:
-            claimName: '{{include "jumpserver.fullname" $}}-jms-web-logs'
-          name: "jms-web-logs"
+            claimName: '{{include "jumpserver.fullname" $}}-jms-omnidb-data'
+          name: "jms-omnidb-data"
       {{- with .volumes }}
         {{- tpl (toYaml .) $ | nindent 8 }}
       {{- end }}
