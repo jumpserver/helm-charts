@@ -8,6 +8,8 @@ metadata:
   labels:
     {{- include "jumpserver.labels" $ | nindent 4 }}
     {{- toYaml .labels | nindent 4 }}
+  annotations:
+    {{- toYaml .service.annotations | nindent 4 }}
 spec:
   type: {{ .service.type }}
   ports:

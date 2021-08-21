@@ -1,6 +1,6 @@
-{{- if .Values.web.enabled }}
-{{- with .Values.web }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-web-logs" }}
+{{- if .Values.xpack.enabled }}
+{{- with .Values.xrdp }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-xrdp-data" }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

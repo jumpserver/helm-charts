@@ -1,6 +1,6 @@
-{{- if .Values.nginx.enabled }}
-{{- with .Values.nginx }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-nginx" }}
+{{- if .Values.xpack.enabled }}
+{{- with .Values.xrdp }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-xrdp" }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -8,13 +8,15 @@ metadata:
   labels:
     {{- include "jumpserver.labels" $ | nindent 4 }}
     {{- toYaml .labels | nindent 4 }}
+  annotations:
+    {{- toYaml .service.annotations | nindent 4 }}
 spec:
   type: {{ .service.type }}
   ports:
-    - port: {{ .service.web.port }}
-      targetPort: web
+    - port: {{ .service.rdp.port }}
+      targetPort: rdp
       protocol: TCP
-      name: web
+      name: rdp
   sessionAffinity: ClientIP
   sessionAffinityConfig:
     clientIP:

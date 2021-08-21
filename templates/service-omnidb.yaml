@@ -1,6 +1,6 @@
-{{- if .Values.core.enabled }}
-{{- with .Values.core }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-core" }}
+{{- if .Values.xpack.enabled }}
+{{- with .Values.omnidb }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-omnidb" }}
 apiVersion: v1
 kind: Service
 metadata:

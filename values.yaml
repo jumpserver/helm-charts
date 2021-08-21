@@ -11,13 +11,13 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name:
-  imagePullSecrets: []
-  # - name: yourImagePullSecret
+
+imagePullSecrets: []
+# - name: yourImagePullSecret
 
 ingress:
   enabled: true
   annotations:
-    # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
     compute-full-forwarded-for: "true"
     use-forwarded-headers: "true"
@@ -66,7 +66,7 @@ core:
 
   image:
     repository: docker.io/jumpserver/core
-    tag: v2.12.2
+    tag: v2.13.1
     pullPolicy: IfNotPresent
 
   command: []
@@ -146,17 +146,12 @@ koko:
   config:
     log:
       level: ERROR
-    share_room_type: redis
-    redis:
-      host: ""
-      port: 6379
-      password: ""
 
   replicaCount: 1
 
   image:
     repository: docker.io/jumpserver/koko
-    tag: v2.12.2
+    tag: v2.13.1
     pullPolicy: IfNotPresent
 
   command: []
@@ -178,7 +173,8 @@ koko:
   podSecurityContext: {}
     # fsGroup: 2000
 
-  securityContext: {}
+  securityContext:
+    privileged: true
     # capabilities:
     #   drop:
     #   - ALL
@@ -234,17 +230,12 @@ lion:
   config:
     log:
       level: ERROR
-    share_room_type: redis
-    redis:
-      host: ""
-      port: 6379
-      password: ""
 
   replicaCount: 1
 
   image:
     repository: docker.io/jumpserver/lion
-    tag: v2.12.2
+    tag: v2.13.1
     pullPolicy: IfNotPresent
 
   command: []
@@ -311,17 +302,176 @@ lion:
 
   affinity: {}
 
-nginx:
-  enabled: true
+xpack:
+  enabled: false
 
+omnidb:
   labels:
-    app.jumpserver.org/name: jms-nginx
+    app.jumpserver.org/name: jms-omnidb
+
+  config:
+    log:
+      level: ERROR
 
   replicaCount: 1
 
   image:
-    repository: docker.io/jumpserver/nginx
-    tag: v2.12.2
+    repository: registry.fit2cloud.com/jumpserver/omnidb
+    tag: v2.13.1
+    pullPolicy: IfNotPresent
+
+  command: []
+
+  env: []
+
+  livenessProbe:
+    failureThreshold: 30
+    tcpSocket:
+      port: web
+
+  readinessProbe:
+    failureThreshold: 30
+    tcpSocket:
+      port: web
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    web:
+      port: 8082
+    ws:
+      port: 8071
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  persistence:
+    type: pvc
+    storageClassName: jumpserver-data
+    accessModes:
+      - ReadWriteMany
+    size: 10Gi
+    # annotations: {}
+    finalizers:
+      - kubernetes.io/pvc-protection
+
+  volumeMounts: []
+
+  volumes: []
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+xrdp:
+  labels:
+    app.jumpserver.org/name: jms-xrdp
+
+  config:
+    log:
+      level: ERROR
+
+  replicaCount: 1
+
+  image:
+    repository: registry.fit2cloud.com/jumpserver/xrdp
+    tag: v2.13.1
+    pullPolicy: IfNotPresent
+
+  command: []
+
+  env: []
+
+  livenessProbe:
+    failureThreshold: 30
+    tcpSocket:
+      port: rdp
+
+  readinessProbe:
+    failureThreshold: 30
+    tcpSocket:
+      port: rdp
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    rdp:
+      port: 3389
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  persistence:
+    type: pvc
+    storageClassName: jumpserver-data
+    accessModes:
+      - ReadWriteMany
+    size: 10Gi
+    # annotations: {}
+    finalizers:
+      - kubernetes.io/pvc-protection
+
+  volumeMounts: []
+
+  volumes: []
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+web:
+  enabled: true
+
+  labels:
+    app.jumpserver.org/name: jms-web
+
+  replicaCount: 1
+
+  image:
+    repository: docker.io/jumpserver/web
+    tag: v2.13.1
     pullPolicy: IfNotPresent
 
   command: []
@@ -387,11 +537,3 @@ nginx:
   tolerations: []
 
   affinity: {}
-
-  ## PodSecurityPolicy configuration
-  ## ref: https://kubernetes.io/docs/concepts/policy/pod-security-policy/
-  ##
-  podSecurityPolicy:
-    ## Specifies whether a PodSecurityPolicy should be created
-    ##
-    create: false
