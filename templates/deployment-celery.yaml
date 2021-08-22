@@ -76,7 +76,8 @@ spec:
           livenessProbe:
             exec:
               command:
-                - bash /opt/jumpserver/utils/check_celery.sh
+                - /bin/bash
+                - /opt/jumpserver/utils/check_celery.sh
           resources:
             {{- toYaml .resources | nindent 12 }}
           volumeMounts:
