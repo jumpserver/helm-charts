@@ -116,7 +116,6 @@ core:
     #   memory: 1024Mi
 
   persistence:
-    type: pvc
     storageClassName: jumpserver-data
     accessModes:
       - ReadWriteMany
@@ -202,7 +201,6 @@ koko:
     #   memory: 128Mi
 
   persistence:
-    type: pvc
     storageClassName: jumpserver-data
     accessModes:
       - ReadWriteMany
@@ -283,7 +281,6 @@ lion:
     #   memory: 512Mi
 
   persistence:
-    type: pvc
     storageClassName: jumpserver-data
     accessModes:
       - ReadWriteMany
@@ -365,7 +362,6 @@ omnidb:
     #   memory: 128Mi
 
   persistence:
-    type: pvc
     storageClassName: jumpserver-data
     accessModes:
       - ReadWriteMany
@@ -442,7 +438,6 @@ xrdp:
     #   memory: 128Mi
 
   persistence:
-    type: pvc
     storageClassName: jumpserver-data
     accessModes:
       - ReadWriteMany
@@ -519,7 +514,6 @@ web:
     #   memory: 128Mi
 
   persistence:
-    type: pvc
     storageClassName: jumpserver-data
     accessModes:
       - ReadWriteMany
