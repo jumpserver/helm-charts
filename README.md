@@ -34,9 +34,9 @@ $ cd helm
 $ helm install my-release ./ -n default
 ```
 
-上条命令把默认配置的 JumpServer 部署到了 kubernetes 集群中，[参数](#parameters)一节中列出了配置参数
+上条命令把默认配置的 JumpServer 部署到了 kubernetes 集群中，[参数](#参数)一节中列出了配置参数
 
-> **Tip**: List all releases using `helm list`
+**Tip**: List all releases using `helm list`
 
 ## 卸载
 
