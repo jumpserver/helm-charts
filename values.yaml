@@ -66,7 +66,7 @@ core:
 
   image:
     repository: docker.io/jumpserver/core
-    tag: v2.13.1
+    tag: v2.13.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -150,7 +150,7 @@ koko:
 
   image:
     repository: docker.io/jumpserver/koko
-    tag: v2.13.1
+    tag: v2.13.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -233,7 +233,7 @@ lion:
 
   image:
     repository: docker.io/jumpserver/lion
-    tag: v2.13.1
+    tag: v2.13.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -314,7 +314,7 @@ omnidb:
 
   image:
     repository: registry.fit2cloud.com/jumpserver/omnidb
-    tag: v2.13.1
+    tag: v2.13.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -392,7 +392,7 @@ xrdp:
 
   image:
     repository: registry.fit2cloud.com/jumpserver/xrdp
-    tag: v2.13.1
+    tag: v2.13.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -466,7 +466,7 @@ web:
 
   image:
     repository: docker.io/jumpserver/web
-    tag: v2.13.1
+    tag: v2.13.2
     pullPolicy: IfNotPresent
 
   command: []
