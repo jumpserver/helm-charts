@@ -51,7 +51,7 @@ spec:
             - name: websocket_port
               value: "{{ .service.ws.port }}"
             - name: listening_port
-              value: "{{ .service.web.port }}"
+              value: {{ .service.web.port }}
           {{- with .env }}
             {{- tpl (toYaml .) $ | nindent 12 }}
           {{- end }}

@@ -49,7 +49,7 @@ spec:
             - name: SESSION_EXPIRE_AT_BROWSER_CLOSE
               value: "true"
             - name: HTTP_LISTEN_PORT
-              value: "{{ .service.web.port }}"
+              value: {{ .service.web.port }}
             - name: WS_LISTEN_PORT
               value: "{{ .service.ws.port }}"
               {{- end }}

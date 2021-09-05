@@ -41,6 +41,13 @@ spec:
           command:
             {{- tpl (toYaml .) $ | nindent 12 }}
           {{- end }}
+          ports:
+            - name: web
+              containerPort: {{ .service.web.port }}
+              protocol: TCP
+            - name: ssh
+              containerPort: {{ .service.ssh.port }}
+              protocol: TCP
           env:
             - name: CORE_HOST
               value: http://{{include "jumpserver.fullname" $}}-jms-core:{{$.Values.core.service.web.port}}
@@ -51,25 +58,19 @@ spec:
             - name: SSHD_PORT
               value: "{{ .service.ssh.port }}"
             - name: HTTPD_PORT
-              value: "{{ .service.web.port }}"
+              value: {{ .service.web.port }}
+              {{- end }}
             - name: SHARE_ROOM_TYPE
               value: redis
             - name: REDIS_HOST
-              value: "{{ $.Values.core.config.redis.host }}"
+              value: {{ include "jumpserver.redis.host" . | quote }}
             - name: REDIS_PORT
-              value: "{{ $.Values.core.config.redis.port }}"
+              value: {{ include "jumpserver.redis.port" . | quote }}
             - name: REDIS_PASSWORD
-              value: "{{ $.Values.core.config.redis.password }}"
+              value: {{ include "jumpserver.redis.password" . | quote }}
           {{- with .env }}
             {{- tpl (toYaml .) $ | nindent 12 }}
           {{- end }}
-          ports:
-            - name: web
-              containerPort: {{ .service.web.port }}
-              protocol: TCP
-            - name: ssh
-              containerPort: {{ .service.ssh.port }}
-              protocol: TCP
           livenessProbe:
             {{- toYaml .livenessProbe | nindent 12}}
           readinessProbe:
@@ -102,5 +103,4 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-{{- end }}
 {{- end }}
