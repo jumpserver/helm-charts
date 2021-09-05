@@ -1,6 +1,6 @@
-{{- if .Values.lion.enabled }}
-{{- with .Values.lion }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-lion-data" }}
+{{- if .Values.koko.enabled }}
+{{- with .Values.koko }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-koko-data" }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -24,6 +24,6 @@ spec:
   resources:
     requests:
       storage: {{ .persistence.size | quote }}
-  storageClassName: {{ .persistence.storageClassName }}
-{{- end }}
+      {{- end }}
+  storageClassName: {{ include "jumpserver.koko.storageClass" . }}
 {{- end }}

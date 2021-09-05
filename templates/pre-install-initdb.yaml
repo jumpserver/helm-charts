@@ -1,8 +1,7 @@
-{{- if .Values.core.enabled }}
 {{- with .Values.core }}
 {{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-init-db" }}
 {{- $containerName := "jms-init-db" }}
-{{- $image := printf "%s:%s" .image.repository .image.tag }}
+{{- $image := printf "%s" (include "jumpserver.coreImage" $) }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -21,9 +20,9 @@ spec:
         app.kubernetes.io/instance: {{ $.Release.Name }}
         {{- toYaml .labels | nindent 8 }}
     spec:
-      {{- if $.Values.imagePullSecrets }}
+      {{- if $.Values.global.imagePullSecrets }}
       imagePullSecrets:
-        {{ toYaml $.Values.imagePullSecrets | indent 8 }}
+        {{ toYaml $.Values.global.imagePullSecrets }}
       {{- end }}
       securityContext:
         {{- toYaml .podSecurityContext | nindent 8 }}
@@ -31,7 +30,7 @@ spec:
         - name: {{ $containerName }}
           securityContext:
             {{- toYaml .securityContext | nindent 12 }}
-          image: "{{$image}}"
+          image: "{{ $image }}"
           imagePullPolicy: {{ .image.pullPolicy }}
           command:
             - /bin/bash
@@ -42,27 +41,26 @@ spec:
               value: "{{ .config.secretKey }}"
             - name: BOOTSTRAP_TOKEN
               value: "{{ .config.bootstrapToken }}"
+              {{- end }}
             - name: DB_ENGINE
-              value: "{{ .config.db.engine }}"
+              value: {{ include "jumpserver.database.engine" . | quote }}
             - name: DB_HOST
-              value: "{{ .config.db.host }}"
+              value: {{ include "jumpserver.database.host" . | quote }}
             - name: DB_PORT
-              value: "{{ .config.db.port }}"
+              value: {{ include "jumpserver.database.port" . | quote }}
             - name: DB_USER
-              value: "{{ .config.db.user }}"
+              value: {{ include "jumpserver.database.user" . | quote }}
             - name: DB_PASSWORD
-              value: "{{ .config.db.password }}"
+              value: {{ include "jumpserver.database.password" . | quote }}
             - name: DB_NAME
-              value: "{{ .config.db.name }}"
+              value: {{ include "jumpserver.database.database" . | quote }}
             - name: REDIS_HOST
-              value: "{{ .config.redis.host }}"
+              value: {{ include "jumpserver.redis.host" . | quote }}
             - name: REDIS_PORT
-              value: "{{ .config.redis.port }}"
+              value: {{ include "jumpserver.redis.port" . | quote }}
             - name: REDIS_PASSWORD
-              value: "{{ .config.redis.password }}"
+              value: {{ include "jumpserver.redis.password" . | quote }}
           {{- with .env }}
             {{- tpl (toYaml .) $ | nindent 12 }}
           {{- end }}
       restartPolicy: Never
-{{- end }}
-{{- end }}

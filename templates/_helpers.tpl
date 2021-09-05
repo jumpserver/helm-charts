@@ -49,8 +49,150 @@ Create the name of the service account to use
 */}}
 {{- define "jumpserver.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
-    {{ default (include "jumpserver.fullname" .) .Values.serviceAccount.name }}
+{{ default (include "jumpserver.fullname" .) .Values.serviceAccount.name }}
 {{- else -}}
-    {{ default "default" .Values.serviceAccount.name }}
+{{ default "default" .Values.serviceAccount.name }}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Define JumpServer database
+*/}}
+
+{{- define "jumpserver.mysql.fullname" -}}
+{{- $name := default "mysql" .Values.mysql.nameOverride -}}
+{{- printf "%s-%s-master" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "jumpserver.redis.fullname" -}}
+{{- $name := default "redis" .Values.redis.nameOverride -}}
+{{- printf "%s-%s-master" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "jumpserver.database.host" -}}
+{{- if eq .Values.mysql.enabled true -}}
+{{- template "jumpserver.mysql.fullname" . }}
+{{- else -}}
+{{- .Values.externalDatabase.host -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.database.port" -}}
+{{- if eq .Values.mysql.enabled true -}}
+{{- printf "%s" "5432" -}}
+{{- else -}}
+{{- .Values.externalDatabase.port -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.database.user" -}}
+{{- if eq .Values.mysql.enabled true -}}
+{{- .Values.mysql.user -}}
+{{- else -}}
+{{- .Values.externalDatabase.user -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.database.password" -}}
+{{- if eq .Values.mysql.enabled true -}}
+{{- .Values.mysql.password -}}
+{{- else -}}
+{{- .Values.externalDatabase.password -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.database.engine" -}}
+{{- if eq .Values.mysql.enabled true -}}
+{{- .Values.mysql.engine -}}
+{{- else -}}
+{{- .Values.externalDatabase.engine -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.database.database" -}}
+{{- if eq .Values.mysql.enabled true -}}
+{{- .Values.mysql.database -}}
+{{- else -}}
+{{- .Values.externalDatabase.database -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Define JumpServer redis
+*/}}
+
+{{- define "jumpserver.redis.host" -}}
+{{- if eq .Values.redis.enabled true -}}
+{{- template "jumpserver.redis.fullname" . }}
+{{- else -}}
+{{- .Values.externalRedis.host -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.redis.port" -}}
+{{- if eq .Values.redis.enabled true -}}
+{{- .Values.redis.port -}}
+{{- else -}}
+{{- .Values.externalRedis.port -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.redis.password" -}}
+{{- if eq .Values.redis.enabled true -}}
+{{- .Values.redis.password -}}
+{{- else -}}
+{{- .Values.externalRedis.password -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Define JumpServer StorageClass
+*/}}
+
+{{- define "jumpserver.core.storageClass" -}}
+{{- if .Values.global.storageClass }}
+{{- .Values.global.storageClass }}
+{{- else -}}
+{{- .Values.core.persistence.storageClassName -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.koko.storageClass" -}}
+{{- if .Values.global.storageClass }}
+{{- .Values.global.storageClass }}
+{{- else -}}
+{{- .Values.koko.persistence.storageClassName -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.lion.storageClass" -}}
+{{- if .Values.global.storageClass }}
+{{- .Values.global.storageClass }}
+{{- else -}}
+{{- .Values.lion.persistence.storageClassName -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.omnidb.storageClass" -}}
+{{- if .Values.global.storageClass }}
+{{- .Values.global.storageClass }}
+{{- else -}}
+{{- .Values.omnidb.persistence.storageClassName -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.xrdp.storageClass" -}}
+{{- if .Values.global.storageClass }}
+{{- .Values.global.storageClass }}
+{{- else -}}
+{{- .Values.xrdp.persistence.storageClassName -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.web.storageClass" -}}
+{{- if .Values.global.storageClass }}
+{{- .Values.global.storageClass }}
+{{- else -}}
+{{- .Values.xrdp.persistence.storageClassName -}}
 {{- end -}}
 {{- end -}}

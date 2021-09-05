@@ -2,7 +2,7 @@
 {{- with .Values.lion }}
 {{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-lion" }}
 {{- $containerName := "jms-lion" }}
-{{- $image := printf "%s:%s" .image.repository .image.tag }}
+{{- $image := printf "%s" (include "jumpserver.lionImage" $) }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -24,6 +24,10 @@ spec:
         app.kubernetes.io/instance: {{ $.Release.Name }}
         {{- toYaml .labels | nindent 8 }}
     spec:
+      {{- if $.Values.global.imagePullSecrets }}
+      imagePullSecrets:
+        {{ toYaml $.Values.global.imagePullSecrets }}
+      {{- end }}
       serviceAccountName: {{ template "jumpserver.serviceAccountName" $ }}
       securityContext:
         {{- toYaml .podSecurityContext | nindent 8 }}

@@ -1,6 +1,6 @@
-{{- if .Values.web.enabled }}
-{{- with .Values.web }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-web-logs" }}
+{{- if .Values.core.enabled }}
+{{- with .Values.core }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-core-data" }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -24,6 +24,6 @@ spec:
   resources:
     requests:
       storage: {{ .persistence.size | quote }}
-  storageClassName: {{ .persistence.storageClassName }}
-{{- end }}
+      {{- end }}
+  storageClassName: {{ include "jumpserver.core.storageClass" . }}
 {{- end }}
