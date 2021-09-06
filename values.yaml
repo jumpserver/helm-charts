@@ -19,19 +19,6 @@ global:
   imagePullSecrets: []
   storageClass: ""
 
-redis:
-  enabled: true
-  port: 6379
-  password: "123"
-
-mysql:
-  engine: mysql
-  enabled: true
-  port: 3306
-  user: jumpserver
-  password: "123"
-  database: jms-db
-
 ## If the Redis database included in the chart is disabled, JumpServer will
 ## use below parameters to connect to an external Redis server.
 ##

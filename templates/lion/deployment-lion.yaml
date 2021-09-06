@@ -53,7 +53,7 @@ spec:
             - name: LOG_LEVEL
               value: "{{ .config.log.level }}"
             - name: HTTPD_PORT
-              value: {{ .service.web.port }}
+              value: "{{ .service.web.port }}"
             - name: SHARE_ROOM_TYPE
               value: redis
               {{- end }}

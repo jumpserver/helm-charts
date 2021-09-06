@@ -58,7 +58,7 @@ spec:
             - name: SSHD_PORT
               value: "{{ .service.ssh.port }}"
             - name: HTTPD_PORT
-              value: {{ .service.web.port }}
+              value: "{{ .service.web.port }}"
               {{- end }}
             - name: SHARE_ROOM_TYPE
               value: redis

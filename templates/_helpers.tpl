@@ -70,51 +70,27 @@ Define JumpServer database
 {{- end -}}
 
 {{- define "jumpserver.database.host" -}}
-{{- if eq .Values.mysql.enabled true -}}
-{{- template "jumpserver.mysql.fullname" . }}
-{{- else -}}
 {{- .Values.externalDatabase.host -}}
-{{- end -}}
 {{- end -}}
 
 {{- define "jumpserver.database.port" -}}
-{{- if eq .Values.mysql.enabled true -}}
-{{- printf "%s" "5432" -}}
-{{- else -}}
 {{- .Values.externalDatabase.port -}}
-{{- end -}}
 {{- end -}}
 
 {{- define "jumpserver.database.user" -}}
-{{- if eq .Values.mysql.enabled true -}}
-{{- .Values.mysql.user -}}
-{{- else -}}
 {{- .Values.externalDatabase.user -}}
-{{- end -}}
 {{- end -}}
 
 {{- define "jumpserver.database.password" -}}
-{{- if eq .Values.mysql.enabled true -}}
-{{- .Values.mysql.password -}}
-{{- else -}}
 {{- .Values.externalDatabase.password -}}
-{{- end -}}
 {{- end -}}
 
 {{- define "jumpserver.database.engine" -}}
-{{- if eq .Values.mysql.enabled true -}}
-{{- .Values.mysql.engine -}}
-{{- else -}}
 {{- .Values.externalDatabase.engine -}}
-{{- end -}}
 {{- end -}}
 
 {{- define "jumpserver.database.database" -}}
-{{- if eq .Values.mysql.enabled true -}}
-{{- .Values.mysql.database -}}
-{{- else -}}
 {{- .Values.externalDatabase.database -}}
-{{- end -}}
 {{- end -}}
 
 {{/*
@@ -122,27 +98,15 @@ Define JumpServer redis
 */}}
 
 {{- define "jumpserver.redis.host" -}}
-{{- if eq .Values.redis.enabled true -}}
-{{- template "jumpserver.redis.fullname" . }}
-{{- else -}}
 {{- .Values.externalRedis.host -}}
-{{- end -}}
 {{- end -}}
 
 {{- define "jumpserver.redis.port" -}}
-{{- if eq .Values.redis.enabled true -}}
-{{- .Values.redis.port -}}
-{{- else -}}
 {{- .Values.externalRedis.port -}}
-{{- end -}}
 {{- end -}}
 
 {{- define "jumpserver.redis.password" -}}
-{{- if eq .Values.redis.enabled true -}}
-{{- .Values.redis.password -}}
-{{- else -}}
 {{- .Values.externalRedis.password -}}
-{{- end -}}
 {{- end -}}
 
 {{/*
