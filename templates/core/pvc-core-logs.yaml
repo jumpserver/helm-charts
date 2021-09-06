@@ -24,6 +24,6 @@ spec:
   resources:
     requests:
       storage: {{ .persistence.size | quote }}
-  storageClassName: {{ .persistence.storageClassName }}
-{{- end }}
+      {{- end }}
+  storageClassName: {{ include "jumpserver.core.storageClass" . }}
 {{- end }}

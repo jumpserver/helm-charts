@@ -1,14 +1,15 @@
 {{- if .Values.core.enabled }}
 {{- with .Values.core }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-celery" }}
-{{- $containerName := "jms-celery" }}
-{{- $image := printf "%s:%s" .image.repository .image.tag }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-core" }}
+{{- $containerName := "jms-core" }}
+{{- $image := printf "%s" (include "jumpserver.coreImage" $) }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ $fullName }}
   labels:
-    app.jumpserver.org/name: {{ $containerName }}
+    {{- include "jumpserver.labels" $ | nindent 4 }}
+    {{- toYaml .labels | nindent 4 }}
 spec:
   replicas: {{ .replicaCount }}
   selector:
@@ -23,6 +24,10 @@ spec:
         app.kubernetes.io/instance: {{ $.Release.Name }}
         {{- toYaml .labels | nindent 8 }}
     spec:
+      {{- if $.Values.global.imagePullSecrets }}
+      imagePullSecrets:
+        {{ toYaml $.Values.global.imagePullSecrets }}
+      {{- end }}
       serviceAccountName: {{ template "jumpserver.serviceAccountName" $ }}
       securityContext:
         {{- toYaml .podSecurityContext | nindent 8 }}
@@ -30,13 +35,13 @@ spec:
         - name: {{ $containerName }}
           securityContext:
             {{- toYaml .securityContext | nindent 12 }}
-          image: "{{$image}}"
+          image: {{ $image }}
           imagePullPolicy: {{ .image.pullPolicy }}
           {{- with .command }}
           command:
             {{- tpl (toYaml .) $ | nindent 12 }}
           {{- end }}
-          args: ["start", "task"]
+          args: ["start", "web"]
           env:
             - name: SECRET_KEY
               value: "{{ .config.secretKey }}"
@@ -52,32 +57,41 @@ spec:
               value: "{{ .service.web.port }}"
             - name: WS_LISTEN_PORT
               value: "{{ .service.ws.port }}"
+              {{- end }}
             - name: DB_ENGINE
-              value: "{{ .config.db.engine }}"
+              value: {{ include "jumpserver.database.engine" . | quote }}
             - name: DB_HOST
-              value: "{{ .config.db.host }}"
+              value: {{ include "jumpserver.database.host" . | quote }}
             - name: DB_PORT
-              value: "{{ .config.db.port }}"
+              value: {{ include "jumpserver.database.port" . | quote }}
             - name: DB_USER
-              value: "{{ .config.db.user }}"
+              value: {{ include "jumpserver.database.user" . | quote }}
             - name: DB_PASSWORD
-              value: "{{ .config.db.password }}"
+              value: {{ include "jumpserver.database.password" . | quote }}
             - name: DB_NAME
-              value: "{{ .config.db.name }}"
+              value: {{ include "jumpserver.database.database" . | quote }}
             - name: REDIS_HOST
-              value: "{{ .config.redis.host }}"
+              value: {{ include "jumpserver.redis.host" . | quote }}
             - name: REDIS_PORT
-              value: "{{ .config.redis.port }}"
+              value: {{ include "jumpserver.redis.port" . | quote }}
             - name: REDIS_PASSWORD
-              value: "{{ .config.redis.password }}"
+              value: {{ include "jumpserver.redis.password" . | quote }}
           {{- with .env }}
             {{- tpl (toYaml .) $ | nindent 12 }}
           {{- end }}
+          {{- with .Values.core }}
+          ports:
+            - name: web
+              containerPort: {{ .service.web.port }}
+              protocol: TCP
+            - name: ws
+              containerPort: {{ .service.ws.port }}
+              protocol: TCP
+          {{- end }}
           livenessProbe:
-            exec:
-              command:
-                - /bin/bash
-                - /opt/jumpserver/utils/check_celery.sh
+            {{- toYaml .livenessProbe | nindent 12}}
+          readinessProbe:
+            {{- toYaml .readinessProbe | nindent 12}}
           resources:
             {{- toYaml .resources | nindent 12 }}
           volumeMounts:
@@ -117,5 +131,4 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-{{- end }}
 {{- end }}

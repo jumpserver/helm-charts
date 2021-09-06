@@ -49,8 +49,114 @@ Create the name of the service account to use
 */}}
 {{- define "jumpserver.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
-    {{ default (include "jumpserver.fullname" .) .Values.serviceAccount.name }}
+{{ default (include "jumpserver.fullname" .) .Values.serviceAccount.name }}
 {{- else -}}
-    {{ default "default" .Values.serviceAccount.name }}
+{{ default "default" .Values.serviceAccount.name }}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Define JumpServer database
+*/}}
+
+{{- define "jumpserver.mysql.fullname" -}}
+{{- $name := default "mysql" .Values.mysql.nameOverride -}}
+{{- printf "%s-%s-master" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "jumpserver.redis.fullname" -}}
+{{- $name := default "redis" .Values.redis.nameOverride -}}
+{{- printf "%s-%s-master" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "jumpserver.database.host" -}}
+{{- .Values.externalDatabase.host -}}
+{{- end -}}
+
+{{- define "jumpserver.database.port" -}}
+{{- .Values.externalDatabase.port -}}
+{{- end -}}
+
+{{- define "jumpserver.database.user" -}}
+{{- .Values.externalDatabase.user -}}
+{{- end -}}
+
+{{- define "jumpserver.database.password" -}}
+{{- .Values.externalDatabase.password -}}
+{{- end -}}
+
+{{- define "jumpserver.database.engine" -}}
+{{- .Values.externalDatabase.engine -}}
+{{- end -}}
+
+{{- define "jumpserver.database.database" -}}
+{{- .Values.externalDatabase.database -}}
+{{- end -}}
+
+{{/*
+Define JumpServer redis
+*/}}
+
+{{- define "jumpserver.redis.host" -}}
+{{- .Values.externalRedis.host -}}
+{{- end -}}
+
+{{- define "jumpserver.redis.port" -}}
+{{- .Values.externalRedis.port -}}
+{{- end -}}
+
+{{- define "jumpserver.redis.password" -}}
+{{- .Values.externalRedis.password -}}
+{{- end -}}
+
+{{/*
+Define JumpServer StorageClass
+*/}}
+
+{{- define "jumpserver.core.storageClass" -}}
+{{- if .Values.global.storageClass }}
+{{- .Values.global.storageClass }}
+{{- else -}}
+{{- .Values.core.persistence.storageClassName -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.koko.storageClass" -}}
+{{- if .Values.global.storageClass }}
+{{- .Values.global.storageClass }}
+{{- else -}}
+{{- .Values.koko.persistence.storageClassName -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.lion.storageClass" -}}
+{{- if .Values.global.storageClass }}
+{{- .Values.global.storageClass }}
+{{- else -}}
+{{- .Values.lion.persistence.storageClassName -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.omnidb.storageClass" -}}
+{{- if .Values.global.storageClass }}
+{{- .Values.global.storageClass }}
+{{- else -}}
+{{- .Values.omnidb.persistence.storageClassName -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.xrdp.storageClass" -}}
+{{- if .Values.global.storageClass }}
+{{- .Values.global.storageClass }}
+{{- else -}}
+{{- .Values.xrdp.persistence.storageClassName -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.web.storageClass" -}}
+{{- if .Values.global.storageClass }}
+{{- .Values.global.storageClass }}
+{{- else -}}
+{{- .Values.xrdp.persistence.storageClassName -}}
 {{- end -}}
 {{- end -}}

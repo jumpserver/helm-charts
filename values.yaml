@@ -5,6 +5,39 @@
 nameOverride: ""
 fullnameOverride: ""
 
+## @param global.imageRegistry Global Docker image registry
+## @param global.imagePullSecrets Global Docker registry secret names as an array
+## @param global.storageClass Global StorageClass for Persistent Volume(s)
+## @param global.redis.password Global Redis&trade; password (overrides `auth.password`)
+##
+global:
+  imageRegistry: "docker.io"
+  ## E.g.
+  #  imagePullSecrets:
+  #  - myRegistryKeySecretName
+  ##
+  imagePullSecrets: []
+  storageClass: ""
+
+## If the Redis database included in the chart is disabled, JumpServer will
+## use below parameters to connect to an external Redis server.
+##
+externalDatabase:
+  engine: mysql
+  host: localhost
+  port: 3306
+  user: root
+  password: ""
+  database: jumpserver
+
+## If the MySQL database included in the chart is disabled, JumpServer will
+## use below parameters to connect to an external MySQL server.
+##
+externalRedis:
+  host: localhost
+  port: 6379
+  password: ""
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: false
@@ -12,8 +45,7 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name:
 
-imagePullSecrets: []
-# - name: yourImagePullSecret
+
 
 ingress:
   enabled: true
@@ -33,6 +65,7 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+
 core:
   enabled: true
 
@@ -48,24 +81,12 @@ core:
     debug: false
     log:
       level: ERROR
-    # Fill it with your mysql config
-    db:
-      engine: mysql
-      host: ""
-      port: 3306
-      user: jumpserver
-      password: ""
-      name: jumpserver
-    # Fill it with your redis config
-    redis:
-      host: ""
-      port: 6379
-      password: ""
 
   replicaCount: 1
 
   image:
-    repository: docker.io/jumpserver/core
+    registry: docker.io
+    repository: jumpserver/core
     tag: v2.13.2
     pullPolicy: IfNotPresent
 
@@ -149,7 +170,8 @@ koko:
   replicaCount: 1
 
   image:
-    repository: docker.io/jumpserver/koko
+    registry: docker.io
+    repository: jumpserver/koko
     tag: v2.13.2
     pullPolicy: IfNotPresent
 
@@ -232,7 +254,8 @@ lion:
   replicaCount: 1
 
   image:
-    repository: docker.io/jumpserver/lion
+    registry: docker.io
+    repository: jumpserver/lion
     tag: v2.13.2
     pullPolicy: IfNotPresent
 
@@ -313,7 +336,8 @@ omnidb:
   replicaCount: 1
 
   image:
-    repository: registry.fit2cloud.com/jumpserver/omnidb
+    registry: registry.fit2cloud.com
+    repository: jumpserver/omnidb
     tag: v2.13.2
     pullPolicy: IfNotPresent
 
@@ -391,7 +415,8 @@ xrdp:
   replicaCount: 1
 
   image:
-    repository: registry.fit2cloud.com/jumpserver/xrdp
+    registry: registry.fit2cloud.com
+    repository: jumpserver/xrdp
     tag: v2.13.2
     pullPolicy: IfNotPresent
 
@@ -465,7 +490,8 @@ web:
   replicaCount: 1
 
   image:
-    repository: docker.io/jumpserver/web
+    registry: docker.io
+    repository: jumpserver/web
     tag: v2.13.2
     pullPolicy: IfNotPresent
 
