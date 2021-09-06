@@ -5,8 +5,7 @@
 ## 使用方法
 
 ```bash
-# Testing configuration
-$ helm install my-release ./jumpserver
+helm install jumpserver ./
 ```
 
 ## 介绍
@@ -20,18 +19,16 @@ $ helm install my-release ./jumpserver
 
 ## 安装
 
-发布名为 `my-release` 的 release:
+发布名为 `jumpserver` 的 release:
 
 ```bash
-$ cd helm
-$ helm install my-release ./
+helm install jumpserver ./
 ```
 
 安装到指定 namespace
 
 ```bash
-$ cd helm
-$ helm install my-release ./ -n default
+helm install jumpserver ./ -n default
 ```
 
 上条命令把默认配置的 JumpServer 部署到了 kubernetes 集群中，[参数](#参数)一节中列出了配置参数
@@ -40,10 +37,10 @@ $ helm install my-release ./ -n default
 
 ## 卸载
 
-删除 `my-release` release:
+删除 `jumpserver` release:
 
 ```bash
-$ helm delete my-release
+$ helm delete jumpserver
 ```
 
 上条命令删除了所有包含在 release 中的组件
@@ -54,16 +51,17 @@ $ helm delete my-release
 
 ### 总览
 
-| 参数                   | 描述                | 默认值  |
-| ---------------------- | ------------------ | ------- |
-| `nameOveride`          | name override      | `nil`   |
-| `fullNameOveride`      | full name override | `nil`   |
-| `ingress.enabled`      | 开启 ingress       | `true`  |
-| `core.enabled`         | 开启 core          | `true`  |
-| `koko.enabled`         | 开启 koko          | `true`  |
-| `lion.enabled`         | 开启 lion          | `true`  |
-| `web.enabled`          | 开启 web           | `true`  |
-| `xpack.enable`         | 开启 xpack         | `false` |
+| 参数                   | 描述                | 默认值       |
+| ---------------------- | ------------------ | ----------- |
+| `nameOveride`          | name override      | `nil`       |
+| `fullNameOveride`      | full name override | `nil`       |
+| `global.imageRegistry` | 仓库地址            | `docker.io` |
+| `ingress.enabled`      | 开启 ingress       | `true`      |
+| `core.enabled`         | 开启 core          | `true`      |
+| `koko.enabled`         | 开启 koko          | `true`      |
+| `lion.enabled`         | 开启 lion          | `true`      |
+| `web.enabled`          | 开启 web           | `true`      |
+| `xpack.enable`         | 开启 xpack         | `false`     |
 
 ### core
 
@@ -98,18 +96,11 @@ $ helm delete my-release
 在 `helm install` 时通过 `--set key=value[,key=value]` 指定参数. 举例:
 
 ```bash
-$ helm install my-release \
-  --set ingress.enabled=true \
-    ./jumpserver
+helm install jumpserver ./ \
+--set ingress.enabled=true
 ```
 
 上条命令开启了 ingress.
-
-也可以通过 `-f file` 的形式指定一个或多个 values.yaml 文件. 举例:
-
-```bash
-$ helm install my-release -f values.yaml ./jumpserver
-```
 
 **注**: 默认使用 [values.yaml](values.yaml)
 
