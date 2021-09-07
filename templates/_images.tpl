@@ -7,9 +7,9 @@ Return the proper image name
 {{- $repositoryName := .imageRoot.repository -}}
 {{- $tag := .imageRoot.tag | toString -}}
 {{- if .global }}
-    {{- if .global.imageRegistry }}
-     {{- $registryName = .global.imageRegistry -}}
-    {{- end -}}
+{{- if .global.imageRegistry }}
+{{- $registryName = .global.imageRegistry -}}
+{{- end -}}
 {{- end -}}
 {{- if $registryName }}
 {{- printf "%s/%s:%s" $registryName $repositoryName $tag -}}
@@ -48,28 +48,42 @@ Return the proper JumpServer lion image name
 {{- end -}}
 
 {{/*
+Return the proper JumpServer xrdp image name
+*/}}
+{{- define "jumpserver.xrdpImage" -}}
+{{- include "common.images.image" ( dict "imageRoot" .Values.xrdp.image "global" .Values.global ) -}}
+{{- end -}}
+
+{{/*
+Return the proper JumpServer omnidb image name
+*/}}
+{{- define "jumpserver.omnidbImage" -}}
+{{- include "common.images.image" ( dict "imageRoot" .Values.omnidb.image "global" .Values.global ) -}}
+{{- end -}}
+
+{{/*
 Return the proper Docker Image Registry Secret Names (deprecated: use common.images.renderPullSecrets instead)
 {{ include "common.images.pullSecrets" ( dict "images" (list .Values.path.to.the.image1, .Values.path.to.the.image2) "global" .Values.global) }}
 */}}
 {{- define "common.images.pullSecrets" -}}
-  {{- $pullSecrets := list }}
+{{- $pullSecrets := list }}
 
-  {{- if .global }}
-    {{- range .global.imagePullSecrets -}}
-      {{- $pullSecrets = append $pullSecrets . -}}
-    {{- end -}}
-  {{- end -}}
+{{- if .global }}
+{{- range .global.imagePullSecrets -}}
+{{- $pullSecrets = append $pullSecrets . -}}
+{{- end -}}
+{{- end -}}
 
-  {{- range .images -}}
-    {{- range .pullSecrets -}}
-      {{- $pullSecrets = append $pullSecrets . -}}
-    {{- end -}}
-  {{- end -}}
+{{- range .images -}}
+{{- range .pullSecrets -}}
+{{- $pullSecrets = append $pullSecrets . -}}
+{{- end -}}
+{{- end -}}
 
-  {{- if (not (empty $pullSecrets)) }}
+{{- if (not (empty $pullSecrets)) }}
 imagePullSecrets:
-    {{- range $pullSecrets }}
-  - name: {{ . }}
-    {{- end }}
-  {{- end }}
+{{- range $pullSecrets }}
+- name: {{ . }}
+{{- end }}
+{{- end }}
 {{- end -}}
