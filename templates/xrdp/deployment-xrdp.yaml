@@ -2,7 +2,7 @@
 {{- with .Values.xrdp }}
 {{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-xrdp" }}
 {{- $containerName := "jms-xrdp" }}
-{{- $image := printf "%s:%s:%s" .image.registry .image.repository .image.tag }}
+{{- $image := printf "%s/%s:%s" .image.registry .image.repository .image.tag }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
