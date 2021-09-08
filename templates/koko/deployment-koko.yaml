@@ -11,10 +11,6 @@ metadata:
     {{- include "jumpserver.labels" $ | nindent 4 }}
     {{- toYaml .labels | nindent 4 }}
 spec:
-  {{- if $.Values.global.imagePullSecrets }}
-  imagePullSecrets:
-    {{ toYaml $.Values.global.imagePullSecrets }}
-  {{- end }}
   replicas: {{ .replicaCount }}
   selector:
     matchLabels:
@@ -28,6 +24,10 @@ spec:
         app.kubernetes.io/instance: {{ $.Release.Name }}
         {{- toYaml .labels | nindent 8 }}
     spec:
+      {{- if $.Values.global.imagePullSecrets }}
+      imagePullSecrets:
+        {{ toYaml $.Values.global.imagePullSecrets }}
+      {{- end }}
       serviceAccountName: {{ template "jumpserver.serviceAccountName" $ }}
       securityContext:
         {{- toYaml .podSecurityContext | nindent 8 }}
