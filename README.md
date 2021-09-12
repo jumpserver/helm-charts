@@ -104,6 +104,26 @@ helm install jumpserver ./ \
 
 **注**: 默认使用 [values.yaml](values.yaml)
 
+### 示例
+
+```bash
+helm install jumpserver . -n jms \
+--set core.config.secretKey=GxrLH7rewfsRN8B9Zl6MEGD50Uou4LF6UVsEIayGMhYll8dqmn \
+--set core.config.bootstrapToken=ilR8RvAbK7lgRTxs \
+--set global.storageClass=nfs \
+--set externalDatabase.engine=mysql \
+--set externalDatabase.host=jms-mysql \
+--set externalDatabase.port=3306 \
+--set externalDatabase.user=jms \
+--set externalDatabase.password=Password131 \
+--set externalDatabase.database=jumpserver \
+--set externalRedis.host=jms-redis-master \
+--set externalRedis.port=6379 \
+--set koko.service.type=NodePort \
+--set web.service.type=NodePort \
+--set externalRedis.password=PasswordRedis
+```
+
 ## 鸣谢说明
 
 本项目初始代码是由 [xiaomaimuchanyiyiba](https://github.com/xiaomaimuchanyiyiba) 贡献。[原仓库地址](https://github.com/xiaomaimuchanyiyiba/jumpserver)
