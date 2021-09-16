@@ -45,8 +45,6 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name:
 
-
-
 ingress:
   enabled: true
   annotations:
@@ -64,7 +62,6 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
-
 
 core:
   enabled: true
@@ -87,7 +84,7 @@ core:
   image:
     registry: docker.io
     repository: jumpserver/core
-    tag: v2.13.2
+    tag: v2.14.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -172,7 +169,7 @@ koko:
   image:
     registry: docker.io
     repository: jumpserver/koko
-    tag: v2.13.2
+    tag: v2.14.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -256,7 +253,7 @@ lion:
   image:
     registry: docker.io
     repository: jumpserver/lion
-    tag: v2.13.2
+    tag: v2.14.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -338,7 +335,7 @@ omnidb:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/omnidb
-    tag: v2.13.2
+    tag: v2.14.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -417,7 +414,7 @@ xrdp:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/xrdp
-    tag: v2.13.2
+    tag: v2.14.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -492,7 +489,7 @@ web:
   image:
     registry: docker.io
     repository: jumpserver/web
-    tag: v2.13.2
+    tag: v2.14.0
     pullPolicy: IfNotPresent
 
   command: []
