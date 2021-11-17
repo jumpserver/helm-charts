@@ -12,6 +12,7 @@ fullnameOverride: ""
 ##
 global:
   imageRegistry: "docker.io"
+  imageTag: v2.15.4
   ## E.g.
   #  imagePullSecrets:
   #  - myRegistryKeySecretName
