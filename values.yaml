@@ -202,10 +202,12 @@ koko:
     # runAsUser: 1000
 
   service:
-    type: ClusterIP
     web:
+      type: ClusterIP
       port: 5000
     ssh:
+      type: ClusterIP
+      # loadBalancerIP:
       port: 2222
 
   resources: {}

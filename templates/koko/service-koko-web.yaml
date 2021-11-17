@@ -1,0 +1,29 @@
+{{- if .Values.koko.enabled }}
+{{- with .Values.koko }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-koko-web" }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "jumpserver.labels" $ | nindent 4 }}
+    {{- toYaml .labels | nindent 4 }}
+  annotations:
+    {{- toYaml .service.annotations | nindent 4 }}
+spec:
+  type: {{ .service.web.type }}
+  ports:
+    - port: {{ .service.web.port }}
+      targetPort: web
+      protocol: TCP
+      name: web
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
+  selector:
+    app.kubernetes.io/name: {{ include "jumpserver.name" $ }}
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    {{- toYaml .labels | nindent 4 }}
+{{- end }}
+{{- end }}
