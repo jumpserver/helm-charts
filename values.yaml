@@ -12,7 +12,7 @@ fullnameOverride: ""
 ##
 global:
   imageRegistry: "docker.io"
-  imageTag: v2.15.4
+  imageTag: v2.16.0
   ## E.g.
   #  imagePullSecrets:
   #  - myRegistryKeySecretName
@@ -85,7 +85,7 @@ core:
   image:
     registry: docker.io
     repository: jumpserver/core
-    tag: v2.15.4
+    tag: v2.16.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -170,7 +170,7 @@ koko:
   image:
     registry: docker.io
     repository: jumpserver/koko
-    tag: v2.15.4
+    tag: v2.16.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -256,7 +256,7 @@ lion:
   image:
     registry: docker.io
     repository: jumpserver/lion
-    tag: v2.15.4
+    tag: v2.16.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -338,7 +338,7 @@ omnidb:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/omnidb
-    tag: v2.15.4
+    tag: v2.16.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -417,7 +417,7 @@ xrdp:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/xrdp
-    tag: v2.15.4
+    tag: v2.16.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -492,7 +492,7 @@ web:
   image:
     registry: docker.io
     repository: jumpserver/web
-    tag: v2.15.4
+    tag: v2.16.0
     pullPolicy: IfNotPresent
 
   command: []

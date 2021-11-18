@@ -1,2 +1,3 @@
 **/values-debug.yaml
+.idea/
 deploy.sh
