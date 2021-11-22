@@ -2,7 +2,7 @@
 {{- with .Values.omnidb }}
 {{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-omnidb" }}
 {{- $containerName := "jms-omnidb" }}
-{{- $image := printf "%s/%s:%s" .image.registry .image.repository .image.tag }}
+{{- $image := printf "%s" (include "jumpserver.omnidbImage" $) }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
