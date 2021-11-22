@@ -1,6 +1,6 @@
 {{- if .Values.koko.enabled }}
 {{- with .Values.koko }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-koko-ssh" }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-koko" }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -11,8 +11,12 @@ metadata:
   annotations:
     {{- toYaml .service.annotations | nindent 4 }}
 spec:
-  type: {{ .service.ssh.type }}
+  type: {{ .service.type }}
   ports:
+    - port: {{ .service.web.port }}
+      targetPort: web
+      protocol: TCP
+      name: web
     - port: {{ .service.ssh.port }}
       targetPort: ssh
       protocol: TCP
