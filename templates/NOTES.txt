@@ -6,7 +6,7 @@
 {{- end }}
 {{- end }}
 
-{{- if eq .Values.koko.service.ssh.type "LoadBalancer" }}
+{{- if eq .Values.koko.service.type "LoadBalancer" }}
 2. Access the Jumpserver SSH server by running these commands:
   ssh -p{{ .Values.koko.service.ssh.port }} admin@{{ .Values.koko.service.ssh.loadBalancerIP }}
 {{- end }}
