@@ -54,6 +54,10 @@ spec:
               value: "{{ .config.log.level }}"
             - name: HTTPD_PORT
               value: "{{ .service.web.port }}"
+            - name: JUMPSERVER_ENABLE_FONT_SMOOTHING
+              value: "true"
+            - name: JUMPSERVER_COLOR_DEPTH
+              value: "32"
             - name: SHARE_ROOM_TYPE
               value: redis
               {{- end }}

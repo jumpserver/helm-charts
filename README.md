@@ -51,17 +51,20 @@ $ helm delete jumpserver
 
 ### 总览
 
-| 参数                   | 描述                | 默认值       |
-| ---------------------- | ------------------ | ----------- |
-| `nameOveride`          | name override      | `nil`       |
-| `fullNameOveride`      | full name override | `nil`       |
-| `global.imageRegistry` | 仓库地址            | `docker.io` |
-| `ingress.enabled`      | 开启 ingress       | `true`      |
-| `core.enabled`         | 开启 core          | `true`      |
-| `koko.enabled`         | 开启 koko          | `true`      |
-| `lion.enabled`         | 开启 lion          | `true`      |
-| `web.enabled`          | 开启 web           | `true`      |
-| `xpack.enable`         | 开启 xpack         | `false`     |
+| 参数                      | 描述                | 默认值      |
+| ------------------------- | ------------------ | ----------- |
+| `nameOveride`             | name override      | `nil`       |
+| `fullNameOveride`         | full name override | `nil`       |
+| `global.imageRegistry`    | 仓库地址           | `docker.io` |
+| `global.imageTag`         | 版本号             | `v2.16.3  ` |
+| `global.imagePullSecrets` | 私有仓库认证凭据    | `nil`
+| `global.storageClass`     | 存储 sc            | `nil`       |
+| `ingress.enabled`         | 开启 ingress       | `true`      |
+| `core.enabled`            | 开启 core          | `true`      |
+| `koko.enabled`            | 开启 koko          | `true`      |
+| `lion.enabled`            | 开启 lion          | `true`      |
+| `web.enabled`             | 开启 web           | `true`      |
+| `xpack.enable`            | 开启 xpack         | `false`     |
 
 ### core
 
