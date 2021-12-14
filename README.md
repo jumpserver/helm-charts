@@ -1,6 +1,6 @@
 # Unleash Kubernetes Helm Chart
 
-![Release Charts](https://github.com/jumpserver/helm-charts/workflows/release-chart/badge.svg?branch=master)
+[![Release Charts](https://github.com/jumpserver/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/jumpserver/helm-charts/actions/workflows/release.yml)
 
 ## Usage
 
@@ -22,6 +22,6 @@ You can then run `helm search repo jumpserver` to see the charts.
 
 -->
 
-## Helm charts build status
+## Documentation
 
-![Release Charts](https://github.com/jumpserver/helm-charts/workflows/release-chart/badge.svg?branch=master)
+[installer](https://docs.jumpserver.org/zh/master/install/setup_by_fast/)
