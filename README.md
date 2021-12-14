@@ -1,4 +1,4 @@
-# Unleash Kubernetes Helm Chart
+# JumpServer Kubernetes Helm Chart
 
 [![Release Charts](https://github.com/jumpserver/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/jumpserver/helm-charts/actions/workflows/release.yml)
 
