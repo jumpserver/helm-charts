@@ -9,7 +9,7 @@ Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
 
 Once Helm is set up properly, add the repo as follows:
 
-```console
+```bash
 helm repo add jumpserver https://jumpserver.github.io/helm-charts
 helm repo list
 ```
@@ -26,3 +26,13 @@ You can then run `helm search repo jumpserver` to see the charts.
 ## Documentation
 
 [installer](https://docs.jumpserver.org/zh/master/install/setup_by_fast/)
+
+```bash
+wget https://raw.githubusercontent.com/jumpserver/helm-charts/main/charts/jumpserver/values.yaml
+vi values.yaml
+```
+
+### install
+```bash
+helm install jms-k8s jumpserver/jumpserver -n default -f values.yaml
+```
