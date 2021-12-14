@@ -5,7 +5,7 @@
 ## 使用方法
 
 ```bash
-helm install jumpserver ./
+helm repo add jumpserver https://jumpserver.github.io/helm-charts
 ```
 
 ## 介绍
@@ -17,33 +17,7 @@ helm install jumpserver ./
 - Kubernetes 1.20+
 - Helm 3.0
 
-## 安装
-
-发布名为 `jumpserver` 的 release:
-
-```bash
-helm install jumpserver ./
-```
-
-安装到指定 namespace
-
-```bash
-helm install jumpserver ./ -n default
-```
-
-上条命令把默认配置的 JumpServer 部署到了 kubernetes 集群中，[参数](#参数)一节中列出了配置参数
-
-**Tip**: List all releases using `helm list`
-
-## 卸载
-
-删除 `jumpserver` release:
-
-```bash
-$ helm delete jumpserver
-```
-
-上条命令删除了所有包含在 release 中的组件
+**Tip**: List all releases using `helm repo list`
 
 ## 参数
 
@@ -107,10 +81,10 @@ helm install jumpserver ./ \
 
 **注**: 默认使用 [values.yaml](values.yaml)
 
-### 示例
+## 示例
 
 ```bash
-helm install jumpserver . -n jms \
+helm install jms-k8s jumpserver/jumpserver -n default \
 --set core.config.secretKey=GxrLH7rewfsRN8B9Zl6MEGD50Uou4LF6UVsEIayGMhYll8dqmn \
 --set core.config.bootstrapToken=ilR8RvAbK7lgRTxs \
 --set global.storageClass=nfs \
@@ -126,6 +100,16 @@ helm install jumpserver . -n jms \
 --set web.service.type=NodePort \
 --set externalRedis.password=PasswordRedis
 ```
+
+## 卸载
+
+删除 `jms-k8s` release:
+
+```bash
+$ helm delete jms-k8s -n default
+```
+
+上条命令删除了所有包含在 release 中的组件
 
 ## 鸣谢说明
 
