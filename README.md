@@ -11,6 +11,7 @@ Once Helm is set up properly, add the repo as follows:
 
 ```console
 helm repo add jumpserver https://jumpserver.github.io/helm-charts
+helm repo list
 ```
 
 You can then run `helm search repo jumpserver` to see the charts.
