@@ -23,9 +23,7 @@ You can then run `helm search repo jumpserver` to see the charts.
 
 -->
 
-## Documentation
-
-[installer](https://docs.jumpserver.org/zh/master/install/setup_by_fast/)
+## [Documentation](https://docs.jumpserver.org/zh/master/install/setup_by_fast/)
 
 ```bash
 wget https://raw.githubusercontent.com/jumpserver/helm-charts/main/charts/jumpserver/values.yaml
