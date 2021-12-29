@@ -48,8 +48,6 @@ spec:
               value: "{{ $.Values.core.config.bootstrapToken }}"
             - name: LOG_LEVEL
               value: "{{ .config.log.level }}"
-            - name: websocket_port
-              value: "{{ .service.ws.port }}"
             - name: listening_port
               value: "{{ .service.web.port }}"
           {{- with .env }}
@@ -58,9 +56,6 @@ spec:
           ports:
             - name: web
               containerPort: {{ .service.web.port }}
-              protocol: TCP
-            - name: ws
-              containerPort: {{ .service.ws.port }}
               protocol: TCP
           livenessProbe:
             {{- toYaml .livenessProbe | nindent 12}}
