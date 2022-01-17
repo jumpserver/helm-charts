@@ -47,7 +47,7 @@ spec:
               protocol: TCP
           env:
             - name: CORE_HOST
-              value: http://{{ include "jumpserver.fullname" $}}-jms-core:{{$.Values.core.service.web.port}}
+              value: "http://{{ include "jumpserver.fullname" $}}-jms-core:{{$.Values.core.service.web.port}}"
             - name: BOOTSTRAP_TOKEN
               value: "{{ $.Values.core.config.bootstrapToken }}"
             - name: LOG_LEVEL

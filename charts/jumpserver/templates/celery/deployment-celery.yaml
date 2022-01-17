@@ -83,7 +83,7 @@ spec:
                 - /bin/bash
                 - /opt/jumpserver/utils/check_celery.sh
           resources:
-            {{- toYaml  .resources | nindent 12 }}
+            {{- toYaml .resources | nindent 12 }}
           volumeMounts:
             - mountPath: "/opt/jumpserver/config.yml"
               name: "jms-core-config"
