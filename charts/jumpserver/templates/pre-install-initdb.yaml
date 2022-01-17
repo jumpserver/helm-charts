@@ -41,26 +41,26 @@ spec:
               value: "{{ .config.secretKey }}"
             - name: BOOTSTRAP_TOKEN
               value: "{{ .config.bootstrapToken }}"
-              {{- end }}
             - name: DB_ENGINE
-              value: {{ include "jumpserver.database.engine" . | quote }}
+              value: "{{ include "jumpserver.database.engine" $ }}"
             - name: DB_HOST
-              value: {{ include "jumpserver.database.host" . | quote }}
+              value: "{{ include "jumpserver.database.host" $ }}"
             - name: DB_PORT
-              value: {{ include "jumpserver.database.port" . | quote }}
+              value: "{{ include "jumpserver.database.port" $ }}"
             - name: DB_USER
-              value: {{ include "jumpserver.database.user" . | quote }}
+              value: "{{ include "jumpserver.database.user" $ }}"
             - name: DB_PASSWORD
-              value: {{ include "jumpserver.database.password" . | quote }}
+              value: "{{ include "jumpserver.database.password" $ }}"
             - name: DB_NAME
-              value: {{ include "jumpserver.database.database" . | quote }}
+              value: "{{ include "jumpserver.database.database" $ }}"
             - name: REDIS_HOST
-              value: {{ include "jumpserver.redis.host" . | quote }}
+              value: "{{ include "jumpserver.redis.host" $ }}"
             - name: REDIS_PORT
-              value: {{ include "jumpserver.redis.port" . | quote }}
+              value: "{{ include "jumpserver.redis.port" $ }}"
             - name: REDIS_PASSWORD
-              value: {{ include "jumpserver.redis.password" . | quote }}
+              value: "{{ include "jumpserver.redis.password" $ }}"
           {{- with .env }}
             {{- tpl (toYaml .) $ | nindent 12 }}
           {{- end }}
       restartPolicy: Never
+{{- end }}

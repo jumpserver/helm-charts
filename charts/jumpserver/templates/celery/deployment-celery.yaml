@@ -56,25 +56,24 @@ spec:
               value: "{{ .service.web.port }}"
             - name: WS_LISTEN_PORT
               value: "{{ .service.ws.port }}"
-              {{- end }}
             - name: DB_ENGINE
-              value: {{ include "jumpserver.database.engine" . | quote }}
+              value: "{{ include "jumpserver.database.engine" $ }}"
             - name: DB_HOST
-              value: {{ include "jumpserver.database.host" . | quote }}
+              value: "{{ include "jumpserver.database.host" $ }}"
             - name: DB_PORT
-              value: {{ include "jumpserver.database.port" . | quote }}
+              value: "{{ include "jumpserver.database.port" $ }}"
             - name: DB_USER
-              value: {{ include "jumpserver.database.user" . | quote }}
+              value: "{{ include "jumpserver.database.user" $ }}"
             - name: DB_PASSWORD
-              value: {{ include "jumpserver.database.password" . | quote }}
+              value: "{{ include "jumpserver.database.password" $ }}"
             - name: DB_NAME
-              value: {{ include "jumpserver.database.database" . | quote }}
+              value: "{{ include "jumpserver.database.database" $ }}"
             - name: REDIS_HOST
-              value: {{ include "jumpserver.redis.host" . | quote }}
+              value: "{{ include "jumpserver.redis.host" $ }}"
             - name: REDIS_PORT
-              value: {{ include "jumpserver.redis.port" . | quote }}
+              value: "{{ include "jumpserver.redis.port" $ }}"
             - name: REDIS_PASSWORD
-              value: {{ include "jumpserver.redis.password" . | quote }}
+              value: "{{ include "jumpserver.redis.password" $ }}"
           {{- with .env }}
             {{- tpl (toYaml .) $ | nindent 12 }}
           {{- end }}
@@ -84,7 +83,7 @@ spec:
                 - /bin/bash
                 - /opt/jumpserver/utils/check_celery.sh
           resources:
-            {{- toYaml .resources | nindent 12 }}
+            {{- toYaml  .resources | nindent 12 }}
           volumeMounts:
             - mountPath: "/opt/jumpserver/config.yml"
               name: "jms-core-config"
@@ -122,4 +121,5 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
+{{- end }}
 {{- end }}
