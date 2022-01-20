@@ -64,11 +64,6 @@ Define JumpServer database
 {{- printf "%s-%s-master" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "jumpserver.redis.fullname" -}}
-{{- $name := default "redis" .Values.redis.nameOverride -}}
-{{- printf "%s-%s-master" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
 {{- define "jumpserver.database.host" -}}
 {{- .Values.externalDatabase.host -}}
 {{- end -}}
@@ -96,6 +91,11 @@ Define JumpServer database
 {{/*
 Define JumpServer redis
 */}}
+
+{{- define "jumpserver.redis.fullname" -}}
+{{- $name := default "redis" .Values.redis.nameOverride -}}
+{{- printf "%s-%s-master" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
 
 {{- define "jumpserver.redis.host" -}}
 {{- .Values.externalRedis.host -}}
