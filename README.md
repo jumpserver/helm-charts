@@ -2,6 +2,9 @@
 
 [![Release Charts](https://github.com/jumpserver/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/jumpserver/helm-charts/actions/workflows/release.yml)
 
+- Kubernetes 1.20+
+- Helm 3.0
+
 ## Usage
 
 [Helm](https://helm.sh) must be installed to use the charts.
