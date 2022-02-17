@@ -59,6 +59,8 @@ spec:
               value: "{{ .service.ssh.port }}"
             - name: HTTPD_PORT
               value: "{{ .service.web.port }}"
+            - name: REUSE_CONNECTION
+              value: "false"
             - name: SHARE_ROOM_TYPE
               value: "redis"
             - name: REDIS_HOST
