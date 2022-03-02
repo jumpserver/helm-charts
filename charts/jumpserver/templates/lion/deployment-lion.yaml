@@ -49,11 +49,11 @@ spec:
             - name: CORE_HOST
               value: "http://{{ include "jumpserver.fullname" $}}-jms-core:{{$.Values.core.service.web.port}}"
             - name: BOOTSTRAP_TOKEN
-              value: "{{ $.Values.core.config.bootstrapToken }}"
+              value: {{ $.Values.core.config.bootstrapToken | quote }}
             - name: LOG_LEVEL
-              value: "{{ .config.log.level }}"
+              value: {{ .config.log.level | quote }}
             - name: HTTPD_PORT
-              value: "{{ .service.web.port }}"
+              value: {{ .service.web.port | quote }}
             - name: JUMPSERVER_ENABLE_FONT_SMOOTHING
               value: "true"
             - name: JUMPSERVER_COLOR_DEPTH
@@ -61,13 +61,13 @@ spec:
             - name: SHARE_ROOM_TYPE
               value: "redis"
             - name: REDIS_HOST
-              value: "{{ include "jumpserver.redis.host" $ }}"
+              value: {{ include "jumpserver.redis.host" $ | quote }}
             - name: REDIS_PORT
-              value: "{{ include "jumpserver.redis.port" $ }}"
+              value: {{ include "jumpserver.redis.port" $ | quote }}
             - name: REDIS_PASSWORD
-              value: "{{ include "jumpserver.redis.password" $ }}"
+              value: {{ include "jumpserver.redis.password" $ | quote }}
           {{- with .env }}
-            {{- tpl (toYaml .) $ | nindent 12 }}
+            {{- tpl (toYaml .) $ | nindent 12 | quote }}
           {{- end }}
           livenessProbe:
             {{- toYaml .livenessProbe | nindent 12}}

@@ -43,7 +43,7 @@ spec:
           {{- end }}
           {{- with .env }}
           env:
-            {{- tpl (toYaml .) $ | nindent 12 }}
+            {{- tpl (toYaml .) $ | nindent 12 | quote }}
           {{- end }}
           ports:
             - name: web

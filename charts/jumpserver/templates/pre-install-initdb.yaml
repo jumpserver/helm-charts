@@ -38,29 +38,29 @@ spec:
             - cd /opt/jumpserver && ./jms upgrade_db
           env:
             - name: SECRET_KEY
-              value: "{{ .config.secretKey }}"
+              value: {{ required "A valid SECRET_KEY is required!" .config.secretKey | quote }}
             - name: BOOTSTRAP_TOKEN
-              value: "{{ .config.bootstrapToken }}"
+              value: {{ required "A valid BOOTSTRAP_TOKEN is required!" .config.bootstrapToken | quote }}
             - name: DB_ENGINE
               value: "{{ include "jumpserver.database.engine" $ }}"
             - name: DB_HOST
-              value: "{{ include "jumpserver.database.host" $ }}"
+              value: {{ include "jumpserver.database.host" $ | quote }}
             - name: DB_PORT
-              value: "{{ include "jumpserver.database.port" $ }}"
+              value: {{ include "jumpserver.database.port" $ | quote }}
             - name: DB_USER
-              value: "{{ include "jumpserver.database.user" $ }}"
+              value: {{ include "jumpserver.database.user" $ | quote }}
             - name: DB_PASSWORD
-              value: "{{ include "jumpserver.database.password" $ }}"
+              value: {{ include "jumpserver.database.password" $ | quote }}
             - name: DB_NAME
-              value: "{{ include "jumpserver.database.database" $ }}"
+              value: {{ include "jumpserver.database.database" $ | quote }}
             - name: REDIS_HOST
-              value: "{{ include "jumpserver.redis.host" $ }}"
+              value: {{ include "jumpserver.redis.host" $ | quote }}
             - name: REDIS_PORT
-              value: "{{ include "jumpserver.redis.port" $ }}"
+              value: {{ include "jumpserver.redis.port" $ | quote }}
             - name: REDIS_PASSWORD
-              value: "{{ include "jumpserver.redis.password" $ }}"
+              value: {{ include "jumpserver.redis.password" $ | quote }}
           {{- with .env }}
-            {{- tpl (toYaml .) $ | nindent 12 }}
+            {{- tpl (toYaml .) $ | nindent 12 | quote }}
           {{- end }}
       restartPolicy: Never
 {{- end }}
