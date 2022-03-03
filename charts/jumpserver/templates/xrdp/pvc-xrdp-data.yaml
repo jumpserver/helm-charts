@@ -8,11 +8,11 @@ metadata:
   labels:
     {{- include "jumpserver.labels" $ | nindent 4 }}
     {{- toYaml .labels | nindent 4 }}
-  {{- with .persistence.annotations  }}
+  {{- with .persistence.annotations }}
   annotations:
 {{ toYaml . | indent 4 }}
   {{- end }}
-  {{- with .persistence.finalizers  }}
+  {{- with .persistence.finalizers }}
   finalizers:
 {{ toYaml . | indent 4 }}
   {{- end }}

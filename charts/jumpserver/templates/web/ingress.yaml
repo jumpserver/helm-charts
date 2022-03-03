@@ -30,7 +30,7 @@ spec:
           path: /
           backend:
             service:
-              name: '{{printf "%s-%s" (include "jumpserver.fullname" $) "jms-web"}}'
+              name: '{{ include "jumpserver.fullname" $ }}-jms-web'
               port:
                 number: 80
   {{- end }}

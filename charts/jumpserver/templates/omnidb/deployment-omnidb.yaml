@@ -35,7 +35,7 @@ spec:
         - name: {{ $containerName }}
           securityContext:
             {{- toYaml .securityContext | nindent 12 }}
-          image: "{{$image}}"
+          image: {{ $image }}
           imagePullPolicy: {{ .image.pullPolicy }}
           {{- with .command }}
           command:
@@ -43,7 +43,7 @@ spec:
           {{- end }}
           env:
             - name: CORE_HOST
-              value: "http://{{include "jumpserver.fullname" $}}-jms-core:{{$.Values.core.service.web.port}}"
+              value: "http://{{ include "jumpserver.fullname" $ }}-jms-core:{{ $.Values.core.service.web.port }}"
             - name: BOOTSTRAP_TOKEN
               value: {{ $.Values.core.config.bootstrapToken | quote }}
             - name: LOG_LEVEL
@@ -51,16 +51,16 @@ spec:
             - name: listening_port
               value: {{ .service.web.port | quote }}
           {{- with .env }}
-            {{- tpl (toYaml .) $ | nindent 12 }}
+            {{- tpl (toYaml .) $ | nindent 12 | quote }}
           {{- end }}
           ports:
             - name: web
               containerPort: {{ .service.web.port }}
               protocol: TCP
           livenessProbe:
-            {{- toYaml .livenessProbe | nindent 12}}
+            {{- toYaml .livenessProbe | nindent 12 }}
           readinessProbe:
-            {{- toYaml .readinessProbe | nindent 12}}
+            {{- toYaml .readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .resources | nindent 12 }}
           volumeMounts:
@@ -72,7 +72,7 @@ spec:
       restartPolicy: Always
       volumes:
         - persistentVolumeClaim:
-            claimName: '{{include "jumpserver.fullname" $}}-jms-omnidb-data'
+            claimName: '{{ include "jumpserver.fullname" $ }}-jms-omnidb-data'
           name: "jms-omnidb-data"
       {{- with .volumes }}
         {{- tpl (toYaml .) $ | nindent 8 }}

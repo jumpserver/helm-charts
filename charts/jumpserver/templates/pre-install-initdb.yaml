@@ -30,7 +30,7 @@ spec:
         - name: {{ $containerName }}
           securityContext:
             {{- toYaml .securityContext | nindent 12 }}
-          image: "{{ $image }}"
+          image: {{ $image }}
           imagePullPolicy: {{ .image.pullPolicy }}
           command:
             - /bin/bash
@@ -38,9 +38,9 @@ spec:
             - cd /opt/jumpserver && ./jms upgrade_db
           env:
             - name: SECRET_KEY
-              value: {{ required "A valid SECRET_KEY is required!" .config.secretKey | quote }}
+              value: {{ required "A valid secretKey is required!" .config.secretKey | quote }}
             - name: BOOTSTRAP_TOKEN
-              value: {{ required "A valid BOOTSTRAP_TOKEN is required!" .config.bootstrapToken | quote }}
+              value: {{ required "A valid bootstrapToken is required!" .config.bootstrapToken | quote }}
             - name: DB_ENGINE
               value: "{{ include "jumpserver.database.engine" $ }}"
             - name: DB_HOST

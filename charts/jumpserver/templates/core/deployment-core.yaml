@@ -44,9 +44,9 @@ spec:
           args: ["start", "web"]
           env:
             - name: SECRET_KEY
-              value: {{ required "A valid SECRET_KEY is required!" .config.secretKey | quote }}
+              value: {{ required "A valid secretKey is required!" .config.secretKey | quote }}
             - name: BOOTSTRAP_TOKEN
-              value: {{ required "A valid BOOTSTRAP_TOKEN is required!" .config.bootstrapToken | quote }}
+              value: {{ required "A valid bootstrapToken is required!" .config.bootstrapToken | quote }}
             - name: DEBUG
               value: {{ .config.debug | quote }}
             - name: LOG_LEVEL
@@ -86,9 +86,9 @@ spec:
               containerPort: {{ .service.ws.port }}
               protocol: TCP
           livenessProbe:
-            {{- toYaml .livenessProbe | nindent 12}}
+            {{- toYaml .livenessProbe | nindent 12 }}
           readinessProbe:
-            {{- toYaml .readinessProbe | nindent 12}}
+            {{- toYaml .readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .resources | nindent 12 }}
           volumeMounts:
@@ -105,13 +105,13 @@ spec:
       restartPolicy: Always
       volumes:
         - configMap:
-            name: '{{include "jumpserver.fullname" $}}-jms-core'
+            name: '{{ include "jumpserver.fullname" $ }}-jms-core'
           name: "jms-core-config"
         - persistentVolumeClaim:
-            claimName: '{{include "jumpserver.fullname" $}}-jms-core-data'
+            claimName: '{{ include "jumpserver.fullname" $ }}-jms-core-data'
           name: "jms-core-data"
         - persistentVolumeClaim:
-            claimName: '{{include "jumpserver.fullname" $}}-jms-core-logs'
+            claimName: '{{ include "jumpserver.fullname" $ }}-jms-core-logs'
           name: "jms-core-logs"
       {{- with .volumes }}
         {{- tpl (toYaml .) $ | nindent 8 }}

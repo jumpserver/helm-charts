@@ -10,6 +10,6 @@ metadata:
     {{- toYaml .labels | nindent 4 }}
 data:
 {{- $path := printf "%s/%s/%s" "configs" "jms-web" "default.conf" -}}
-{{- tpl (($.Files.Glob $path ).AsConfig) $ | nindent 2 }}
+{{- tpl (( $.Files.Glob $path ).AsConfig) $ | nindent 2 }}
 {{- end }}
 {{- end }}
