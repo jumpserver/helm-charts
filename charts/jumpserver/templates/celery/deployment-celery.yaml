@@ -34,7 +34,7 @@ spec:
         - name: {{ $containerName }}
           securityContext:
             {{- toYaml .securityContext | nindent 12 }}
-          image: "{{$image}}"
+          image: {{ $image }}
           imagePullPolicy: {{ .image.pullPolicy }}
           {{- with .command }}
           command:
@@ -43,39 +43,39 @@ spec:
           args: ["start", "task"]
           env:
             - name: SECRET_KEY
-              value: "{{ .config.secretKey }}"
+              value: {{ required "A valid secretKey is required!" .config.secretKey | quote }}
             - name: BOOTSTRAP_TOKEN
-              value: "{{ .config.bootstrapToken }}"
+              value: {{ required "A valid bootstrapToken is required!" .config.bootstrapToken | quote }}
             - name: DEBUG
-              value: "{{ .config.debug }}"
+              value: {{ .config.debug | quote }}
             - name: LOG_LEVEL
-              value: "{{ .config.log.level }}"
+              value: {{ .config.log.level | quote }}
             - name: SESSION_EXPIRE_AT_BROWSER_CLOSE
               value: "true"
             - name: HTTP_LISTEN_PORT
-              value: "{{ .service.web.port }}"
+              value: {{ .service.web.port | quote }}
             - name: WS_LISTEN_PORT
-              value: "{{ .service.ws.port }}"
+              value: {{ .service.ws.port | quote }}
             - name: DB_ENGINE
-              value: "{{ include "jumpserver.database.engine" $ }}"
+              value: {{ include "jumpserver.database.engine" $ | quote }}
             - name: DB_HOST
-              value: "{{ include "jumpserver.database.host" $ }}"
+              value: {{ include "jumpserver.database.host" $ | quote }}
             - name: DB_PORT
-              value: "{{ include "jumpserver.database.port" $ }}"
+              value: {{ include "jumpserver.database.port" $ | quote }}
             - name: DB_USER
-              value: "{{ include "jumpserver.database.user" $ }}"
+              value: {{ include "jumpserver.database.user" $ | quote }}
             - name: DB_PASSWORD
-              value: "{{ include "jumpserver.database.password" $ }}"
+              value: {{ include "jumpserver.database.password" $ | quote }}
             - name: DB_NAME
-              value: "{{ include "jumpserver.database.database" $ }}"
+              value: {{ include "jumpserver.database.database" $ | quote }}
             - name: REDIS_HOST
-              value: "{{ include "jumpserver.redis.host" $ }}"
+              value: {{ include "jumpserver.redis.host" $ | quote }}
             - name: REDIS_PORT
-              value: "{{ include "jumpserver.redis.port" $ }}"
+              value: {{ include "jumpserver.redis.port" $ | quote }}
             - name: REDIS_PASSWORD
-              value: "{{ include "jumpserver.redis.password" $ }}"
+              value: {{ include "jumpserver.redis.password" $ | quote }}
           {{- with .env }}
-            {{- tpl (toYaml .) $ | nindent 12 }}
+            {{- tpl (toYaml .) $ | nindent 12 | quote }}
           {{- end }}
           livenessProbe:
             exec:
@@ -98,13 +98,13 @@ spec:
       restartPolicy: Always
       volumes:
         - configMap:
-            name: '{{include "jumpserver.fullname" $}}-jms-core'
+            name: '{{ include "jumpserver.fullname" $ }}-jms-core'
           name: "jms-core-config"
         - persistentVolumeClaim:
-            claimName: '{{include "jumpserver.fullname" $}}-jms-core-data'
+            claimName: '{{ include "jumpserver.fullname" $ }}-jms-core-data'
           name: "jms-core-data"
         - persistentVolumeClaim:
-            claimName: '{{include "jumpserver.fullname" $}}-jms-core-logs'
+            claimName: '{{ include "jumpserver.fullname" $ }}-jms-core-logs'
           name: "jms-core-logs"
       {{- with .volumes }}
         {{- tpl (toYaml .) $ | nindent 8 }}
