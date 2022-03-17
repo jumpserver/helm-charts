@@ -30,7 +30,7 @@ helm repo add jumpserver https://jumpserver.github.io/helm-charts
 | `nameOveride`             | name override      | `nil`       |
 | `fullNameOveride`         | full name override | `nil`       |
 | `global.imageRegistry`    | 仓库地址           | `docker.io` |
-| `global.imageTag`         | 版本号             | `v2.19.2  ` |
+| `global.imageTag`         | 版本号             | `v2.20.0  ` |
 | `global.imagePullSecrets` | 私有仓库认证凭据    | `nil`
 | `global.storageClass`     | 存储 sc            | `nil`       |
 | `ingress.enabled`         | 开启 ingress       | `true`      |
@@ -40,28 +40,23 @@ helm repo add jumpserver https://jumpserver.github.io/helm-charts
 | `web.enabled`             | 开启 web           | `true`      |
 | `xpack.enable`            | 开启 xpack         | `false`     |
 
-### core
+### 必填
 
-| 参数             | 描述                                                                    | 默认值                 |
-| ---------------- | ---------------------------------------------------------------------- | ---------------------- |
-| `secretKey`      | 加密秘钥 生产环境中请修改为随机字符串，请勿外泄, 可使用命令生成              | `nil`                 |
-| `bootstrapToken` | 预共享Token coco和guacamole用来注册服务账号，不在使用原来的注册接受机制     | `nil`                  |
-| `debug`          | 开启 debug 模式                                                         | `false`                |
-| `log.level`      | 日志等级                                                                | `ERROR`                |
-| `db.engine`      | 数据库引擎                                                              | `mysql`                |
-| `db.host`        | 数据库IP地址                                                            | `nil`                  |
-| `db.port`        | 数据库端口                                                              | `3306`                 |
-| `db.username`    | 数据库用户名                                                            | `jumpserver`           |
-| `db.password`    | 数据库密码                                                              | `nil`                  |
-| `db.name`        | 数据库名称                                                              | `nil`                  |
-| `redis.host`     | redisIP地址                                                             | `nil`                  |
-| `redis.port`     | redis端口                                                               | `6379`                 |
-| `redis.password` | redis密码                                                               | `nil`                  |
-| `replicaCount`   | 副本数量                                                                | `1`                    |
-| `tag`            | 版本号                                                                  | `nil`                  |
-| `persistence`    | 持久化存储相关设置                                                       | `nil`                  |
+| 参数                           | 描述                                          | 默认值                 |
+| ------------------------------ | ---------------------------------------------| ---------------------- |
+| `core.config.secretKey`        | 加密秘钥 生产环境中请修改为随机字符串，请勿外泄  | `nil`                  |
+| `core.config.bootstrapToken`   | 预共享 Token 组件注册需要使用                  | `nil`                  |
+| `externalDatabase.engine`      | 数据库引擎                                    | `mysql`                |
+| `externalDatabase.host`        | 数据库 IP 地址                                | `nil`                  |
+| `externalDatabase.port`        | 数据库端口                                    | `3306`                 |
+| `externalDatabase.user`        | 数据库用户名                                  | `jumpserver`           |
+| `externalDatabase.password`    | 数据库密码                                    | `nil`                  |
+| `externalDatabase.database`    | 数据库名称                                    | `nil`                  |
+| `externalRedis.host`           | redisIP 地址                                 | `nil`                  |
+| `externalRedis.port`           | redis 端口                                   | `6379`                 |
+| `externalRedis.password`       | redis 密码                                   | `nil`                  |
 
-### 其他组件
+### 其他
 
 | 参数                  | 描述                                                       | 默认值  |
 | --------------------- | --------------------------------------------------------- | ------- |
