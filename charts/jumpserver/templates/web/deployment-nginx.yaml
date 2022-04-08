@@ -61,7 +61,7 @@ spec:
               subPath: "default.conf"
             - mountPath: "/opt/jumpserver/data"
               name: "jms-core-data"
-            - mountPath: "/var/log/web"
+            - mountPath: "/var/log/nginx"
               name: "jms-web-logs"
           {{- with .volumeMounts }}
             {{- toYaml . | nindent 12 }}
