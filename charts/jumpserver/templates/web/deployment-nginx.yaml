@@ -41,10 +41,11 @@ spec:
           command:
             {{- tpl (toYaml .) $ | nindent 12 }}
           {{- end }}
-          {{- with .env }}
           env:
-            {{- tpl (toYaml .) $ | nindent 12 | quote }}
-          {{- end }}
+            {{- range $key, $val := .env }}
+            - name: {{ $key }}
+              value: {{ $val | quote }}
+            {{- end }}
           ports:
             - name: web
               containerPort: {{ .service.web.port }}

@@ -51,8 +51,6 @@ spec:
               value: {{ .config.debug | quote }}
             - name: LOG_LEVEL
               value: {{ .config.log.level | quote }}
-            - name: SESSION_EXPIRE_AT_BROWSER_CLOSE
-              value: "true"
             - name: HTTP_LISTEN_PORT
               value: {{ .service.web.port | quote }}
             - name: WS_LISTEN_PORT
@@ -75,9 +73,10 @@ spec:
               value: {{ include "jumpserver.redis.port" $ | quote }}
             - name: REDIS_PASSWORD
               value: {{ include "jumpserver.redis.password" $ | quote }}
-          {{- with .env }}
-            {{- tpl (toYaml .) $ | nindent 12 | quote }}
-          {{- end }}
+            {{- range $key, $val := .env }}
+            - name: {{ $key }}
+              value: {{ $val | quote }}
+            {{- end }}
           ports:
             - name: web
               containerPort: {{ .service.web.port }}
