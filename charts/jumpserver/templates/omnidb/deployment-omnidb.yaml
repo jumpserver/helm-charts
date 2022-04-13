@@ -50,9 +50,10 @@ spec:
               value: {{ .config.log.level | quote }}
             - name: listening_port
               value: {{ .service.web.port | quote }}
-          {{- with .env }}
-            {{- tpl (toYaml .) $ | nindent 12 | quote }}
-          {{- end }}
+            {{- range $key, $val := .env }}
+            - name: {{ $key }}
+              value: {{ $val | quote }}
+            {{- end }}
           ports:
             - name: web
               containerPort: {{ .service.web.port }}

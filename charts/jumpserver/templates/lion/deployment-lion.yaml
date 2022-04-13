@@ -54,10 +54,6 @@ spec:
               value: {{ .config.log.level | quote }}
             - name: HTTPD_PORT
               value: {{ .service.web.port | quote }}
-            - name: JUMPSERVER_ENABLE_FONT_SMOOTHING
-              value: "true"
-            - name: JUMPSERVER_COLOR_DEPTH
-              value: "32"
             - name: SHARE_ROOM_TYPE
               value: "redis"
             - name: REDIS_HOST
@@ -66,9 +62,10 @@ spec:
               value: {{ include "jumpserver.redis.port" $ | quote }}
             - name: REDIS_PASSWORD
               value: {{ include "jumpserver.redis.password" $ | quote }}
-          {{- with .env }}
-            {{- tpl (toYaml .) $ | nindent 12 | quote }}
-          {{- end }}
+            {{- range $key, $val := .env }}
+            - name: {{ $key }}
+              value: {{ $val | quote }}
+            {{- end }}
           livenessProbe:
             {{- toYaml .livenessProbe | nindent 12 }}
           readinessProbe:
