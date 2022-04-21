@@ -12,7 +12,7 @@ fullnameOverride: ""
 ##
 global:
   imageRegistry: "docker.io"
-  imageTag: v2.20.3
+  imageTag: v2.21.0
   ## E.g.
   #  imagePullSecrets:
   #  - myRegistryKeySecretName
@@ -85,7 +85,7 @@ core:
   image:
     registry: docker.io
     repository: jumpserver/core
-    tag: v2.20.3
+    tag: v2.21.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -142,7 +142,7 @@ core:
     storageClassName: jumpserver-data
     accessModes:
       - ReadWriteMany
-    size: 10Gi
+    size: 100Gi
     # annotations: {}
     finalizers:
       - kubernetes.io/pvc-protection
@@ -174,7 +174,7 @@ koko:
   image:
     registry: docker.io
     repository: jumpserver/koko
-    tag: v2.20.3
+    tag: v2.21.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -263,7 +263,7 @@ lion:
   image:
     registry: docker.io
     repository: jumpserver/lion
-    tag: v2.20.3
+    tag: v2.21.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -322,6 +322,89 @@ lion:
     storageClassName: jumpserver-data
     accessModes:
       - ReadWriteMany
+    size: 50Gi
+    # annotations: {}
+    finalizers:
+      - kubernetes.io/pvc-protection
+
+  volumeMounts: []
+
+  volumes: []
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+magnus:
+  enabled: true
+
+  labels:
+    app.jumpserver.org/name: jms-magnus
+
+  config:
+    log:
+      level: ERROR
+
+  replicaCount: 1
+
+  image:
+    registry: docker.io
+    repository: jumpserver/magnus
+    tag: v2.21.0
+    pullPolicy: IfNotPresent
+
+  command: []
+
+  env: []
+
+  livenessProbe:
+    failureThreshold: 30
+    tcpSocket:
+      port: mysql
+
+  readinessProbe:
+    failureThreshold: 30
+    tcpSocket:
+      port: mysql
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    mysql:
+      port: 33060
+    mariadb:
+      port: 33061
+    postgre:
+      port: 54320
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 512Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 512Mi
+
+  persistence:
+    storageClassName: jumpserver-data
+    accessModes:
+      - ReadWriteMany
     size: 10Gi
     # annotations: {}
     finalizers:
@@ -353,7 +436,7 @@ omnidb:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/omnidb
-    tag: v2.20.3
+    tag: v2.21.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -430,7 +513,7 @@ xrdp:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/xrdp
-    tag: v2.20.3
+    tag: v2.21.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -488,7 +571,7 @@ xrdp:
     storageClassName: jumpserver-data
     accessModes:
       - ReadWriteMany
-    size: 10Gi
+    size: 50Gi
     # annotations: {}
     finalizers:
       - kubernetes.io/pvc-protection
@@ -514,7 +597,7 @@ web:
   image:
     registry: docker.io
     repository: jumpserver/web
-    tag: v2.20.3
+    tag: v2.21.0
     pullPolicy: IfNotPresent
 
   command: []

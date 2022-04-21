@@ -1,0 +1,29 @@
+{{- if .Values.magnus.enabled }}
+{{- with .Values.magnus }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-magnus-data" }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "jumpserver.labels" $ | nindent 4 }}
+    {{- toYaml .labels | nindent 4 }}
+  {{- with .persistence.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+  {{- end }}
+  {{- with .persistence.finalizers }}
+  finalizers:
+{{ toYaml . | indent 4 }}
+  {{- end }}
+spec:
+  accessModes:
+    {{- range .persistence.accessModes }}
+    - {{ . | quote }}
+    {{- end }}
+  resources:
+    requests:
+      storage: {{ .persistence.size | quote }}
+      {{- end }}
+  storageClassName: {{ include "jumpserver.magnus.storageClass" . }}
+{{- end }}
