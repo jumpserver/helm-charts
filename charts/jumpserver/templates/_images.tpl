@@ -51,6 +51,13 @@ Return the proper JumpServer lion image name
 {{- end -}}
 
 {{/*
+Return the proper JumpServer magnus image name
+*/}}
+{{- define "jumpserver.magnusImage" -}}
+{{- include "common.images.image" ( dict "imageRoot" .Values.magnus.image "global" .Values.global ) -}}
+{{- end -}}
+
+{{/*
 Return the proper JumpServer xrdp image name
 */}}
 {{- define "jumpserver.xrdpImage" -}}

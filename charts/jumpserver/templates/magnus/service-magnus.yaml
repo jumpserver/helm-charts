@@ -1,0 +1,39 @@
+{{- if .Values.magnus.enabled }}
+{{- with .Values.magnus }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-magnus" }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "jumpserver.labels" $ | nindent 4 }}
+    {{- toYaml .labels | nindent 4 }}
+  annotations:
+    {{- toYaml .service.annotations | nindent 4 }}
+spec:
+  type: {{ .service.type }}
+  ports:
+    - port: {{ .service.mysql.port }}
+      targetPort: mysql
+      protocol: TCP
+      name: mysql
+    - port: {{ .service.mariadb.port }}
+      targetPort: mariadb
+      protocol: TCP
+      name: mariadb
+    {{- if $.Values.xpack.enabled }}
+    - port: {{ .service.postgre.port }}
+      targetPort: postgre
+      protocol: TCP
+      name: postgre
+    {{- end }}
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
+  selector:
+    app.kubernetes.io/name: {{ include "jumpserver.name" $ }}
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    {{- toYaml .labels | nindent 4 }}
+{{- end }}
+{{- end }}
