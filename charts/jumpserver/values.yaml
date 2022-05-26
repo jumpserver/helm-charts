@@ -147,7 +147,7 @@ core:
     finalizers:
       - kubernetes.io/pvc-protection
     # subPath: ""
-    # existingClaim:
+    # existingClaim: ""
 
   volumeMounts: []
 
@@ -237,6 +237,8 @@ koko:
     # annotations: {}
     finalizers:
       - kubernetes.io/pvc-protection
+    # subPath: ""
+    # existingClaim: ""
 
   volumeMounts: []
 
@@ -326,6 +328,8 @@ lion:
     # annotations: {}
     finalizers:
       - kubernetes.io/pvc-protection
+    # subPath: ""
+    # existingClaim: ""
 
   volumeMounts: []
 
@@ -409,6 +413,8 @@ magnus:
     # annotations: {}
     finalizers:
       - kubernetes.io/pvc-protection
+    # subPath: ""
+    # existingClaim: ""
 
   volumeMounts: []
 
@@ -489,6 +495,8 @@ omnidb:
     # annotations: {}
     finalizers:
       - kubernetes.io/pvc-protection
+    # subPath: ""
+    # existingClaim: ""
 
   volumeMounts: []
 
@@ -575,6 +583,8 @@ xrdp:
     # annotations: {}
     finalizers:
       - kubernetes.io/pvc-protection
+    # subPath: ""
+    # existingClaim: ""
 
   volumeMounts: []
 
@@ -654,6 +664,8 @@ web:
     # annotations: {}
     finalizers:
       - kubernetes.io/pvc-protection
+    # subPath: ""
+    # existingClaim: ""
 
   volumeMounts: []
 
