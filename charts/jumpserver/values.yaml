@@ -12,7 +12,7 @@ fullnameOverride: ""
 ##
 global:
   imageRegistry: "docker.io"
-  imageTag: v2.22.1
+  imageTag: v2.22.2
   ## E.g.
   #  imagePullSecrets:
   #  - myRegistryKeySecretName
@@ -85,7 +85,7 @@ core:
   image:
     registry: docker.io
     repository: jumpserver/core
-    tag: v2.22.1
+    tag: v2.22.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -147,7 +147,7 @@ core:
     finalizers:
       - kubernetes.io/pvc-protection
     # subPath: ""
-    # existingClaim:
+    # existingClaim: ""
 
   volumeMounts: []
 
@@ -174,7 +174,7 @@ koko:
   image:
     registry: docker.io
     repository: jumpserver/koko
-    tag: v2.22.1
+    tag: v2.22.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -237,6 +237,8 @@ koko:
     # annotations: {}
     finalizers:
       - kubernetes.io/pvc-protection
+    # subPath: ""
+    # existingClaim: ""
 
   volumeMounts: []
 
@@ -263,7 +265,7 @@ lion:
   image:
     registry: docker.io
     repository: jumpserver/lion
-    tag: v2.22.1
+    tag: v2.22.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -326,6 +328,8 @@ lion:
     # annotations: {}
     finalizers:
       - kubernetes.io/pvc-protection
+    # subPath: ""
+    # existingClaim: ""
 
   volumeMounts: []
 
@@ -352,7 +356,7 @@ magnus:
   image:
     registry: docker.io
     repository: jumpserver/magnus
-    tag: v2.22.1
+    tag: v2.22.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -409,6 +413,8 @@ magnus:
     # annotations: {}
     finalizers:
       - kubernetes.io/pvc-protection
+    # subPath: ""
+    # existingClaim: ""
 
   volumeMounts: []
 
@@ -436,7 +442,7 @@ omnidb:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/omnidb
-    tag: v2.22.1
+    tag: v2.22.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -489,6 +495,8 @@ omnidb:
     # annotations: {}
     finalizers:
       - kubernetes.io/pvc-protection
+    # subPath: ""
+    # existingClaim: ""
 
   volumeMounts: []
 
@@ -513,7 +521,7 @@ xrdp:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/xrdp
-    tag: v2.22.1
+    tag: v2.22.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -575,6 +583,8 @@ xrdp:
     # annotations: {}
     finalizers:
       - kubernetes.io/pvc-protection
+    # subPath: ""
+    # existingClaim: ""
 
   volumeMounts: []
 
@@ -597,7 +607,7 @@ web:
   image:
     registry: docker.io
     repository: jumpserver/web
-    tag: v2.22.1
+    tag: v2.22.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -654,6 +664,8 @@ web:
     # annotations: {}
     finalizers:
       - kubernetes.io/pvc-protection
+    # subPath: ""
+    # existingClaim: ""
 
   volumeMounts: []
 
