@@ -1,6 +1,6 @@
 {{- if .Values.xpack.enabled }}
-{{- with .Values.xrdp }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-xrdp-data" }}
+{{- with .Values.razor }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-razor-data" }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -25,5 +25,5 @@ spec:
     requests:
       storage: {{ .persistence.size | quote }}
       {{- end }}
-  storageClassName: {{ include "jumpserver.xrdp.storageClass" . }}
+  storageClassName: {{ include "jumpserver.razor.storageClass" . }}
 {{- end }}

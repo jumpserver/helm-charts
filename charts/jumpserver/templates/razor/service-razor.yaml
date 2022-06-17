@@ -1,6 +1,6 @@
 {{- if .Values.xpack.enabled }}
-{{- with .Values.xrdp }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-xrdp" }}
+{{- with .Values.razor }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-razor" }}
 apiVersion: v1
 kind: Service
 metadata:
