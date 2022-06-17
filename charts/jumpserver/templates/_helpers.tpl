@@ -153,11 +153,11 @@ Define JumpServer StorageClass
 {{- end -}}
 {{- end -}}
 
-{{- define "jumpserver.xrdp.storageClass" -}}
+{{- define "jumpserver.razor.storageClass" -}}
 {{- if .Values.global.storageClass }}
 {{- .Values.global.storageClass }}
 {{- else -}}
-{{- .Values.xrdp.persistence.storageClassName -}}
+{{- .Values.razor.persistence.storageClassName -}}
 {{- end -}}
 {{- end -}}
 
@@ -165,6 +165,6 @@ Define JumpServer StorageClass
 {{- if .Values.global.storageClass }}
 {{- .Values.global.storageClass }}
 {{- else -}}
-{{- .Values.xrdp.persistence.storageClassName -}}
+{{- .Values.razor.persistence.storageClassName -}}
 {{- end -}}
 {{- end -}}

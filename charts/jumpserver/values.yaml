@@ -508,9 +508,9 @@ omnidb:
 
   affinity: {}
 
-xrdp:
+razor:
   labels:
-    app.jumpserver.org/name: jms-xrdp
+    app.jumpserver.org/name: jms-razor
 
   config:
     log:
@@ -520,22 +520,13 @@ xrdp:
 
   image:
     registry: registry.fit2cloud.com
-    repository: jumpserver/xrdp
+    repository: jumpserver/razor
     tag: v2.23.0
     pullPolicy: IfNotPresent
 
   command: []
 
-  env:
-    # tcp_send_buffer_bytes and tcp_recv_buffer_bytes See: https://github.com/neutrinolabs/xrdp/issues/1483
-    TCP_SEND_BUFFER_BYTES: 4194304
-    TCP_RECV_BUFFER_BYTES: 6291456
-    JUMPSERVER_ENABLE_FONT_SMOOTHING: true
-    # JUMPSERVER_ENABLE_WALLPAPER: true
-    # JUMPSERVER_ENABLE_THEMING: true
-    # JUMPSERVER_ENABLE_FULL_WINDOW_DRAG: true
-    # JUMPSERVER_ENABLE_DESKTOP_COMPOSITION: true
-    # JUMPSERVER_ENABLE_MENU_ANIMATIONS: true
+  env: []
 
   livenessProbe:
     failureThreshold: 30
