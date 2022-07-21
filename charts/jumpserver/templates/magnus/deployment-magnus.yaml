@@ -63,6 +63,12 @@ spec:
             - name: postgre
               containerPort: {{ .service.postgre.port }}
               protocol: TCP
+            - name: oracle_11g
+              containerPort: {{ .service.oracle_11g.port }}
+              protocol: TCP
+            - name: oracle_12c
+              containerPort: {{ .service.oracle_12c.port }}
+              protocol: TCP
             {{- end }}
           livenessProbe:
             {{- toYaml .livenessProbe | nindent 12}}
