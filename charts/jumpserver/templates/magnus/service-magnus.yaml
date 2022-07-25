@@ -26,14 +26,14 @@ spec:
       targetPort: postgre
       protocol: TCP
       name: postgre
-    - port: {{ .service.oracle_11g.port }}
-      targetPort: oracle_11g
+    - port: {{ .service.oracle-11g.port }}
+      targetPort: oracle-11g
       protocol: TCP
-      name: oracle_11g
-    - port: {{ .service.oracle_12c.port }}
-      targetPort: oracle_12c
+      name: oracle-11g
+    - port: {{ .service.oracle-12c.port }}
+      targetPort: oracle-12c
       protocol: TCP
-      name: oracle_12c
+      name: oracle-12c
     {{- end }}
   sessionAffinity: ClientIP
   sessionAffinityConfig:
