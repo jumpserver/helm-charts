@@ -392,9 +392,9 @@ magnus:
       port: 33061
     postgre:
       port: 54320
-    oracle_11g:
+    oracle-11g:
       port: 15211
-    oracle_12c:
+    oracle-12c:
       port: 15212
 
   resources: {}
