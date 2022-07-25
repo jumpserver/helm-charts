@@ -63,11 +63,11 @@ spec:
             - name: postgre
               containerPort: {{ .service.postgre.port }}
               protocol: TCP
-            - name: oracle-11g
-              containerPort: {{ .service.oracle-11g.port }}
+            - name: oracle11g
+              containerPort: {{ .service.oracle11g.port }}
               protocol: TCP
-            - name: oracle-12c
-              containerPort: {{ .service.oracle-12c.port }}
+            - name: oracle12c
+              containerPort: {{ .service.oracle12c.port }}
               protocol: TCP
             {{- end }}
           livenessProbe:
