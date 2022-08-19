@@ -4,9 +4,9 @@
   <a href="https://www.gnu.org/licenses/gpl-3.0.html"><img src="https://img.shields.io/github/license/jumpserver/jumpserver" alt="License: GPLv3"></a>
   <a href="https://shields.io/github/downloads/jumpserver/helm-charts/total"><img src="https://shields.io/github/downloads/jumpserver/helm-charts/total" alt=" release"></a>
   <a href="https://hub.docker.com/u/jumpserver"><img src="https://img.shields.io/docker/pulls/jumpserver/jms_all.svg" alt="Codacy"></a>
-  <a href="https://github.com/jumpserver/helm-charts/actions/workflows/release.yml"><img alt="release charts" src="https://github.com/jumpserver/helm-charts/actions/workflows/release.yml/badge.svg" /></a>
-  <a href="https://github.com/jumpserver/helm-charts/commits"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/jumpserver/helm-charts.svg" /></a>
   <a href="https://github.com/jumpserver/helm-charts"><img src="https://img.shields.io/github/stars/jumpserver/helm-charts?color=%231890FF&style=flat-square" alt="Stars"></a>
+  <a href="https://github.com/jumpserver/helm-charts/commits"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/jumpserver/helm-charts.svg" /></a>
+  <a href="https://github.com/jumpserver/helm-charts/actions/workflows/release.yml"><img alt="release charts" src="https://github.com/jumpserver/helm-charts/actions/workflows/release.yml/badge.svg" /></a>
 </p>
 
 
