@@ -1,4 +1,6 @@
 apiVersion: v1
+name: jumpserver
+version: 2.25.2
 appVersion: "v2.25.2"
 description: A Helm chart for Deploying Jumpserver on Kubernetes
 engine: gotpl
@@ -9,5 +11,13 @@ maintainers:
   name: jumpserver
 sources:
 - https://github.com/jumpserver/
-name: jumpserver
-version: 2.25.2
+type: application
+dependencies:
+- name: mysql
+  version: 8.8.34
+  repository: https://charts.bitnami.com/bitnami
+  condition: mysql.enabled
+- name: redis
+  version: 16.4.5
+  repository: https://charts.bitnami.com/bitnami
+  condition: redis.enabled

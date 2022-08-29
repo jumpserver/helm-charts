@@ -63,7 +63,15 @@ spec:
             - name: DB_USER
               value: {{ include "jumpserver.database.user" $ | quote }}
             - name: DB_PASSWORD
+              # value: {{ include "jumpserver.database.password" $ | quote }}
+            {{- if $.Values.mysql.enabled }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "jumpserver.mysql.fullname" $ }}
+                  key: "mysql-password"
+            {{- else }}
               value: {{ include "jumpserver.database.password" $ | quote }}
+            {{- end }}
             - name: DB_NAME
               value: {{ include "jumpserver.database.database" $ | quote }}
             - name: REDIS_HOST
@@ -71,7 +79,15 @@ spec:
             - name: REDIS_PORT
               value: {{ include "jumpserver.redis.port" $ | quote }}
             - name: REDIS_PASSWORD
+              # value: {{ include "jumpserver.redis.password" $ | quote }}
+            {{- if $.Values.redis.enabled }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "jumpserver.fullname" $ }}-redis
+                  key: "redis-password"
+            {{- else }}
               value: {{ include "jumpserver.redis.password" $ | quote }}
+            {{- end }}
             {{- range $key, $val := .env }}
             - name: {{ $key }}
               value: {{ $val | quote }}

@@ -671,3 +671,103 @@ web:
   tolerations: []
 
   affinity: {}
+
+
+# MySQL
+mysql:
+  enabled: true
+  # global:
+  #   imageRegistry: dtojdiw4.mirror.aliyuncs.com
+  architecture: standalone
+  # architecture: replication
+  clusterDomain: cluster.local
+  serviceAccount:
+    create: true
+  replication:
+    enabled: false
+    readReplicas: 1
+  # initdbScripts:
+  #   init-heimdall-elastic-db.sql: |
+  #     CREATE TABLE "channel" ( "id" varchar NOT NULL, "name" varchar, "owner" varchar, "enterprise" varchar, "type" varchar, "default_input" int, "state" varchar, "creation_date" timestamp, "last_update" timestamp, "avatar" varchar, "action" varchar, PRIMARY KEY ("id"));
+  # initdbScriptsConfigMap: '{{ template "jumpserver.mysql.fullname" . }}-init'
+  auth:
+    username: jumpserver
+    database: jumpserver
+  primary:
+    persistence:
+      # storageClass: "-"
+      size: 60Gi
+    resources:
+      requests:
+        cpu: 4000m
+        memory: 8Gi
+      limits:
+        cpu: 4000m
+        memory: 8Gi
+    # affinity:
+    #   <<: *affinity
+  secondary:
+    replicaCount: 1
+    persistence:
+      # storageClass: "-"
+      size: 120Gi
+    resources:
+      requests:
+        cpu: 4000m
+        memory: 8Gi
+      limits:
+        cpu: 4000m
+        memory: 8Gi
+    # affinity:
+    #   <<: *affinity
+  metrics:
+    enabled: true
+
+# Redis
+redis:
+  enabled: true
+  # global:
+  #   imageRegistry: dtojdiw4.mirror.aliyuncs.com
+  architecture: standalone
+  # architecture: replication
+  clusterDomain: cluster.local
+  master:
+    resources:
+      requests:
+        cpu: 1000m
+        memory: 1Gi
+      limits:
+        cpu: 1000m
+        memory: 1Gi
+    persistence:
+      enabled: true
+      # storageClass: "-"
+      size: 60Gi
+    # affinity:
+    #   <<: *affinity
+  replica:
+    replicaCount: 1
+    resources:
+      requests:
+        cpu: 1000m
+        memory: 1Gi
+      limits:
+        cpu: 1000m
+        memory: 1Gi
+    persistence:
+      enabled: true
+      # storageClass: "-"
+      size: 60Gi
+    # affinity:
+    #   <<: *affinity
+  sentinel:
+    enabled: false
+    resources:
+      requests:
+        cpu: 1000m
+        memory: 1Gi
+      limits:
+        cpu: 2000m
+        memory: 4Gi
+  metrics:
+    enabled: true

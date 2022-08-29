@@ -68,7 +68,15 @@ spec:
             - name: REDIS_PORT
               value: {{ include "jumpserver.redis.port" $ | quote }}
             - name: REDIS_PASSWORD
+              # value: {{ include "jumpserver.redis.password" $ | quote }}
+            {{- if $.Values.redis.enabled }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "jumpserver.fullname" $ }}-redis
+                  key: "redis-password"
+            {{- else }}
               value: {{ include "jumpserver.redis.password" $ | quote }}
+            {{- end }}
             {{- range $key, $val := .env }}
             - name: {{ $key }}
               value: {{ $val | quote }}
