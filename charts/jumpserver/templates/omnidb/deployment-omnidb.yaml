@@ -45,7 +45,11 @@ spec:
             - name: CORE_HOST
               value: "http://{{ include "jumpserver.fullname" $ }}-jms-core:{{ $.Values.core.service.web.port }}"
             - name: BOOTSTRAP_TOKEN
-              value: {{ $.Values.core.config.bootstrapToken | quote }}
+              # value: {{ $.Values.core.config.bootstrapToken | quote }}
+              valueFrom:
+                 secretKeyRef:
+                   name: {{ include "jumpserver.fullname" $ }}-core
+                   key: "bootstrap-token"
             - name: LOG_LEVEL
               value: {{ .config.log.level | quote }}
             - name: listening_port

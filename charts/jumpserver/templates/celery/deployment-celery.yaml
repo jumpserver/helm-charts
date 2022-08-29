@@ -43,9 +43,15 @@ spec:
           args: ["start", "task"]
           env:
             - name: SECRET_KEY
-              value: {{ required "A valid secretKey is required!" .config.secretKey | quote }}
+              valueFrom:
+                 secretKeyRef:
+                   name: {{ include "jumpserver.fullname" $ }}-core
+                   key: "secret-key"
             - name: BOOTSTRAP_TOKEN
-              value: {{ required "A valid bootstrapToken is required!" .config.bootstrapToken | quote }}
+              valueFrom:
+                 secretKeyRef:
+                   name: {{ include "jumpserver.fullname" $ }}-core
+                   key: "bootstrap-token"
             - name: DEBUG
               value: {{ .config.debug | quote }}
             - name: LOG_LEVEL
