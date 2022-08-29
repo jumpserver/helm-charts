@@ -1,8 +1,8 @@
 {{/*
 Return the proper image name
-{{ include "common.images.image" ( dict "imageRoot" .Values.path.to.the.image "global" $) }}
+{{ include "jumpserver.common.image" ( dict "imageRoot" .Values.path.to.the.image "global" $) }}
 */}}
-{{- define "common.images.image" -}}
+{{- define "jumpserver.common.image" -}}
 {{- $registryName := .imageRoot.registry -}}
 {{- $repositoryName := .imageRoot.repository -}}
 {{- $tag := .imageRoot.tag | toString -}}
@@ -26,49 +26,49 @@ Return the proper image name
 Return the proper JumpServer Core image name
 */}}
 {{- define "jumpserver.coreImage" -}}
-{{- include "common.images.image" ( dict "imageRoot" .Values.core.image "global" .Values.global ) -}}
+{{- include "jumpserver.common.image" ( dict "imageRoot" .Values.core.image "global" .Values.global ) -}}
 {{- end -}}
 
 {{/*
 Return the proper JumpServer koko image name
 */}}
 {{- define "jumpserver.kokoImage" -}}
-{{- include "common.images.image" ( dict "imageRoot" .Values.koko.image "global" .Values.global ) -}}
+{{- include "jumpserver.common.image" ( dict "imageRoot" .Values.koko.image "global" .Values.global ) -}}
 {{- end -}}
 
 {{/*
 Return the proper JumpServer web image name
 */}}
 {{- define "jumpserver.webImage" -}}
-{{- include "common.images.image" ( dict "imageRoot" .Values.web.image "global" .Values.global ) -}}
+{{- include "jumpserver.common.image" ( dict "imageRoot" .Values.web.image "global" .Values.global ) -}}
 {{- end -}}
 
 {{/*
 Return the proper JumpServer lion image name
 */}}
 {{- define "jumpserver.lionImage" -}}
-{{- include "common.images.image" ( dict "imageRoot" .Values.lion.image "global" .Values.global ) -}}
+{{- include "jumpserver.common.image" ( dict "imageRoot" .Values.lion.image "global" .Values.global ) -}}
 {{- end -}}
 
 {{/*
 Return the proper JumpServer magnus image name
 */}}
 {{- define "jumpserver.magnusImage" -}}
-{{- include "common.images.image" ( dict "imageRoot" .Values.magnus.image "global" .Values.global ) -}}
+{{- include "jumpserver.common.image" ( dict "imageRoot" .Values.magnus.image "global" .Values.global ) -}}
 {{- end -}}
 
 {{/*
 Return the proper JumpServer razor image name
 */}}
 {{- define "jumpserver.razorImage" -}}
-{{- include "common.images.image" ( dict "imageRoot" .Values.razor.image "global" .Values.global ) -}}
+{{- include "jumpserver.common.image" ( dict "imageRoot" .Values.razor.image "global" .Values.global ) -}}
 {{- end -}}
 
 {{/*
 Return the proper JumpServer omnidb image name
 */}}
 {{- define "jumpserver.omnidbImage" -}}
-{{- include "common.images.image" ( dict "imageRoot" .Values.omnidb.image "global" .Values.global ) -}}
+{{- include "jumpserver.common.image" ( dict "imageRoot" .Values.omnidb.image "global" .Values.global ) -}}
 {{- end -}}
 
 {{/*
