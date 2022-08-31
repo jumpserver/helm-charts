@@ -21,6 +21,10 @@ spec:
       targetPort: mariadb
       protocol: TCP
       name: mariadb
+    - port: {{ .service.redis.port }}
+      targetPort: redis
+      protocol: TCP
+      name: redis
     {{- if $.Values.xpack.enabled }}
     - port: {{ .service.postgre.port }}
       targetPort: postgre

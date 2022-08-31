@@ -390,6 +390,8 @@ magnus:
       port: 33060
     mariadb:
       port: 33061
+    redis:
+      port: 63790
     postgre:
       port: 54320
     oracle11g:
