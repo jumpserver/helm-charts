@@ -59,6 +59,9 @@ spec:
             - name: mariadb
               containerPort: {{ .service.mariadb.port }}
               protocol: TCP
+            - name: redis
+              containerPort: {{ .service.redis.port }}
+              protocol: TCP
             {{- if $.Values.xpack.enabled }}
             - name: postgre
               containerPort: {{ .service.postgre.port }}

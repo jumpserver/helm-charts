@@ -12,7 +12,7 @@ fullnameOverride: ""
 ##
 global:
   imageRegistry: "docker.io"
-  imageTag: v2.25.3
+  imageTag: v2.25.4
   ## E.g.
   #  imagePullSecrets:
   #  - myRegistryKeySecretName
@@ -85,7 +85,7 @@ core:
   image:
     registry: docker.io
     repository: jumpserver/core
-    tag: v2.25.3
+    tag: v2.25.4
     pullPolicy: IfNotPresent
 
   command: []
@@ -174,7 +174,7 @@ koko:
   image:
     registry: docker.io
     repository: jumpserver/koko
-    tag: v2.25.3
+    tag: v2.25.4
     pullPolicy: IfNotPresent
 
   command: []
@@ -265,7 +265,7 @@ lion:
   image:
     registry: docker.io
     repository: jumpserver/lion
-    tag: v2.25.3
+    tag: v2.25.4
     pullPolicy: IfNotPresent
 
   command: []
@@ -356,7 +356,7 @@ magnus:
   image:
     registry: docker.io
     repository: jumpserver/magnus
-    tag: v2.25.3
+    tag: v2.25.4
     pullPolicy: IfNotPresent
 
   command: []
@@ -390,6 +390,8 @@ magnus:
       port: 33060
     mariadb:
       port: 33061
+    redis:
+      port: 63790
     postgre:
       port: 54320
     oracle11g:
@@ -446,7 +448,7 @@ omnidb:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/omnidb
-    tag: v2.25.3
+    tag: v2.25.4
     pullPolicy: IfNotPresent
 
   command: []
@@ -525,7 +527,7 @@ razor:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/razor
-    tag: v2.25.3
+    tag: v2.25.4
     pullPolicy: IfNotPresent
 
   command: []
@@ -602,7 +604,7 @@ web:
   image:
     registry: docker.io
     repository: jumpserver/web
-    tag: v2.25.3
+    tag: v2.25.4
     pullPolicy: IfNotPresent
 
   command: []
