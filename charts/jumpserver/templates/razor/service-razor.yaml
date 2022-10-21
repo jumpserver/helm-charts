@@ -15,6 +15,9 @@ spec:
   ports:
     - port: {{ .service.rdp.port }}
       targetPort: rdp
+      {{- if eq .service.type "NodePort" }}
+      nodePort: {{ .service.rdp.port }}
+      {{- end }}
       protocol: TCP
       name: rdp
   sessionAffinity: ClientIP
