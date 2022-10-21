@@ -1,6 +1,8 @@
 {{- if .Values.magnus.enabled }}
 {{- with .Values.magnus }}
 {{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-magnus" }}
+{{- $magnusPortStart := printf "%s" (include "jumpserver.magnus.port.start" $) | int }}
+{{- $magnusPortEnd := printf "%s" (include "jumpserver.magnus.port.end" $) | int}}
 apiVersion: v1
 kind: Service
 metadata:
@@ -13,31 +15,11 @@ metadata:
 spec:
   type: {{ .service.type }}
   ports:
-    - port: {{ .service.mysql.port }}
-      targetPort: mysql
+    {{- range $port := untilStep $magnusPortStart $magnusPortEnd 1 }}
+    - port: {{ $port }}
+      targetPort: magnus-{{ $port }}
       protocol: TCP
-      name: mysql
-    - port: {{ .service.mariadb.port }}
-      targetPort: mariadb
-      protocol: TCP
-      name: mariadb
-    - port: {{ .service.redis.port }}
-      targetPort: redis
-      protocol: TCP
-      name: redis
-    {{- if $.Values.xpack.enabled }}
-    - port: {{ .service.postgre.port }}
-      targetPort: postgre
-      protocol: TCP
-      name: postgre
-    - port: {{ .service.oracle11g.port }}
-      targetPort: oracle11g
-      protocol: TCP
-      name: oracle11g
-    - port: {{ .service.oracle12c.port }}
-      targetPort: oracle12c
-      protocol: TCP
-      name: oracle12c
+      name: magnus-{{ $port }}
     {{- end }}
   sessionAffinity: ClientIP
   sessionAffinityConfig:

@@ -3,6 +3,8 @@
 {{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-magnus" }}
 {{- $containerName := "jms-magnus" }}
 {{- $image := printf "%s" (include "jumpserver.magnusImage" $) }}
+{{- $magnusPortStart := printf "%s" (include "jumpserver.magnus.port.start" $) | int }}
+{{- $magnusPortEnd := printf "%s" (include "jumpserver.magnus.port.end" $) | int }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -53,30 +55,27 @@ spec:
               value: {{ $val | quote }}
             {{- end }}
           ports:
-            - name: mysql
-              containerPort: {{ .service.mysql.port }}
-              protocol: TCP
-            - name: mariadb
-              containerPort: {{ .service.mariadb.port }}
-              protocol: TCP
-            - name: redis
-              containerPort: {{ .service.redis.port }}
-              protocol: TCP
-            {{- if $.Values.xpack.enabled }}
-            - name: postgre
-              containerPort: {{ .service.postgre.port }}
-              protocol: TCP
-            - name: oracle11g
-              containerPort: {{ .service.oracle11g.port }}
-              protocol: TCP
-            - name: oracle12c
-              containerPort: {{ .service.oracle12c.port }}
+            {{- range $port := untilStep $magnusPortStart $magnusPortEnd 1 }}
+            - name: magnus-{{ $port }}
+              containerPort: {{ $port }}
               protocol: TCP
             {{- end }}
           livenessProbe:
-            {{- toYaml .livenessProbe | nindent 12}}
+            {{- if .livenessProbe }}
+            {{- toYaml .livenessProbe | nindent 12 }}
+            {{- else }}
+            failureThreshold: 30
+            tcpSocket:
+              port: magnus-{{ template "jumpserver.magnus.port.start" }}
+            {{- end }}
           readinessProbe:
-            {{- toYaml .readinessProbe | nindent 12}}
+            {{- if .readinessProbe }}
+            {{- toYaml .readinessProbe | nindent 12 }}
+            {{- else }}
+            failureThreshold: 30
+            tcpSocket:
+              port: magnus-{{ template "jumpserver.magnus.port.start" }}
+            {{- end }}
           resources:
             {{- toYaml .resources | nindent 12 }}
           volumeMounts:

@@ -56,7 +56,7 @@ Create the name of the service account to use
 {{- end -}}
 
 {{/*
-Define JumpServer database
+Define JumpServer database.
 */}}
 
 {{- define "jumpserver.mysql.fullname" -}}
@@ -89,7 +89,7 @@ Define JumpServer database
 {{- end -}}
 
 {{/*
-Define JumpServer redis
+Define JumpServer redis.
 */}}
 
 {{- define "jumpserver.redis.fullname" -}}
@@ -110,7 +110,7 @@ Define JumpServer redis
 {{- end -}}
 
 {{/*
-Define JumpServer StorageClass
+Define JumpServer StorageClass.
 */}}
 
 {{- define "jumpserver.core.storageClass" -}}
@@ -165,6 +165,30 @@ Define JumpServer StorageClass
 {{- if .Values.global.storageClass }}
 {{- .Values.global.storageClass }}
 {{- else -}}
-{{- .Values.razor.persistence.storageClassName -}}
+{{- .Values.web.persistence.storageClassName -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Define JumpServer magnus ports.
+*/}}
+
+{{- define "jumpserver.magnus.ports" -}}
+{{- default "30000-30100" .Values.magnus.service.ports -}}
+{{- end -}}
+
+{{- define "jumpserver.magnus.port.start" -}}
+{{- if .Values.magnus.service.ports }}
+{{- .Values.magnus.service.ports | splitList "-" | first }}
+{{- else -}}
+{{- default 30000 -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.magnus.port.end" -}}
+{{- if .Values.magnus.service.ports }}
+{{- add (.Values.magnus.service.ports | splitList "-" | last) 1 }}
+{{- else -}}
+{{- default 30101 -}}
 {{- end -}}
 {{- end -}}
