@@ -12,7 +12,7 @@ fullnameOverride: ""
 ##
 global:
   imageRegistry: "docker.io"
-  imageTag: v2.26.1
+  imageTag: v2.27.0
   ## E.g.
   #  imagePullSecrets:
   #  - myRegistryKeySecretName
@@ -85,7 +85,7 @@ core:
   image:
     registry: docker.io
     repository: jumpserver/core
-    tag: v2.26.1
+    tag: v2.27.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -174,7 +174,7 @@ koko:
   image:
     registry: docker.io
     repository: jumpserver/koko
-    tag: v2.26.1
+    tag: v2.27.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -265,7 +265,7 @@ lion:
   image:
     registry: docker.io
     repository: jumpserver/lion
-    tag: v2.26.1
+    tag: v2.27.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -356,22 +356,22 @@ magnus:
   image:
     registry: docker.io
     repository: jumpserver/magnus
-    tag: v2.26.1
+    tag: v2.27.0
     pullPolicy: IfNotPresent
 
   command: []
 
   env: []
 
-  livenessProbe:
-    failureThreshold: 30
-    tcpSocket:
-      port: mysql
+  livenessProbe: {}
+    # failureThreshold: 30
+    # tcpSocket:
+      # port: 30000
 
-  readinessProbe:
-    failureThreshold: 30
-    tcpSocket:
-      port: mysql
+  readinessProbe: {}
+    # failureThreshold: 30
+    # tcpSocket:
+      # port: 30000
 
   podSecurityContext: {}
     # fsGroup: 2000
@@ -386,18 +386,7 @@ magnus:
 
   service:
     type: ClusterIP
-    mysql:
-      port: 33060
-    mariadb:
-      port: 33061
-    redis:
-      port: 63790
-    postgre:
-      port: 54320
-    oracle11g:
-      port: 15211
-    oracle12c:
-      port: 15212
+    ports: 30000-30100
 
   resources: {}
     # We usually recommend not to specify default resources and to leave this as a conscious
@@ -448,7 +437,7 @@ omnidb:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/omnidb
-    tag: v2.26.1
+    tag: v2.27.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -527,7 +516,7 @@ razor:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/razor
-    tag: v2.26.1
+    tag: v2.27.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -604,7 +593,7 @@ web:
   image:
     registry: docker.io
     repository: jumpserver/web
-    tag: v2.26.1
+    tag: v2.27.0
     pullPolicy: IfNotPresent
 
   command: []

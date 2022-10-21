@@ -30,7 +30,7 @@ helm repo add jumpserver https://jumpserver.github.io/helm-charts
 | `nameOveride`             | name override      | `nil`       |
 | `fullNameOveride`         | full name override | `nil`       |
 | `global.imageRegistry`    | 仓库地址           | `docker.io` |
-| `global.imageTag`         | 版本号             | `v2.26.1  ` |
+| `global.imageTag`         | 版本号             | `v2.27.0  ` |
 | `global.imagePullSecrets` | 私有仓库认证凭据    | `nil`       |
 | `global.storageClass`     | 存储 sc            | `nil`       |
 | `ingress.enabled`         | 开启 ingress       | `true`      |
@@ -45,6 +45,7 @@ helm repo add jumpserver https://jumpserver.github.io/helm-charts
 
 | 参数                           | 描述                                          | 默认值                 |
 | ------------------------------ | ---------------------------------------------| ---------------------- |
+| `global.storageClass`          | 持久化存储                                    | `nil`                  |
 | `core.config.secretKey`        | 加密秘钥 生产环境中请修改为随机字符串，请勿外泄  | `nil`                  |
 | `core.config.bootstrapToken`   | 预共享 Token 组件注册需要使用                  | `nil`                  |
 | `externalDatabase.engine`      | 数据库引擎                                    | `mysql`                |
@@ -83,7 +84,7 @@ helm install jumpserver ./ \
 helm install jms-k8s jumpserver/jumpserver -n default \
 --set core.config.secretKey=GxrLH7rewfsRN8B9Zl6MEGD50Uou4LF6UVsEIayGMhYll8dqmn \
 --set core.config.bootstrapToken=ilR8RvAbK7lgRTxs \
---set global.storageClass=nfs \
+--set global.storageClass=jms-data \
 --set externalDatabase.engine=mysql \
 --set externalDatabase.host=jms-mysql \
 --set externalDatabase.port=3306 \

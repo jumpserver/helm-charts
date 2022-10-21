@@ -3,6 +3,7 @@
 {{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-celery" }}
 {{- $containerName := "jms-celery" }}
 {{- $image := printf "%s" (include "jumpserver.coreImage" $) }}
+{{- $magnusPorts := printf "%s" (include "jumpserver.magnus.ports" $) }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -72,6 +73,8 @@ spec:
               value: {{ include "jumpserver.redis.port" $ | quote }}
             - name: REDIS_PASSWORD
               value: {{ include "jumpserver.redis.password" $ | quote }}
+            - name: MAGNUS_PORTS
+              value: {{ $magnusPorts | quote }}
             {{- range $key, $val := .env }}
             - name: {{ $key }}
               value: {{ $val | quote }}
