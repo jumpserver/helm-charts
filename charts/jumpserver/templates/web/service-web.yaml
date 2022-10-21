@@ -15,6 +15,9 @@ spec:
   ports:
     - port: {{ .service.web.port }}
       targetPort: web
+      {{- if eq .service.type "NodePort" }}
+      nodePort: {{ .service.web.port }}
+      {{- end }}
       protocol: TCP
       name: web
   sessionAffinity: ClientIP

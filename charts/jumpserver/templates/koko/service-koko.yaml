@@ -19,6 +19,9 @@ spec:
       name: web
     - port: {{ .service.ssh.port }}
       targetPort: ssh
+      {{- if eq .service.type "NodePort" }}
+      nodePort: {{ .service.ssh.port }}
+      {{- end }}
       protocol: TCP
       name: ssh
   sessionAffinity: ClientIP

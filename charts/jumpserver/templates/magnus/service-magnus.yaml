@@ -17,6 +17,9 @@ spec:
   ports:
     {{- range $port := untilStep $magnusPortStart $magnusPortEnd 1 }}
     - port: {{ $port }}
+      {{- if eq $.Values.magnus.service.type "NodePort" }}
+      nodePort: {{ $port }}
+      {{- end }}
       targetPort: magnus-{{ $port }}
       protocol: TCP
       name: magnus-{{ $port }}
