@@ -66,7 +66,7 @@ spec:
             {{- else }}
             failureThreshold: 30
             tcpSocket:
-              port: magnus-{{ template "jumpserver.magnus.port.start" }}
+              port: magnus-{{ $magnusPortStart }}
             {{- end }}
           readinessProbe:
             {{- if .readinessProbe }}
@@ -74,7 +74,7 @@ spec:
             {{- else }}
             failureThreshold: 30
             tcpSocket:
-              port: magnus-{{ template "jumpserver.magnus.port.start" }}
+              port: magnus-{{ $magnusPortStart }}
             {{- end }}
           resources:
             {{- toYaml .resources | nindent 12 }}
