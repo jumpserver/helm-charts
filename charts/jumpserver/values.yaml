@@ -363,12 +363,12 @@ magnus:
 
   env: []
 
-  livenessProbe: {}
+  livenessProbe:
     failureThreshold: 30
     tcpSocket:
       port: 9090
 
-  readinessProbe: {}
+  readinessProbe:
     failureThreshold: 30
     tcpSocket:
       port: 9090
