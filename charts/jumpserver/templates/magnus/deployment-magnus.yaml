@@ -61,21 +61,9 @@ spec:
               protocol: TCP
             {{- end }}
           livenessProbe:
-            {{- if .livenessProbe }}
             {{- toYaml .livenessProbe | nindent 12 }}
-            {{- else }}
-            failureThreshold: 30
-            tcpSocket:
-              port: magnus-{{ $magnusPortStart }}
-            {{- end }}
           readinessProbe:
-            {{- if .readinessProbe }}
             {{- toYaml .readinessProbe | nindent 12 }}
-            {{- else }}
-            failureThreshold: 30
-            tcpSocket:
-              port: magnus-{{ $magnusPortStart }}
-            {{- end }}
           resources:
             {{- toYaml .resources | nindent 12 }}
           volumeMounts:

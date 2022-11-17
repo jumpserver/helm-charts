@@ -12,7 +12,7 @@ fullnameOverride: ""
 ##
 global:
   imageRegistry: "docker.io"
-  imageTag: v2.27.0
+  imageTag: v2.28.0
   ## E.g.
   #  imagePullSecrets:
   #  - myRegistryKeySecretName
@@ -85,7 +85,7 @@ core:
   image:
     registry: docker.io
     repository: jumpserver/core
-    tag: v2.27.0
+    tag: v2.28.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -174,7 +174,7 @@ koko:
   image:
     registry: docker.io
     repository: jumpserver/koko
-    tag: v2.27.0
+    tag: v2.28.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -265,7 +265,7 @@ lion:
   image:
     registry: docker.io
     repository: jumpserver/lion
-    tag: v2.27.0
+    tag: v2.28.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -356,7 +356,7 @@ magnus:
   image:
     registry: docker.io
     repository: jumpserver/magnus
-    tag: v2.27.0
+    tag: v2.28.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -364,14 +364,14 @@ magnus:
   env: []
 
   livenessProbe: {}
-    # failureThreshold: 30
-    # tcpSocket:
-      # port: 30000
+    failureThreshold: 30
+    tcpSocket:
+      port: 9090
 
   readinessProbe: {}
-    # failureThreshold: 30
-    # tcpSocket:
-      # port: 30000
+    failureThreshold: 30
+    tcpSocket:
+      port: 9090
 
   podSecurityContext: {}
     # fsGroup: 2000
@@ -437,7 +437,7 @@ omnidb:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/omnidb
-    tag: v2.27.0
+    tag: v2.28.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -516,7 +516,7 @@ razor:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/razor
-    tag: v2.27.0
+    tag: v2.28.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -593,7 +593,7 @@ web:
   image:
     registry: docker.io
     repository: jumpserver/web
-    tag: v2.27.0
+    tag: v2.28.0
     pullPolicy: IfNotPresent
 
   command: []
