@@ -57,7 +57,7 @@ spec:
           resources:
             {{- toYaml .resources | nindent 12 }}
           volumeMounts:
-            - mountPath: "/etc/nginx/sites-enabled/jumpserver.conf"
+            - mountPath: "/etc/nginx/conf.d/default.conf"
               name: "jms-web-config"
               subPath: "default.conf"
             - mountPath: "/opt/jumpserver/data"
