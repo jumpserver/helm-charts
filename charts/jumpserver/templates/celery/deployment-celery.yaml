@@ -3,7 +3,11 @@
 {{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-celery" }}
 {{- $containerName := "jms-celery" }}
 {{- $image := printf "%s" (include "jumpserver.coreImage" $) }}
-{{- $magnusPorts := printf "%s" (include "jumpserver.magnus.ports" $) }}
+{{- $mysqlPort := printf "%s" (include "jumpserver.magnus.mysql.port" $) }}
+{{- $mariadbPort := printf "%s" (include "jumpserver.magnus.mariadb.port" $) }}
+{{- $redisPort := printf "%s" (include "jumpserver.magnus.redis.port" $) }}
+{{- $postgresqlPort := printf "%s" (include "jumpserver.magnus.postgresql.port" $) }}
+{{- $oraclePorts := printf "%s" (include "jumpserver.magnus.oracle.ports" $) }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -73,8 +77,16 @@ spec:
               value: {{ include "jumpserver.redis.port" $ | quote }}
             - name: REDIS_PASSWORD
               value: {{ include "jumpserver.redis.password" $ | quote }}
-            - name: MAGNUS_PORTS
-              value: {{ $magnusPorts | quote }}
+            - name: MAGNUS_MYSQL_PORT
+              value: {{ $mysqlPort | quote }}
+            - name: MAGNUS_MARIADB_PORT
+              value: {{ $mariadbPort | quote }}
+            - name: MAGNUS_REDIS_PORT
+              value: {{ $redisPort | quote }}
+            - name: MAGNUS_POSTGRESQL_PORT
+              value: {{ $postgresqlPort | quote }}
+            - name: MAGNUS_ORACLE_PORTS
+              value: {{ $oraclePorts | quote }}
             {{- range $key, $val := .env }}
             - name: {{ $key }}
               value: {{ $val | quote }}
