@@ -143,7 +143,8 @@ core:
     accessModes:
       - ReadWriteMany
     size: 100Gi
-    # annotations: {}
+    annotations:
+      "helm.sh/resource-policy": keep
     finalizers:
       - kubernetes.io/pvc-protection
     # subPath: ""
@@ -234,7 +235,8 @@ koko:
     accessModes:
       - ReadWriteMany
     size: 10Gi
-    # annotations: {}
+    annotations:
+      "helm.sh/resource-policy": keep
     finalizers:
       - kubernetes.io/pvc-protection
     # subPath: ""
@@ -325,7 +327,8 @@ lion:
     accessModes:
       - ReadWriteMany
     size: 50Gi
-    # annotations: {}
+    annotations:
+      "helm.sh/resource-policy": keep
     finalizers:
       - kubernetes.io/pvc-protection
     # subPath: ""
@@ -405,7 +408,8 @@ magnus:
     accessModes:
       - ReadWriteMany
     size: 10Gi
-    # annotations: {}
+    annotations:
+      "helm.sh/resource-policy": keep
     finalizers:
       - kubernetes.io/pvc-protection
     # subPath: ""
@@ -487,7 +491,8 @@ omnidb:
     accessModes:
       - ReadWriteMany
     size: 10Gi
-    # annotations: {}
+    annotations:
+      "helm.sh/resource-policy": keep
     finalizers:
       - kubernetes.io/pvc-protection
     # subPath: ""
@@ -566,7 +571,8 @@ razor:
     accessModes:
       - ReadWriteMany
     size: 50Gi
-    # annotations: {}
+    annotations:
+      "helm.sh/resource-policy": keep
     finalizers:
       - kubernetes.io/pvc-protection
     # subPath: ""
@@ -647,7 +653,8 @@ web:
     accessModes:
       - ReadWriteMany
     size: 1Gi
-    # annotations: {}
+    annotations:
+      "helm.sh/resource-policy": keep
     finalizers:
       - kubernetes.io/pvc-protection
     # subPath: ""
