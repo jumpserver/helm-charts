@@ -3,8 +3,13 @@
 {{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-magnus" }}
 {{- $containerName := "jms-magnus" }}
 {{- $image := printf "%s" (include "jumpserver.magnusImage" $) }}
-{{- $magnusPortStart := printf "%s" (include "jumpserver.magnus.port.start" $) | int }}
-{{- $magnusPortEnd := printf "%s" (include "jumpserver.magnus.port.end" $) | int }}
+{{- $mysqlPort := printf "%s" (include "jumpserver.magnus.mysql.port" $) }}
+{{- $mariadbPort := printf "%s" (include "jumpserver.magnus.mariadb.port" $) }}
+{{- $redisPort := printf "%s" (include "jumpserver.magnus.redis.port" $) }}
+{{- $postgresqlPort := printf "%s" (include "jumpserver.magnus.postgresql.port" $) }}
+{{- $oraclePorts := printf "%s" (include "jumpserver.magnus.oracle.ports" $) }}
+{{- $oraclePortStart := printf "%s" (include "jumpserver.magnus.oracle.port.start" $) | int }}
+{{- $oraclePortEnd := printf "%s" (include "jumpserver.magnus.oracle.port.end" $) | int }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -50,13 +55,35 @@ spec:
               value: {{ $.Values.core.config.bootstrapToken | quote }}
             - name: LOG_LEVEL
               value: {{ .config.log.level | quote }}
+            - name: MAGNUS_MYSQL_PORT
+              value: {{ $mysqlPort | quote }}
+            - name: MAGNUS_MARIADB_PORT
+              value: {{ $mariadbPort | quote }}
+            - name: MAGNUS_REDIS_PORT
+              value: {{ $redisPort | quote }}
+            - name: MAGNUS_POSTGRESQL_PORT
+              value: {{ $postgresqlPort | quote }}
+            - name: MAGNUS_ORACLE_PORTS
+              value: {{ $oraclePorts | quote }}
             {{- range $key, $val := .env }}
             - name: {{ $key }}
               value: {{ $val | quote }}
             {{- end }}
           ports:
-            {{- range $port := untilStep $magnusPortStart $magnusPortEnd 1 }}
-            - name: magnus-{{ $port }}
+            - name: mysql
+              containerPort: {{ $mysqlPort }}
+              protocol: TCP
+            - name: mariadb
+              containerPort: {{ $mariadbPort }}
+              protocol: TCP
+            - name: redis
+              containerPort: {{ $redisPort }}
+              protocol: TCP
+            - name: postgresql
+              containerPort: {{ $postgresqlPort }}
+              protocol: TCP
+            {{- range $port := untilStep $oraclePortStart $oraclePortEnd 1 }}
+            - name: oracle-{{ $port }}
               containerPort: {{ $port }}
               protocol: TCP
             {{- end }}

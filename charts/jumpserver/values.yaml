@@ -12,7 +12,7 @@ fullnameOverride: ""
 ##
 global:
   imageRegistry: "docker.io"
-  imageTag: v2.28.7
+  imageTag: v3.0.0
   ## E.g.
   #  imagePullSecrets:
   #  - myRegistryKeySecretName
@@ -85,7 +85,7 @@ core:
   image:
     registry: docker.io
     repository: jumpserver/core
-    tag: v2.28.7
+    tag: v3.0.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -174,7 +174,7 @@ koko:
   image:
     registry: docker.io
     repository: jumpserver/koko
-    tag: v2.28.7
+    tag: v3.0.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -265,7 +265,7 @@ lion:
   image:
     registry: docker.io
     repository: jumpserver/lion
-    tag: v2.28.7
+    tag: v3.0.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -356,7 +356,7 @@ magnus:
   image:
     registry: docker.io
     repository: jumpserver/magnus
-    tag: v2.28.7
+    tag: v3.0.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -386,7 +386,16 @@ magnus:
 
   service:
     type: ClusterIP
-    ports: 30000-30100
+    mysql:
+      port: 33061
+    mariadb:
+      port: 33062
+    redis:
+      port: 63790
+    postgresql:
+      port: 54320
+    oracle:
+      ports: 30000-30100
 
   resources: {}
     # We usually recommend not to specify default resources and to leave this as a conscious
@@ -437,7 +446,7 @@ omnidb:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/omnidb
-    tag: v2.28.7
+    tag: v3.0.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -516,7 +525,7 @@ razor:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/razor
-    tag: v2.28.7
+    tag: v3.0.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -593,7 +602,7 @@ web:
   image:
     registry: docker.io
     repository: jumpserver/web
-    tag: v2.28.7
+    tag: v3.0.0
     pullPolicy: IfNotPresent
 
   command: []

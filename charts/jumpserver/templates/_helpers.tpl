@@ -173,21 +173,37 @@ Define JumpServer StorageClass.
 Define JumpServer magnus ports.
 */}}
 
-{{- define "jumpserver.magnus.ports" -}}
+{{- define "jumpserver.magnus.mysql.port" -}}
+{{- default 33061 .Values.magnus.service.mysql.port -}}
+{{- end -}}
+
+{{- define "jumpserver.magnus.mariadb.port" -}}
+{{- default 33062 .Values.magnus.service.mariadb.port -}}
+{{- end -}}
+
+{{- define "jumpserver.magnus.redis.port" -}}
+{{- default 63790 .Values.magnus.service.redis.port -}}
+{{- end -}}
+
+{{- define "jumpserver.magnus.postgresql.port" -}}
+{{- default 54320 .Values.magnus.service.postgresql.port -}}
+{{- end -}}
+
+{{- define "jumpserver.magnus.oracle.ports" -}}
 {{- default "30000-30100" .Values.magnus.service.ports -}}
 {{- end -}}
 
-{{- define "jumpserver.magnus.port.start" -}}
-{{- if .Values.magnus.service.ports }}
-{{- .Values.magnus.service.ports | splitList "-" | first }}
+{{- define "jumpserver.magnus.oracle.port.start" -}}
+{{- if .Values.magnus.service.oracle.ports }}
+{{- .Values.magnus.service.oracle.ports | splitList "-" | first }}
 {{- else -}}
 {{- default 30000 -}}
 {{- end -}}
 {{- end -}}
 
-{{- define "jumpserver.magnus.port.end" -}}
-{{- if .Values.magnus.service.ports }}
-{{- add (.Values.magnus.service.ports | splitList "-" | last) 1 }}
+{{- define "jumpserver.magnus.oracle.port.end" -}}
+{{- if .Values.magnus.service.oracle.ports }}
+{{- add (.Values.magnus.service.oracle.ports | splitList "-" | last) 1 }}
 {{- else -}}
 {{- default 30101 -}}
 {{- end -}}
