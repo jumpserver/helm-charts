@@ -1,4 +1,4 @@
-{{- if .Values.web.enabled }}
+{{- if and .Values.web.enabled (not .Values.web.persistence.existingClaim)}}
 {{- with .Values.web }}
 {{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-web-logs" }}
 apiVersion: v1

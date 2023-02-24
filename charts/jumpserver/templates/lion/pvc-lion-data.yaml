@@ -1,4 +1,4 @@
-{{- if .Values.lion.enabled }}
+{{- if and .Values.lion.enabled (not .Values.lion.persistence.existingClaim)}}
 {{- with .Values.lion }}
 {{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-lion-data" }}
 apiVersion: v1
