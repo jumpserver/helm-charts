@@ -58,8 +58,6 @@ spec:
               value: {{ .config.log.level | quote }}
             - name: HTTP_LISTEN_PORT
               value: {{ .service.web.port | quote }}
-            - name: WS_LISTEN_PORT
-              value: {{ .service.ws.port | quote }}
             - name: DB_ENGINE
               value: {{ include "jumpserver.database.engine" $ | quote }}
             - name: DB_HOST
@@ -95,9 +93,6 @@ spec:
           ports:
             - name: web
               containerPort: {{ .service.web.port }}
-              protocol: TCP
-            - name: ws
-              containerPort: {{ .service.ws.port }}
               protocol: TCP
           livenessProbe:
             {{- toYaml .livenessProbe | nindent 12 }}
