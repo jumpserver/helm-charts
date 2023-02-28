@@ -123,8 +123,6 @@ core:
     type: ClusterIP
     web:
       port: 8080
-    ws:
-      port: 8070
 
   resources: {}
     # We usually recommend not to specify default resources and to leave this as a conscious

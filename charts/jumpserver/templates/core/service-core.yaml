@@ -17,10 +17,6 @@ spec:
       targetPort: web
       protocol: TCP
       name: web
-    - port: {{ .service.ws.port }}
-      targetPort: ws
-      protocol: TCP
-      name: ws
   sessionAffinity: ClientIP
   sessionAffinityConfig:
     clientIP:
