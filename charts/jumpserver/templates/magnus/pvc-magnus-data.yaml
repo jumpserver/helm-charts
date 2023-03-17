@@ -1,4 +1,4 @@
-{{- if .Values.magnus.enabled }}
+{{- if and .Values.magnus.enabled (not .Values.magnus.persistence.existingClaim)}}
 {{- with .Values.magnus }}
 {{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-magnus-data" }}
 apiVersion: v1

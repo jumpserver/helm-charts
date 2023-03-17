@@ -1,4 +1,4 @@
-{{- if .Values.xpack.enabled }}
+{{- if and .Values.xpack.enabled (not .Values.omnidb.persistence.existingClaim)}}
 {{- with .Values.omnidb }}
 {{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-omnidb-data" }}
 apiVersion: v1

@@ -1,4 +1,4 @@
-{{- if .Values.core.enabled }}
+{{- if and .Values.core.enabled (not .Values.core.persistence.existingClaim)}}
 {{- with .Values.core }}
 {{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-core-data" }}
 apiVersion: v1

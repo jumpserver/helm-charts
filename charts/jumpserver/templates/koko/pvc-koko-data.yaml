@@ -1,4 +1,4 @@
-{{- if .Values.koko.enabled }}
+{{- if and .Values.koko.enabled (not .Values.koko.persistence.existingClaim)}}
 {{- with .Values.koko }}
 {{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-koko-data" }}
 apiVersion: v1
