@@ -1,3 +1,4 @@
 **/values-debug.yaml
 .idea/
+.history/
 deploy.sh
