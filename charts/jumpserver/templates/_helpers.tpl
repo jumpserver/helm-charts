@@ -190,7 +190,7 @@ Define JumpServer magnus ports.
 {{- end -}}
 
 {{- define "jumpserver.magnus.oracle.ports" -}}
-{{- default "30000-30100" .Values.magnus.service.ports -}}
+{{- default "30000-30100" .Values.magnus.service.oracle.ports -}}
 {{- end -}}
 
 {{- define "jumpserver.magnus.oracle.port.start" -}}
