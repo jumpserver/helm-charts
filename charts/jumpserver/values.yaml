@@ -12,7 +12,7 @@ fullnameOverride: ""
 ##
 global:
   imageRegistry: "ghcr.io"
-  imageTag: v3.2.0
+  imageTag: v3.2.1
   ## E.g.
   #  imagePullSecrets:
   #  - myRegistryKeySecretName
@@ -85,7 +85,7 @@ core:
   image:
     registry: docker.io
     repository: jumpserver/core
-    tag: v3.2.0
+    tag: v3.2.1
     pullPolicy: IfNotPresent
 
   command: []
@@ -173,7 +173,7 @@ koko:
   image:
     registry: docker.io
     repository: jumpserver/koko
-    tag: v3.2.0
+    tag: v3.2.1
     pullPolicy: IfNotPresent
 
   command: []
@@ -265,7 +265,7 @@ lion:
   image:
     registry: docker.io
     repository: jumpserver/lion
-    tag: v3.2.0
+    tag: v3.2.1
     pullPolicy: IfNotPresent
 
   command: []
@@ -357,7 +357,7 @@ magnus:
   image:
     registry: docker.io
     repository: jumpserver/magnus
-    tag: v3.2.0
+    tag: v3.2.1
     pullPolicy: IfNotPresent
 
   command: []
@@ -448,7 +448,7 @@ omnidb:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/omnidb
-    tag: v3.2.0
+    tag: v3.2.1
     pullPolicy: IfNotPresent
 
   command: []
@@ -528,7 +528,7 @@ razor:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/razor
-    tag: v3.2.0
+    tag: v3.2.1
     pullPolicy: IfNotPresent
 
   command: []
@@ -606,7 +606,7 @@ web:
   image:
     registry: docker.io
     repository: jumpserver/web
-    tag: v3.2.0
+    tag: v3.2.1
     pullPolicy: IfNotPresent
 
   command: []
