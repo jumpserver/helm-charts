@@ -1,6 +1,6 @@
-{{- if and .Values.xpack.enabled (not .Values.omnidb.persistence.existingClaim)}}
-{{- with .Values.omnidb }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-omnidb-data" }}
+{{- if and .Values.xpack.enabled (not .Values.video.persistence.existingClaim)}}
+{{- with .Values.video }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-video-data" }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -25,5 +25,5 @@ spec:
     requests:
       storage: {{ .persistence.size | quote }}
       {{- end }}
-  storageClassName: {{ include "jumpserver.omnidb.storageClass" . }}
+  storageClassName: {{ include "jumpserver.lion.storageClass" . }}
 {{- end }}

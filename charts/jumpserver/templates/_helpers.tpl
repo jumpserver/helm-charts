@@ -161,6 +161,14 @@ Define JumpServer StorageClass.
 {{- end -}}
 {{- end -}}
 
+{{- define "jumpserver.video.storageClass" -}}
+{{- if .Values.global.storageClass }}
+{{- .Values.global.storageClass }}
+{{- else -}}
+{{- .Values.video.persistence.storageClassName -}}
+{{- end -}}
+{{- end -}}
+
 {{- define "jumpserver.web.storageClass" -}}
 {{- if .Values.global.storageClass }}
 {{- .Values.global.storageClass }}

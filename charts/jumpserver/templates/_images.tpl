@@ -72,6 +72,13 @@ Return the proper JumpServer omnidb image name
 {{- end -}}
 
 {{/*
+Return the proper JumpServer video image name
+*/}}
+{{- define "jumpserver.videoImage" -}}
+{{- include "common.images.image" ( dict "imageRoot" .Values.video.image "global" .Values.global ) -}}
+{{- end -}}
+
+{{/*
 Return the proper Docker Image Registry Secret Names (deprecated: use common.images.renderPullSecrets instead)
 {{ include "common.images.pullSecrets" ( dict "images" (list .Values.path.to.the.image1, .Values.path.to.the.image2) "global" .Values.global) }}
 */}}
