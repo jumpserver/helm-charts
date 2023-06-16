@@ -52,7 +52,7 @@ ingress:
     # kubernetes.io/tls-acme: "true"
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/proxy-body-size: "4096m"
-    nginx.ingress.kubernetes.io/configuration-snippet: |
+    nginx.ingress.kubernetes.io/server-snippets: |
       proxy_set_header Upgrade "websocket";
       proxy_set_header Connection "Upgrade";
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
