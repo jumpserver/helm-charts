@@ -38,9 +38,15 @@ spec:
             - cd /opt/jumpserver && ./jms upgrade_db
           env:
             - name: SECRET_KEY
-              value: {{ required "A valid secretKey is required!" .config.secretKey | quote }}
+              valueFrom:
+                 secretKeyRef:
+                   name: {{ include "jumpserver.fullname" $ }}-core
+                   key: "secret-key"
             - name: BOOTSTRAP_TOKEN
-              value: {{ required "A valid bootstrapToken is required!" .config.bootstrapToken | quote }}
+              valueFrom:
+                 secretKeyRef:
+                   name: {{ include "jumpserver.fullname" $ }}-core
+                   key: "bootstrap-token"
             - name: DB_ENGINE
               value: "{{ include "jumpserver.database.engine" $ }}"
             - name: DB_HOST
