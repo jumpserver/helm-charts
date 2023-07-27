@@ -145,11 +145,19 @@ Define JumpServer StorageClass.
 {{- end -}}
 {{- end -}}
 
-{{- define "jumpserver.omnidb.storageClass" -}}
+{{- define "jumpserver.chen.storageClass" -}}
 {{- if .Values.global.storageClass }}
 {{- .Values.global.storageClass }}
 {{- else -}}
-{{- .Values.omnidb.persistence.storageClassName -}}
+{{- .Values.chen.persistence.storageClassName -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.kael.storageClass" -}}
+{{- if .Values.global.storageClass }}
+{{- .Values.global.storageClass }}
+{{- else -}}
+{{- .Values.kael.persistence.storageClassName -}}
 {{- end -}}
 {{- end -}}
 
@@ -158,6 +166,14 @@ Define JumpServer StorageClass.
 {{- .Values.global.storageClass }}
 {{- else -}}
 {{- .Values.razor.persistence.storageClassName -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.xrdp.storageClass" -}}
+{{- if .Values.global.storageClass }}
+{{- .Values.global.storageClass }}
+{{- else -}}
+{{- .Values.xrdp.persistence.storageClassName -}}
 {{- end -}}
 {{- end -}}
 

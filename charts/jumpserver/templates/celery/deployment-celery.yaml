@@ -105,11 +105,6 @@ spec:
               {{- if .persistence.subPath }}
               subPath: {{ .persistence.subPath | quote }}
               {{- end }}
-            - mountPath: "/opt/jumpserver/logs"
-              name: "jms-core-logs"
-              {{- if .persistence.subPath }}
-              subPath: {{ .persistence.subPath | quote }}
-              {{- end }}
           {{- with .volumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
@@ -125,9 +120,6 @@ spec:
             claimName: '{{ include "jumpserver.fullname" $ }}-jms-core-data'
             {{- end }}
           name: "jms-core-data"
-        - persistentVolumeClaim:
-            claimName: '{{ include "jumpserver.fullname" $ }}-jms-core-logs'
-          name: "jms-core-logs"
       {{- with .volumes }}
         {{- tpl (toYaml .) $ | nindent 8 }}
       {{- end }}

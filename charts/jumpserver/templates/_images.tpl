@@ -58,6 +58,20 @@ Return the proper JumpServer magnus image name
 {{- end -}}
 
 {{/*
+Return the proper JumpServer chen image name
+*/}}
+{{- define "jumpserver.chenImage" -}}
+{{- include "common.images.image" ( dict "imageRoot" .Values.chen.image "global" .Values.global ) -}}
+{{- end -}}
+
+{{/*
+Return the proper JumpServer kael image name
+*/}}
+{{- define "jumpserver.kaelImage" -}}
+{{- include "common.images.image" ( dict "imageRoot" .Values.kael.image "global" .Values.global ) -}}
+{{- end -}}
+
+{{/*
 Return the proper JumpServer razor image name
 */}}
 {{- define "jumpserver.razorImage" -}}
@@ -65,10 +79,10 @@ Return the proper JumpServer razor image name
 {{- end -}}
 
 {{/*
-Return the proper JumpServer omnidb image name
+Return the proper JumpServer xrdp image name
 */}}
-{{- define "jumpserver.omnidbImage" -}}
-{{- include "common.images.image" ( dict "imageRoot" .Values.omnidb.image "global" .Values.global ) -}}
+{{- define "jumpserver.xrdpImage" -}}
+{{- include "common.images.image" ( dict "imageRoot" .Values.xrdp.image "global" .Values.global ) -}}
 {{- end -}}
 
 {{/*

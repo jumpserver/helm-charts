@@ -1,0 +1,32 @@
+{{- if .Values.xpack.enabled }}
+{{- with .Values.xrdp }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-xrdp" }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "jumpserver.labels" $ | nindent 4 }}
+    {{- toYaml .labels | nindent 4 }}
+  annotations:
+    {{- toYaml .service.annotations | nindent 4 }}
+spec:
+  type: {{ .service.type }}
+  ports:
+    - port: {{ .service.rdp.port }}
+      targetPort: rdp
+      {{- if eq .service.type "NodePort" }}
+      nodePort: {{ .service.rdp.port }}
+      {{- end }}
+      protocol: TCP
+      name: rdp
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
+  selector:
+    app.kubernetes.io/name: {{ include "jumpserver.name" $ }}
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    {{- toYaml .labels | nindent 4 }}
+{{- end }}
+{{- end }}

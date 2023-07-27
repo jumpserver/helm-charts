@@ -30,7 +30,7 @@ helm repo add jumpserver https://jumpserver.github.io/helm-charts
 | `nameOveride`             | name override      | `nil`       |
 | `fullNameOveride`         | full name override | `nil`       |
 | `global.imageRegistry`    | 仓库地址           | `docker.io` |
-| `global.imageTag`         | 版本号             | `v3.4.3  ` |
+| `global.imageTag`         | 版本号             | `v3.5.0  ` |
 | `global.imagePullSecrets` | 私有仓库认证凭据    | `nil`       |
 | `global.storageClass`     | 存储 sc            | `nil`       |
 | `ingress.enabled`         | 开启 ingress       | `true`      |
@@ -38,6 +38,8 @@ helm repo add jumpserver https://jumpserver.github.io/helm-charts
 | `koko.enabled`            | 开启 koko          | `true`      |
 | `lion.enabled`            | 开启 lion          | `true`      |
 | `magnus.enabled`          | 开启 magnus        | `true`      |
+| `chen.enabled`            | 开启 chen          | `true`      |
+| `kael.enabled`            | 开启 kael          | `true`      |
 | `web.enabled`             | 开启 web           | `true`      |
 | `xpack.enable`            | 开启 xpack         | `false`     |
 

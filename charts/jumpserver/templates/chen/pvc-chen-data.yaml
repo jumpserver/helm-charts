@@ -1,6 +1,6 @@
-{{- if .Values.core.enabled }}
-{{- with .Values.core }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-core-logs" }}
+{{- if and .Values.xpack.enabled (not .Values.chen.persistence.existingClaim)}}
+{{- with .Values.chen }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-chen-data" }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -25,5 +25,5 @@ spec:
     requests:
       storage: {{ .persistence.size | quote }}
       {{- end }}
-  storageClassName: {{ include "jumpserver.core.storageClass" . }}
+  storageClassName: {{ include "jumpserver.chen.storageClass" . }}
 {{- end }}

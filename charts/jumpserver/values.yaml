@@ -12,7 +12,7 @@ fullnameOverride: ""
 ##
 global:
   imageRegistry: "ghcr.io"
-  imageTag: v3.4.3
+  imageTag: v3.5.0
   ## E.g.
   #  imagePullSecrets:
   #  - myRegistryKeySecretName
@@ -85,7 +85,7 @@ core:
   image:
     registry: docker.io
     repository: jumpserver/core
-    tag: v3.4.3
+    tag: v3.5.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -173,7 +173,7 @@ koko:
   image:
     registry: docker.io
     repository: jumpserver/koko
-    tag: v3.4.3
+    tag: v3.5.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -265,7 +265,7 @@ lion:
   image:
     registry: docker.io
     repository: jumpserver/lion
-    tag: v3.4.3
+    tag: v3.5.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -357,7 +357,7 @@ magnus:
   image:
     registry: docker.io
     repository: jumpserver/magnus
-    tag: v3.4.3
+    tag: v3.5.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -432,12 +432,11 @@ magnus:
 
   affinity: {}
 
-xpack:
-  enabled: false
+chen:
+  enabled: true
 
-omnidb:
   labels:
-    app.jumpserver.org/name: jms-omnidb
+    app.jumpserver.org/name: jms-chen
 
   config:
     log:
@@ -446,9 +445,9 @@ omnidb:
   replicaCount: 1
 
   image:
-    registry: registry.fit2cloud.com
-    repository: jumpserver/omnidb
-    tag: v3.4.3
+    registry: docker.io
+    repository: jumpserver/chen
+    tag: v3.5.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -515,6 +514,171 @@ omnidb:
 
   affinity: {}
 
+kael:
+  enabled: true
+  
+  labels:
+    app.jumpserver.org/name: jms-kael
+
+  config:
+    log:
+      level: ERROR
+
+  replicaCount: 1
+
+  image:
+    registry: docker.io
+    repository: jumpserver/kael
+    tag: v3.5.0
+    pullPolicy: IfNotPresent
+
+  command: []
+
+  env: []
+
+  livenessProbe:
+    failureThreshold: 30
+    tcpSocket:
+      port: web
+
+  readinessProbe:
+    failureThreshold: 30
+    tcpSocket:
+      port: web
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    web:
+      port: 8083
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  persistence:
+    storageClassName: jumpserver-data
+    accessModes:
+      - ReadWriteMany
+    size: 10Gi
+    annotations:
+      "helm.sh/resource-policy": keep
+    finalizers:
+      - kubernetes.io/pvc-protection
+    # subPath: ""
+    # existingClaim: ""
+
+  volumeMounts: []
+
+  volumes: []
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+xpack:
+  enabled: false
+
+xrdp:
+  labels:
+    app.jumpserver.org/name: jms-xrdp
+
+  config:
+    log:
+      level: ERROR
+
+  replicaCount: 1
+
+  image:
+    registry: registry.fit2cloud.com
+    repository: jumpserver/xrdp
+    tag: v3.5.0
+    pullPolicy: IfNotPresent
+
+  command: []
+
+  env: []
+
+  livenessProbe:
+    failureThreshold: 30
+    tcpSocket:
+      port: rdp
+
+  readinessProbe:
+    failureThreshold: 30
+    tcpSocket:
+      port: rdp
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    rdp:
+      port: 3390
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  persistence:
+    storageClassName: jumpserver-data
+    accessModes:
+      - ReadWriteMany
+    size: 50Gi
+    annotations:
+      "helm.sh/resource-policy": keep
+    finalizers:
+      - kubernetes.io/pvc-protection
+    # subPath: ""
+    # existingClaim: ""
+
+  volumeMounts: []
+
+  volumes: []
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
 razor:
   labels:
     app.jumpserver.org/name: jms-razor
@@ -528,7 +692,7 @@ razor:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/razor
-    tag: v3.4.3
+    tag: v3.5.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -608,7 +772,7 @@ video:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/video-worker
-    tag: v3.4.3
+    tag: v3.5.0
     pullPolicy: IfNotPresent
 
   command: []
@@ -689,7 +853,7 @@ web:
   image:
     registry: docker.io
     repository: jumpserver/web
-    tag: v3.4.3
+    tag: v3.5.0
     pullPolicy: IfNotPresent
 
   command: []

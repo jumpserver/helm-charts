@@ -1,13 +1,8 @@
-{{- if .Values.core.enabled }}
-{{- with .Values.core }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-core" }}
-{{- $containerName := "jms-core" }}
-{{- $image := printf "%s" (include "jumpserver.coreImage" $) }}
-{{- $mysqlPort := printf "%s" (include "jumpserver.magnus.mysql.port" $) }}
-{{- $mariadbPort := printf "%s" (include "jumpserver.magnus.mariadb.port" $) }}
-{{- $redisPort := printf "%s" (include "jumpserver.magnus.redis.port" $) }}
-{{- $postgresqlPort := printf "%s" (include "jumpserver.magnus.postgresql.port" $) }}
-{{- $oraclePorts := printf "%s" (include "jumpserver.magnus.oracle.ports" $) }}
+{{- if .Values.chen.enabled }}
+{{- with .Values.chen }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-chen" }}
+{{- $containerName := "jms-chen" }}
+{{- $image := printf "%s" (include "jumpserver.chenImage" $) }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -46,46 +41,15 @@ spec:
           command:
             {{- tpl (toYaml .) $ | nindent 12 }}
           {{- end }}
-          args: ["start", "web"]
           env:
-            - name: SECRET_KEY
-              value: {{ required "A valid secretKey is required!" .config.secretKey | quote }}
+            - name: CORE_HOST
+              value: "http://{{ include "jumpserver.fullname" $ }}-jms-core:{{ $.Values.core.service.web.port }}"
             - name: BOOTSTRAP_TOKEN
-              value: {{ required "A valid bootstrapToken is required!" .config.bootstrapToken | quote }}
-            - name: DEBUG
-              value: {{ .config.debug | quote }}
+              value: {{ $.Values.core.config.bootstrapToken | quote }}
             - name: LOG_LEVEL
               value: {{ .config.log.level | quote }}
-            - name: HTTP_LISTEN_PORT
+            - name: listening_port
               value: {{ .service.web.port | quote }}
-            - name: DB_ENGINE
-              value: {{ include "jumpserver.database.engine" $ | quote }}
-            - name: DB_HOST
-              value: {{ include "jumpserver.database.host" $ | quote }}
-            - name: DB_PORT
-              value: {{ include "jumpserver.database.port" $ | quote }}
-            - name: DB_USER
-              value: {{ include "jumpserver.database.user" $ | quote }}
-            - name: DB_PASSWORD
-              value: {{ include "jumpserver.database.password" $ | quote }}
-            - name: DB_NAME
-              value: {{ include "jumpserver.database.database" $ | quote }}
-            - name: REDIS_HOST
-              value: {{ include "jumpserver.redis.host" $ | quote }}
-            - name: REDIS_PORT
-              value: {{ include "jumpserver.redis.port" $ | quote }}
-            - name: REDIS_PASSWORD
-              value: {{ include "jumpserver.redis.password" $ | quote }}
-            - name: MAGNUS_MYSQL_PORT
-              value: {{ $mysqlPort | quote }}
-            - name: MAGNUS_MARIADB_PORT
-              value: {{ $mariadbPort | quote }}
-            - name: MAGNUS_REDIS_PORT
-              value: {{ $redisPort | quote }}
-            - name: MAGNUS_POSTGRESQL_PORT
-              value: {{ $postgresqlPort | quote }}
-            - name: MAGNUS_ORACLE_PORTS
-              value: {{ $oraclePorts | quote }}
             {{- range $key, $val := .env }}
             - name: {{ $key }}
               value: {{ $val | quote }}
@@ -101,11 +65,8 @@ spec:
           resources:
             {{- toYaml .resources | nindent 12 }}
           volumeMounts:
-            - mountPath: "/opt/jumpserver/config.yml"
-              name: "jms-core-config"
-              subPath: "config.yml"
-            - mountPath: "/opt/jumpserver/data"
-              name: "jms-core-data"
+            - mountPath: "/opt/chen/data"
+              name: "jms-chen-data"
               {{- if .persistence.subPath }}
               subPath: {{ .persistence.subPath | quote }}
               {{- end }}
@@ -114,16 +75,13 @@ spec:
           {{- end }}
       restartPolicy: Always
       volumes:
-        - configMap:
-            name: '{{ include "jumpserver.fullname" $ }}-jms-core'
-          name: "jms-core-config"
         - persistentVolumeClaim:
             {{- if .persistence.existingClaim }}
             claimName: {{ .persistence.existingClaim | quote }}
             {{- else }}
-            claimName: '{{ include "jumpserver.fullname" $ }}-jms-core-data'
+            claimName: '{{ include "jumpserver.fullname" $ }}-jms-chen-data'
             {{- end }}
-          name: "jms-core-data"
+          name: "jms-chen-data"
       {{- with .volumes }}
         {{- tpl (toYaml .) $ | nindent 8 }}
       {{- end }}

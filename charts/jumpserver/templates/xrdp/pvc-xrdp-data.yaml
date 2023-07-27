@@ -1,6 +1,6 @@
-{{- if and .Values.xpack.enabled (not .Values.omnidb.persistence.existingClaim)}}
-{{- with .Values.omnidb }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-omnidb-data" }}
+{{- if and .Values.xpack.enabled (not .Values.xrdp.persistence.existingClaim)}}
+{{- with .Values.xrdp }}
+{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-xrdp-data" }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -25,5 +25,5 @@ spec:
     requests:
       storage: {{ .persistence.size | quote }}
       {{- end }}
-  storageClassName: {{ include "jumpserver.omnidb.storageClass" . }}
+  storageClassName: {{ include "jumpserver.xrdp.storageClass" . }}
 {{- end }}
