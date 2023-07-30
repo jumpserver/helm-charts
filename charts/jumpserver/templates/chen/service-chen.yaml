@@ -1,4 +1,4 @@
-{{- if .Values.xpack.enabled }}
+{{- if .Values.chen.enabled }}
 {{- with .Values.chen }}
 {{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-chen" }}
 apiVersion: v1

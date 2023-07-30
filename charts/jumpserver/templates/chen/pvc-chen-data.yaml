@@ -1,4 +1,4 @@
-{{- if and .Values.xpack.enabled (not .Values.chen.persistence.existingClaim)}}
+{{- if and .Values.chen.enabled (not .Values.chen.persistence.existingClaim)}}
 {{- with .Values.chen }}
 {{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-chen-data" }}
 apiVersion: v1
