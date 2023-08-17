@@ -94,6 +94,7 @@ spec:
               command:
                 - /bin/bash
                 - /opt/jumpserver/utils/check_celery.sh
+            initialDelaySeconds: 120
           resources:
             {{- toYaml .resources | nindent 12 }}
           volumeMounts:
