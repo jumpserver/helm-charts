@@ -48,6 +48,8 @@ spec:
           {{- end }}
           args: ["start", "web"]
           env:
+            - name: CORE_HOST
+              value: "http://{{ include "jumpserver.fullname" $ }}-jms-core:{{ $.Values.core.service.web.port }}"
             - name: SECRET_KEY
               value: {{ required "A valid secretKey is required!" .config.secretKey | quote }}
             - name: BOOTSTRAP_TOKEN
