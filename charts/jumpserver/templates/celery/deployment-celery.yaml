@@ -94,6 +94,16 @@ spec:
               command:
                 - /bin/bash
                 - /opt/jumpserver/utils/check_celery.sh
+            initialDelaySeconds: 60
+            timeoutSeconds: 5
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - test -e /tmp/worker_ready_celery
+            initialDelaySeconds: 60
+            timeoutSeconds: 5
           resources:
             {{- toYaml .resources | nindent 12 }}
           volumeMounts:
