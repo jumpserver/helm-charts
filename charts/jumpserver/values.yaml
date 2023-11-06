@@ -832,9 +832,13 @@ web:
 
   command: []
 
-  env: []
+  env:
     # nginx client_max_body_size, default 4G
-    # CLIENT_MAX_BODY_SIZE: 4096m
+    CLIENT_MAX_BODY_SIZE: 4096m
+    ## See: https://github.com/jumpserver/docker-web/blob/master/init.sh#L37
+    # USE_LB: 1, then nginx use 'proxy_set_header X-Forwarded-For $remote_addr'
+    # USE_LB: 0, then nginx use 'proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for'
+    USE_LB: 0
 
   livenessProbe:
     initialDelaySeconds: 10
