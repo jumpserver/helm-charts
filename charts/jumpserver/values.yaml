@@ -12,7 +12,7 @@ fullnameOverride: ""
 ##
 global:
   imageRegistry: "ghcr.io"
-  imageTag: v3.9.1
+  imageTag: v3.9.2
   ## E.g.
   #  imagePullSecrets:
   #  - myRegistryKeySecretName
@@ -85,7 +85,7 @@ core:
   image:
     registry: docker.io
     repository: jumpserver/core-ce
-    tag: v3.9.1
+    tag: v3.9.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -173,7 +173,7 @@ koko:
   image:
     registry: docker.io
     repository: jumpserver/koko
-    tag: v3.9.1
+    tag: v3.9.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -261,7 +261,7 @@ lion:
   image:
     registry: docker.io
     repository: jumpserver/lion
-    tag: v3.9.1
+    tag: v3.9.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -349,7 +349,7 @@ magnus:
   image:
     registry: docker.io
     repository: jumpserver/magnus
-    tag: v3.9.1
+    tag: v3.9.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -436,7 +436,7 @@ chen:
   image:
     registry: docker.io
     repository: jumpserver/chen
-    tag: v3.9.1
+    tag: v3.9.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -515,7 +515,7 @@ kael:
   image:
     registry: docker.io
     repository: jumpserver/kael
-    tag: v3.9.1
+    tag: v3.9.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -596,7 +596,7 @@ xrdp:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/xrdp
-    tag: v3.9.1
+    tag: v3.9.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -673,7 +673,7 @@ razor:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/razor
-    tag: v3.9.1
+    tag: v3.9.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -750,7 +750,7 @@ video:
   image:
     registry: registry.fit2cloud.com
     repository: jumpserver/video-worker
-    tag: v3.9.1
+    tag: v3.9.2
     pullPolicy: IfNotPresent
 
   command: []
@@ -827,7 +827,7 @@ web:
   image:
     registry: docker.io
     repository: jumpserver/web
-    tag: v3.9.1
+    tag: v3.9.2
     pullPolicy: IfNotPresent
 
   command: []
