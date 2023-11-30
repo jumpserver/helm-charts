@@ -107,9 +107,6 @@ spec:
           resources:
             {{- toYaml .resources | nindent 12 }}
           volumeMounts:
-            - mountPath: "/opt/jumpserver/config.yml"
-              name: "jms-core-config"
-              subPath: "config.yml"
             - mountPath: "/opt/jumpserver/data"
               name: "jms-core-data"
               {{- if .persistence.subPath }}
@@ -120,9 +117,6 @@ spec:
           {{- end }}
       restartPolicy: Always
       volumes:
-        - configMap:
-            name: '{{ include "jumpserver.fullname" $ }}-jms-core'
-          name: "jms-core-config"
         - persistentVolumeClaim:
             {{- if .persistence.existingClaim }}
             claimName: {{ .persistence.existingClaim | quote }}
