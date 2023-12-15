@@ -1,10 +1,11 @@
 {{- if and .Values.web.enabled (not .Values.web.persistence.existingClaim)}}
 {{- with .Values.web }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-web-logs" }}
+{{- $fullName := include "jumpserver.fullname" $ }}
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ $fullName }}
+  name: "{{ $fullName }}-jms-web-logs"
   labels:
     {{- include "jumpserver.labels" $ | nindent 4 }}
     {{- toYaml .labels | nindent 4 }}

@@ -1,10 +1,11 @@
 {{- if and .Values.magnus.enabled (not .Values.magnus.persistence.existingClaim)}}
 {{- with .Values.magnus }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-magnus-data" }}
+{{- $fullName := include "jumpserver.fullname" $ }}
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ $fullName }}
+  name: "{{ $fullName }}-jms-magnus-data"
   labels:
     {{- include "jumpserver.labels" $ | nindent 4 }}
     {{- toYaml .labels | nindent 4 }}

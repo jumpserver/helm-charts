@@ -1,16 +1,17 @@
 {{- if .Values.magnus.enabled }}
 {{- with .Values.magnus }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-magnus" }}
+{{- $fullName := include "jumpserver.fullname" $ }}
 {{- $mysqlPort := printf "%s" (include "jumpserver.magnus.mysql.port" $) }}
 {{- $mariadbPort := printf "%s" (include "jumpserver.magnus.mariadb.port" $) }}
 {{- $redisPort := printf "%s" (include "jumpserver.magnus.redis.port" $) }}
 {{- $postgresqlPort := printf "%s" (include "jumpserver.magnus.postgresql.port" $) }}
 {{- $oraclePortStart := printf "%s" (include "jumpserver.magnus.oracle.port.start" $) | int }}
 {{- $oraclePortEnd := printf "%s" (include "jumpserver.magnus.oracle.port.end" $) | int}}
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ $fullName }}
+  name: "{{ $fullName }}-jm-magnus"
   labels:
     {{- include "jumpserver.labels" $ | nindent 4 }}
     {{- toYaml .labels | nindent 4 }}
@@ -36,6 +37,7 @@ spec:
       targetPort: postgresql
       protocol: TCP
       name: postgresql
+    {{- if $.Values.xpack.enabled }}
     {{- range $port := untilStep $oraclePortStart $oraclePortEnd 1 }}
     - port: {{ $port }}
       {{- if eq $.Values.magnus.service.type "NodePort" }}
@@ -44,6 +46,7 @@ spec:
       targetPort: oracle-{{ $port }}
       protocol: TCP
       name: oracle-{{ $port }}
+    {{- end }}
     {{- end }}
     {{- end }}
   sessionAffinity: ClientIP

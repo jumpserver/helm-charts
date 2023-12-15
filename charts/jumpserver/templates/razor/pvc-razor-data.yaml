@@ -1,10 +1,11 @@
 {{- if and .Values.xpack.enabled (not .Values.razor.persistence.existingClaim)}}
 {{- with .Values.razor }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-razor-data" }}
+{{- $fullName := include "jumpserver.fullname" $ }}
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ $fullName }}
+  name: "{{ $fullName }}-jms-razor-data"
   labels:
     {{- include "jumpserver.labels" $ | nindent 4 }}
     {{- toYaml .labels | nindent 4 }}

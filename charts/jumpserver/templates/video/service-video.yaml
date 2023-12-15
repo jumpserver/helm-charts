@@ -1,10 +1,11 @@
 {{- if .Values.xpack.enabled }}
 {{- with .Values.video }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-video" }}
+{{- $fullName := include "jumpserver.fullname" $ }}
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ $fullName }}
+  name: "{{ $fullName }}-jms-video"
   labels:
     {{- include "jumpserver.labels" $ | nindent 4 }}
     {{- toYaml .labels | nindent 4 }}

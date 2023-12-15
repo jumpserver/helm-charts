@@ -1,10 +1,11 @@
 {{- if .Values.chen.enabled }}
 {{- with .Values.chen }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-chen" }}
+{{- $fullName := include "jumpserver.fullname" $ }}
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ $fullName }}
+  name: "{{ $fullName }}-jms-chen"
   labels:
     {{- include "jumpserver.labels" $ | nindent 4 }}
     {{- toYaml .labels | nindent 4 }}

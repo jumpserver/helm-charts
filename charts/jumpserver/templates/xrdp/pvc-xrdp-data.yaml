@@ -1,10 +1,11 @@
 {{- if and .Values.xpack.enabled (not .Values.xrdp.persistence.existingClaim)}}
 {{- with .Values.xrdp }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-xrdp-data" }}
+{{- $fullName := include "jumpserver.fullname" $ }}
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ $fullName }}
+  name: "{{ $fullName }}-jms-xrdp-data"
   labels:
     {{- include "jumpserver.labels" $ | nindent 4 }}
     {{- toYaml .labels | nindent 4 }}

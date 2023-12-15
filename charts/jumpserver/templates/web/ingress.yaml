@@ -1,10 +1,11 @@
 {{- if .Values.ingress.enabled }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "ingress" }}
+{{- $fullName := include "jumpserver.fullname" $ }}
 {{- $webPort := .Values.web.service.web.port }}
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: "{{ $fullName }}-ingress"
   labels:
     {{- include "jumpserver.labels" $ | nindent 4 }}
   {{- with .Values.ingress.annotations }}

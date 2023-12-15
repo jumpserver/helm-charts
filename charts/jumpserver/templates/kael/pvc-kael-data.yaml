@@ -1,10 +1,11 @@
 {{- if and .Values.kael.enabled (not .Values.kael.persistence.existingClaim)}}
 {{- with .Values.kael }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-kael-data" }}
+{{- $fullName := include "jumpserver.fullname" $ }}
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ $fullName }}
+  name: "{{ $fullName }}-jms-kael-data"
   labels:
     {{- include "jumpserver.labels" $ | nindent 4 }}
     {{- toYaml .labels | nindent 4 }}

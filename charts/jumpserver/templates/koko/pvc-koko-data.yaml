@@ -1,10 +1,11 @@
 {{- if and .Values.koko.enabled (not .Values.koko.persistence.existingClaim)}}
 {{- with .Values.koko }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-koko-data" }}
+{{- $fullName := include "jumpserver.fullname" $ }}
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ $fullName }}
+  name: "{{ $fullName }}-jms-koko-data"
   labels:
     {{- include "jumpserver.labels" $ | nindent 4 }}
     {{- toYaml .labels | nindent 4 }}

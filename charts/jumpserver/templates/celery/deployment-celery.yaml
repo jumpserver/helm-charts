@@ -1,17 +1,21 @@
 {{- if .Values.core.enabled }}
 {{- with .Values.core }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-celery" }}
+{{- $fullName := include "jumpserver.fullname" $ }}
 {{- $containerName := "jms-celery" }}
-{{- $image := printf "%s" (include "jumpserver.coreImage" $) }}
+{{- $registryName := $.Values.global.imageRegistry | default .image.registry }}
+{{- $tag := $.Values.global.imageTag | default .image.tag }}
 {{- $mysqlPort := printf "%s" (include "jumpserver.magnus.mysql.port" $) }}
 {{- $mariadbPort := printf "%s" (include "jumpserver.magnus.mariadb.port" $) }}
 {{- $redisPort := printf "%s" (include "jumpserver.magnus.redis.port" $) }}
 {{- $postgresqlPort := printf "%s" (include "jumpserver.magnus.postgresql.port" $) }}
 {{- $oraclePorts := printf "%s" (include "jumpserver.magnus.oracle.ports" $) }}
+{{- $imageName := $.Values.xpack.enabled | ternary "jumpserver/core-ee" "jumpserver/core-ce" }}
+{{- $imageWithTag := printf "%s/%s:%s" $registryName $imageName $tag | quote }}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ $fullName }}
+  name: "{{ $fullName }}-{{ $containerName }}"
   labels:
     app.jumpserver.org/name: {{ $containerName }}
 spec:
@@ -39,12 +43,8 @@ spec:
         - name: {{ $containerName }}
           securityContext:
             {{- toYaml .securityContext | nindent 12 }}
-          image: {{ $image }}
-          imagePullPolicy: {{ .image.pullPolicy }}
-          {{- with .command }}
-          command:
-            {{- tpl (toYaml .) $ | nindent 12 }}
-          {{- end }}
+          image: {{ $imageWithTag }}
+          imagePullPolicy: {{ .image.pullPolicy | quote }}
           args: ["start", "task"]
           env:
             - name: SECRET_KEY
@@ -121,7 +121,7 @@ spec:
             {{- if .persistence.existingClaim }}
             claimName: {{ .persistence.existingClaim | quote }}
             {{- else }}
-            claimName: '{{ include "jumpserver.fullname" $ }}-jms-core-data'
+            claimName: '{{ $fullName }}-jms-core-data'
             {{- end }}
           name: "jms-core-data"
       {{- with .volumes }}

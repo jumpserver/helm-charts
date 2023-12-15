@@ -1,17 +1,21 @@
 {{- with .Values.core }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-init-db" }}
+{{- $fullName := include "jumpserver.fullname" $ }}
 {{- $containerName := "jms-init-db" }}
-{{- $image := printf "%s" (include "jumpserver.coreImage" $) }}
+{{- $registryName := $.Values.global.imageRegistry | default .image.registry }}
+{{- $tag := $.Values.global.imageTag | default .image.tag }}
+{{- $imageName := $.Values.xpack.enabled | ternary "jumpserver/core-ee" "jumpserver/core-ce" }}
+{{- $imageWithTag := printf "%s/%s:%s" $registryName $imageName $tag | quote }}
+
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ $fullName }}
+  name: "{{ $fullName }}-{{ $containerName }}"
   labels:
     app.jumpserver.org/name: {{ $containerName }}
   annotations:
     "helm.sh/hook": pre-install,pre-upgrade
-    "helm.sh/hook-weight": "-5"
-    "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
+    "helm.sh/hook-weight": "5"
+    "helm.sh/hook-delete-policy": before-hook-creation
 spec:
   template:
     metadata:
@@ -30,12 +34,12 @@ spec:
         - name: {{ $containerName }}
           securityContext:
             {{- toYaml .securityContext | nindent 12 }}
-          image: {{ $image }}
-          imagePullPolicy: {{ .image.pullPolicy }}
+          image: {{ $imageWithTag }}
+          imagePullPolicy: {{ .image.pullPolicy | quote }}
           command:
             - /bin/bash
             - "-c"
-            - cd /opt/jumpserver && ./jms upgrade_db
+            - ./jms upgrade_db
           env:
             - name: SECRET_KEY
               value: {{ required "A valid secretKey is required!" .config.secretKey | quote }}

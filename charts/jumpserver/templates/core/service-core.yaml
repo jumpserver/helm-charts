@@ -1,10 +1,11 @@
 {{- if .Values.core.enabled }}
 {{- with .Values.core }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-core" }}
+{{- $fullName := include "jumpserver.fullname" $ }}
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ $fullName }}
+  name: "{{ $fullName }}-jms-core"
   labels:
     {{- include "jumpserver.labels" $ | nindent 4 }}
     {{- toYaml .labels | nindent 4 }}

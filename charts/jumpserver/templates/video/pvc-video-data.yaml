@@ -1,10 +1,11 @@
 {{- if and .Values.xpack.enabled (not .Values.video.persistence.existingClaim)}}
 {{- with .Values.video }}
-{{- $fullName := printf "%s-%s" (include "jumpserver.fullname" $) "jms-video-data" }}
+{{- $fullName := include "jumpserver.fullname" $ }}
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ $fullName }}
+  name: "{{ $fullName }}-jms-video-data"
   labels:
     {{- include "jumpserver.labels" $ | nindent 4 }}
     {{- toYaml .labels | nindent 4 }}
