@@ -12,7 +12,6 @@ fullnameOverride: ""
 ##
 global:
   imageRegistry: "ghcr.io"
-  imageTag: v3.9.3
   ## E.g.
   #  imagePullSecrets:
   #  - myRegistryKeySecretName
@@ -84,7 +83,6 @@ core:
 
   image:
     registry: docker.io
-    tag: v3.9.3
     pullPolicy: IfNotPresent
 
   env:
@@ -169,7 +167,6 @@ koko:
 
   image:
     registry: docker.io
-    tag: v3.9.3
     pullPolicy: IfNotPresent
 
   env: []
@@ -254,7 +251,6 @@ lion:
 
   image:
     registry: docker.io
-    tag: v3.9.3
     pullPolicy: IfNotPresent
 
   env:
@@ -339,7 +335,6 @@ magnus:
 
   image:
     registry: docker.io
-    tag: v3.9.3
     pullPolicy: IfNotPresent
 
   env: []
@@ -423,7 +418,6 @@ chen:
 
   image:
     registry: docker.io
-    tag: v3.9.3
     pullPolicy: IfNotPresent
 
   env: []
@@ -499,7 +493,6 @@ kael:
 
   image:
     registry: docker.io
-    tag: v3.9.3
     pullPolicy: IfNotPresent
 
   env: []
@@ -577,7 +570,6 @@ xrdp:
 
   image:
     registry: registry.fit2cloud.com
-    tag: v3.9.3
     pullPolicy: IfNotPresent
 
   env: []
@@ -651,7 +643,6 @@ razor:
 
   image:
     registry: registry.fit2cloud.com
-    tag: v3.9.3
     pullPolicy: IfNotPresent
 
   env: []
@@ -725,7 +716,6 @@ video:
 
   image:
     registry: registry.fit2cloud.com
-    tag: v3.9.3
     pullPolicy: IfNotPresent
 
   env: []
@@ -799,7 +789,6 @@ web:
 
   image:
     registry: docker.io
-    tag: v3.9.3
     pullPolicy: IfNotPresent
 
   env:

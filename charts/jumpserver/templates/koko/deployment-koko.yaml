@@ -3,9 +3,9 @@
 {{- $fullName := include "jumpserver.fullname" $ }}
 {{- $containerName := "jms-koko" }}
 {{- $registryName := $.Values.global.imageRegistry | default .image.registry }}
-{{- $tag := $.Values.global.imageTag | default .image.tag }}
 {{- $imageName := "jumpserver/koko" }}
-{{- $imageWithTag := printf "%s/%s:%s" $registryName $imageName $tag | quote }}
+{{- $imageTag := "v3.9.3" }}
+{{- $imageWithTag := printf "%s/%s:%s" $registryName $imageName $imageTag | quote }}
 
 apiVersion: apps/v1
 kind: Deployment
