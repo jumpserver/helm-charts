@@ -30,7 +30,6 @@ helm repo add jumpserver https://jumpserver.github.io/helm-charts
 | `nameOveride`             | name override      | `nil`       |
 | `fullNameOveride`         | full name override | `nil`       |
 | `global.imageRegistry`    | 仓库地址           | `docker.io` |
-| `global.imageTag`         | 版本号             | `v3.9.3  ` |
 | `global.imagePullSecrets` | 私有仓库认证凭据    | `nil`       |
 | `global.storageClass`     | 存储 sc            | `nil`       |
 | `ingress.enabled`         | 开启 ingress       | `true`      |
@@ -66,7 +65,6 @@ helm repo add jumpserver https://jumpserver.github.io/helm-charts
 | --------------------- | --------------------------------------------------------- | ------- |
 | `log.level`           | 日志等级                                                   | `INFO`  |
 | `replicaCount`        | 副本数量                                                   | `1`     |
-| `tag`                 | 版本号                                                     | `nil`   |
 | `persistence`         | 持久化存储相关设置                                          | `nil`   |
 
 在 `helm install` 时通过 `--set key=value[,key=value]` 指定参数. 举例:
