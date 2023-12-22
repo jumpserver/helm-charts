@@ -4,7 +4,7 @@
 {{- $containerName := "jms-kael" }}
 {{- $registryName := $.Values.global.imageRegistry | default .image.registry }}
 {{- $imageName := "jumpserver/kael" }}
-{{- $imageTag := "v3.9.3" }}
+{{- $imageTag := "v3.10.0" }}
 {{- $imageWithTag := printf "%s/%s:%s" $registryName $imageName $imageTag | quote }}
 
 apiVersion: apps/v1

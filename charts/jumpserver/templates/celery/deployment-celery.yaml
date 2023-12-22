@@ -9,7 +9,7 @@
 {{- $postgresqlPort := printf "%s" (include "jumpserver.magnus.postgresql.port" $) }}
 {{- $oraclePorts := printf "%s" (include "jumpserver.magnus.oracle.ports" $) }}
 {{- $imageName := $.Values.xpack.enabled | ternary "jumpserver/core-ee" "jumpserver/core-ce" }}
-{{- $imageTag := "v3.9.3" }}
+{{- $imageTag := "v3.10.0" }}
 {{- $imageWithTag := printf "%s/%s:%s" $registryName $imageName $imageTag | quote }}
 
 apiVersion: apps/v1
