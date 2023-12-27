@@ -25,11 +25,14 @@ helm repo add jumpserver https://jumpserver.github.io/helm-charts
 
 ### 总览
 
+`global.imageRegistry` 和 `global.imageOwner` 用于指定镜像仓库地址和用户名，如果使用私有仓库，还需要需要设置 `global.imagePullSecrets` 参数，用于指定私有仓库认证凭据。
+
 | 参数                      | 描述                | 默认值      |
 | ------------------------- | ------------------ | ----------- |
 | `nameOveride`             | name override      | `nil`       |
 | `fullNameOveride`         | full name override | `nil`       |
 | `global.imageRegistry`    | 仓库地址           | `docker.io` |
+| `global.imageOwner`       | 仓库用户名         | `jumpserver` |
 | `global.imagePullSecrets` | 私有仓库认证凭据    | `nil`       |
 | `global.storageClass`     | 存储 sc            | `nil`       |
 | `ingress.enabled`         | 开启 ingress       | `true`      |
@@ -43,6 +46,8 @@ helm repo add jumpserver https://jumpserver.github.io/helm-charts
 | `xpack.enable`            | 开启 xpack         | `false`     |
 
 ### 必填
+
+如果 `global` 中的参数和其他组件中的参数同时存在，将优先使用 `global` 中的参数。
 
 | 参数                           | 描述                                          | 默认值                 |
 | ------------------------------ | ---------------------------------------------| ---------------------- |
@@ -59,13 +64,25 @@ helm repo add jumpserver https://jumpserver.github.io/helm-charts
 | `externalRedis.port`           | redis 端口                                   | `6379`                 |
 | `externalRedis.password`       | redis 密码                                   | `nil`                  |
 
+### Redis Sentinel
+
+配置 `externalSentinel` 参数后，将优先使用 `Sentinel`，`Redis` 即使配置也不会使用。  
+注意：`Sentinel` 密码和 `Redis` 密码需要分别设置。
+
+| 参数                             | 描述                                          | 默认值                |
+| -------------------------------- | ---------------------------------------------| --------------------- |
+| `externalSentinel.hosts`         | Sentinel 地址池                               | `nil`                 |
+| `externalSentinel.password`      | Sentinel 认证密码                             | `6379`                |
+| `externalRedis.password`         | redis 密码                                    | `nil`                 |
+| `externalSentinel.socketTimeout` | Sentinel 超时时间，单位 秒(s)                 | `5`                   |
+
 ### 其他
 
 | 参数                  | 描述                                                       | 默认值  |
 | --------------------- | --------------------------------------------------------- | ------- |
 | `log.level`           | 日志等级                                                   | `INFO`  |
 | `replicaCount`        | 副本数量                                                   | `1`     |
-| `persistence`         | 持久化存储相关设置                                          | `nil`   |
+| `persistence`         | 持久化存储相关设置                                         | `nil`   |
 
 在 `helm install` 时通过 `--set key=value[,key=value]` 指定参数. 举例:
 

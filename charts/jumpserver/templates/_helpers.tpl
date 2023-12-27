@@ -89,6 +89,28 @@ Define JumpServer database.
 {{- end -}}
 
 {{/*
+Define JumpServer sentinel.
+*/}}
+
+{{- define "jumpserver.sentinel.hosts" -}}
+{{- if .Values.externalSentinel.hosts -}}
+{{- .Values.externalSentinel.hosts -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.sentinel.password" -}}
+{{- if .Values.externalSentinel.password -}}
+{{- .Values.externalSentinel.password -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.sentinel.socketTimeout" -}}
+{{- if .Values.externalSentinel.socketTimeout -}}
+{{- .Values.externalSentinel.socketTimeout -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Define JumpServer redis.
 */}}
 
@@ -98,15 +120,21 @@ Define JumpServer redis.
 {{- end -}}
 
 {{- define "jumpserver.redis.host" -}}
+{{- if .Values.externalRedis.host -}}
 {{- .Values.externalRedis.host -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "jumpserver.redis.port" -}}
+{{- if .Values.externalRedis.port -}}
 {{- .Values.externalRedis.port -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "jumpserver.redis.password" -}}
+{{- if .Values.externalRedis.password -}}
 {{- .Values.externalRedis.password -}}
+{{- end -}}
 {{- end -}}
 
 {{/*

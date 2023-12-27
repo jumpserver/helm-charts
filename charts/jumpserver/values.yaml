@@ -11,7 +11,8 @@ fullnameOverride: ""
 ## @param global.redis.password Global Redis&trade; password (overrides `auth.password`)
 ##
 global:
-  imageRegistry: "ghcr.io"
+  imageRegistry: ghcr.io
+  imageOwner: jumpserver
   ## E.g.
   #  imagePullSecrets:
   #  - myRegistryKeySecretName
@@ -33,6 +34,13 @@ externalDatabase:
 ## Please configure your Redis server first
 ## Jumpserver will not start the external Redis server.
 ##
+externalSentinel: {}
+  # hosts: mymaster/localhost:26379,localhost:26380,localhost:26381
+  # password: ""
+  # socketTimeout: 5
+
+## Sentinel or Redis one of them must be configured.
+
 externalRedis:
   host: localhost
   port: 6379

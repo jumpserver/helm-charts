@@ -3,6 +3,7 @@
 {{- $fullName := include "jumpserver.fullname" $ }}
 {{- $containerName := "jms-magnus" }}
 {{- $registryName := $.Values.global.imageRegistry | default .image.registry }}
+{{- $imageOwner :=  $.Values.global.imageOwner | default "jumpserver" }}
 {{- $mysqlPort := printf "%s" (include "jumpserver.magnus.mysql.port" $) }}
 {{- $mariadbPort := printf "%s" (include "jumpserver.magnus.mariadb.port" $) }}
 {{- $redisPort := printf "%s" (include "jumpserver.magnus.redis.port" $) }}
@@ -10,9 +11,9 @@
 {{- $oraclePorts := printf "%s" (include "jumpserver.magnus.oracle.ports" $) }}
 {{- $oraclePortStart := printf "%s" (include "jumpserver.magnus.oracle.port.start" $) | int }}
 {{- $oraclePortEnd := printf "%s" (include "jumpserver.magnus.oracle.port.end" $) | int }}
-{{- $imageName := "jumpserver/magnus" }}
+{{- $imageName := "magnus" }}
 {{- $imageTag := "v3.10.0" }}
-{{- $imageWithTag := printf "%s/%s:%s" $registryName $imageName $imageTag | quote }}
+{{- $imageWithTag := printf "%s/%s/%s:%s" $registryName $imageOwner $imageName $imageTag | quote }}
 
 apiVersion: apps/v1
 kind: Deployment
@@ -55,6 +56,32 @@ spec:
               value: {{ $.Values.core.config.bootstrapToken | quote }}
             - name: LOG_LEVEL
               value: {{ .config.log.level | quote }}
+            - name: SHARE_ROOM_TYPE
+              value: "redis"
+            {{- if include "jumpserver.sentinel.hosts" $ }}
+            - name: REDIS_SENTINEL_HOSTS
+              value: {{ include "jumpserver.sentinel.hosts" $ | quote }}
+            {{- end }}
+            {{- if include "jumpserver.sentinel.password" $ }}
+            - name: REDIS_SENTINEL_PASSWORD
+              value: {{ include "jumpserver.sentinel.password" $ | quote }}
+            {{- end }}
+            {{- if include "jumpserver.sentinel.socketTimeout" $ }}
+            - name: REDIS_SENTINEL_SOCKET_TIMEOUT
+              value: {{ include "jumpserver.sentinel.socketTimeout" $ | quote }}
+            {{- end }}
+            {{- if include "jumpserver.redis.host" $ }}
+            - name: REDIS_HOST
+              value: {{ include "jumpserver.redis.host" $ | quote }}
+            {{- end }}
+            {{- if include "jumpserver.redis.port" $ }}
+            - name: REDIS_PORT
+              value: {{ include "jumpserver.redis.port" $ | quote }}
+            {{- end }}
+            {{- if include "jumpserver.redis.password" $ }}
+            - name: REDIS_PASSWORD
+              value: {{ include "jumpserver.redis.password" $ | quote }}
+            {{- end }}
             - name: MAGNUS_MYSQL_PORT
               value: {{ $mysqlPort | quote }}
             - name: MAGNUS_MARIADB_PORT
