@@ -4,7 +4,7 @@
 {{- $containerName := "jms-video" }}
 {{- $registryName := $.Values.global.imageRegistry | default .image.registry }}
 {{- $imageOwner :=  $.Values.global.imageOwner | default "jumpserver" }}
-{{- $imageName := "video" }}
+{{- $imageName := "video-worker" }}
 {{- $imageTag := "v3.10.1" }}
 {{- $imageWithTag := printf "%s/%s/%s:%s" $registryName $imageOwner $imageName $imageTag | quote }}
 
