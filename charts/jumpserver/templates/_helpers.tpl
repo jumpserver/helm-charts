@@ -241,6 +241,10 @@ Define JumpServer magnus ports.
 {{- default 54320 .Values.magnus.service.postgresql.port -}}
 {{- end -}}
 
+{{- define "jumpserver.magnus.sqlserver.port" -}}
+{{- default 14330 .Values.magnus.sqlserver.port -}}
+{{- end -}}
+
 {{- define "jumpserver.magnus.oracle.ports" -}}
 {{- default "30000-30100" .Values.magnus.service.oracle.ports -}}
 {{- end -}}

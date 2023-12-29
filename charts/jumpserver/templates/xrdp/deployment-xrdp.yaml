@@ -5,7 +5,7 @@
 {{- $registryName := $.Values.global.imageRegistry | default .image.registry }}
 {{- $imageOwner :=  $.Values.global.imageOwner | default "jumpserver" }}
 {{- $imageName := "xrdp" }}
-{{- $imageTag := "v3.10.0" }}
+{{- $imageTag := "v3.10.1" }}
 {{- $imageWithTag := printf "%s/%s/%s:%s" $registryName $imageOwner $imageName $imageTag | quote }}
 
 apiVersion: apps/v1

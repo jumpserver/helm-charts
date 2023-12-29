@@ -7,10 +7,11 @@
 {{- $mysqlPort := printf "%s" (include "jumpserver.magnus.mysql.port" $) }}
 {{- $mariadbPort := printf "%s" (include "jumpserver.magnus.mariadb.port" $) }}
 {{- $redisPort := printf "%s" (include "jumpserver.magnus.redis.port" $) }}
+{{- $sqlserverPort := printf "%s" (include "jumpserver.magnus.sqlserver.port" $) }}
 {{- $postgresqlPort := printf "%s" (include "jumpserver.magnus.postgresql.port" $) }}
 {{- $oraclePorts := printf "%s" (include "jumpserver.magnus.oracle.ports" $) }}
 {{- $imageName := $.Values.xpack.enabled | ternary "core-ee" "core-ce" }}
-{{- $imageTag := "v3.10.0" }}
+{{- $imageTag := "v3.10.1" }}
 {{- $imageWithTag := printf "%s/%s/%s:%s" $registryName $imageOwner $imageName $imageTag | quote }}
 
 apiVersion: apps/v1
@@ -105,6 +106,8 @@ spec:
               value: {{ $redisPort | quote }}
             - name: MAGNUS_POSTGRESQL_PORT
               value: {{ $postgresqlPort | quote }}
+            - name: MAGNUS_SQLSERVER_PORT
+              value: {{ $sqlserverPort | quote }}
             - name: MAGNUS_ORACLE_PORTS
               value: {{ $oraclePorts | quote }}
             {{- range $key, $val := .env }}

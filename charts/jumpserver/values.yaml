@@ -375,6 +375,8 @@ magnus:
       port: 63790
     postgresql:
       port: 54320
+    sqlserver:
+      port: 14330
     oracle:
       ports: 30000-30100
 
