@@ -4,7 +4,7 @@
 {{- $registryName := $.Values.global.imageRegistry | default .image.registry }}
 {{- $imageOwner :=  $.Values.global.imageOwner | default "jumpserver" }}
 {{- $imageName := $.Values.xpack.enabled | ternary "core-ee" "core-ce" }}
-{{- $imageTag := "v3.10.1" }}
+{{- $imageTag := "v3.10.2" }}
 {{- $imageWithTag := printf "%s/%s/%s:%s" $registryName $imageOwner $imageName $imageTag | quote }}
 
 apiVersion: batch/v1
