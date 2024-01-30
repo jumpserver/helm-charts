@@ -12,7 +12,7 @@
 {{- $oraclePortStart := printf "%s" (include "jumpserver.magnus.oracle.port.start" $) | int }}
 {{- $oraclePortEnd := printf "%s" (include "jumpserver.magnus.oracle.port.end" $) | int }}
 {{- $imageName := "magnus" }}
-{{- $imageTag := "v3.10.2" }}
+{{- $imageTag := "v3.10.3" }}
 {{- $imageWithTag := printf "%s/%s/%s:%s" $registryName $imageOwner $imageName $imageTag | quote }}
 
 apiVersion: apps/v1
