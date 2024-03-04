@@ -1,4 +1,6 @@
 **/values-debug.yaml
 .idea/
+.vscode/
 .history/
+debug/
 deploy.sh
