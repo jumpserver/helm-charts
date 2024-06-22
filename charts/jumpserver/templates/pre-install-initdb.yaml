@@ -1,7 +1,7 @@
 {{- with .Values.core }}
 {{- $fullName := include "jumpserver.fullname" $ }}
 {{- $containerName := "jms-init-db" }}
-{{- $registryName := default .image.registry | $.Values.global.imageRegistry }}
+{{- $registryName := .image.registry | default $.Values.global.imageRegistry }}
 {{- $imageOwner :=  $.Values.global.imageOwner | default "jumpserver" }}
 {{- $imageName := $.Values.xpack.enabled | ternary "core-ee" "core-ce" }}
 {{- $imageTag := $.Chart.AppVersion }}
