@@ -11,7 +11,7 @@ fullnameOverride: ""
 ## @param global.redis.password Global Redis&trade; password (overrides `auth.password`)
 ##
 global:
-  imageRegistry: ghcr.io
+  imageRegistry: docker.io
   imageOwner: jumpserver
   ## E.g.
   #  imagePullSecrets:
