@@ -49,6 +49,10 @@ spec:
               value: {{ $.Values.core.config.bootstrapToken | quote }}
             - name: LOG_LEVEL
               value: {{ .config.log.level | quote }}
+            - name: RAZOR_HTTP_PORT
+              value: {{ .service.web.port | quote }}
+            - name: RDP_PORT
+              value: {{ .service.rdp.port | quote }}
             {{- if include "jumpserver.sentinel.hosts" $ }}
             - name: REDIS_SENTINEL_HOSTS
               value: {{ include "jumpserver.sentinel.hosts" $ | quote }}
@@ -78,6 +82,9 @@ spec:
               value: {{ $val | quote }}
             {{- end }}
           ports:
+            - name: web
+              containerPort: {{ .service.web.port }}
+              protocol: TCP
             - name: rdp
               containerPort: {{ .service.rdp.port }}
               protocol: TCP

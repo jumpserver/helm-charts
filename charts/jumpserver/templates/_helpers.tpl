@@ -181,14 +181,6 @@ Define JumpServer StorageClass.
 {{- end -}}
 {{- end -}}
 
-{{- define "jumpserver.kael.storageClass" -}}
-{{- if .Values.global.storageClass }}
-{{- .Values.global.storageClass }}
-{{- else -}}
-{{- .Values.kael.persistence.storageClassName -}}
-{{- end -}}
-{{- end -}}
-
 {{- define "jumpserver.razor.storageClass" -}}
 {{- if .Values.global.storageClass }}
 {{- .Values.global.storageClass }}
