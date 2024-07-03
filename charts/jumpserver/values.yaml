@@ -329,9 +329,85 @@ lion:
 
   affinity: {}
 
-magnus:
+chen:
   enabled: true
 
+  labels:
+    app.jumpserver.org/name: jms-chen
+
+  config:
+    log:
+      level: ERROR
+
+  replicaCount: 1
+
+  image:
+    registry: docker.io
+    pullPolicy: IfNotPresent
+
+  env: []
+
+  livenessProbe:
+    initialDelaySeconds: 60
+    failureThreshold: 3
+    timeoutSeconds: 5
+    tcpSocket:
+      port: web
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    web:
+      port: 8082
+
+  resources: {}
+    ## We usually recommend not to specify default resources and to leave this as a conscious
+    ## choice for the user. This also increases chances charts run on environments with little
+    ## resources, such as Minikube. If you do want to specify resources, uncomment the following
+    ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  persistence:
+    storageClassName: jumpserver-data
+    accessModes:
+      - ReadWriteMany
+    size: 10Gi
+    annotations:
+      "helm.sh/resource-policy": keep
+    finalizers:
+      - kubernetes.io/pvc-protection
+    # subPath: ""
+    # existingClaim: ""
+
+  volumeMounts: []
+
+  volumes: []
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+xpack:
+  enabled: false
+
+magnus:
   labels:
     app.jumpserver.org/name: jms-magnus
 
@@ -413,160 +489,6 @@ magnus:
   tolerations: []
 
   affinity: {}
-
-chen:
-  enabled: true
-
-  labels:
-    app.jumpserver.org/name: jms-chen
-
-  config:
-    log:
-      level: ERROR
-
-  replicaCount: 1
-
-  image:
-    registry: docker.io
-    pullPolicy: IfNotPresent
-
-  env: []
-
-  livenessProbe:
-    initialDelaySeconds: 60
-    failureThreshold: 3
-    timeoutSeconds: 5
-    tcpSocket:
-      port: web
-
-  podSecurityContext: {}
-    # fsGroup: 2000
-
-  securityContext: {}
-    # capabilities:
-    #   drop:
-    #   - ALL
-    # readOnlyRootFilesystem: true
-    # runAsNonRoot: true
-    # runAsUser: 1000
-
-  service:
-    type: ClusterIP
-    web:
-      port: 8082
-
-  resources: {}
-    ## We usually recommend not to specify default resources and to leave this as a conscious
-    ## choice for the user. This also increases chances charts run on environments with little
-    ## resources, such as Minikube. If you do want to specify resources, uncomment the following
-    ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    # limits:
-    #   cpu: 100m
-    #   memory: 128Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 128Mi
-
-  persistence:
-    storageClassName: jumpserver-data
-    accessModes:
-      - ReadWriteMany
-    size: 10Gi
-    annotations:
-      "helm.sh/resource-policy": keep
-    finalizers:
-      - kubernetes.io/pvc-protection
-    # subPath: ""
-    # existingClaim: ""
-
-  volumeMounts: []
-
-  volumes: []
-
-  nodeSelector: {}
-
-  tolerations: []
-
-  affinity: {}
-
-kael:
-  enabled: true
-
-  labels:
-    app.jumpserver.org/name: jms-kael
-
-  config:
-    log:
-      level: ERROR
-
-  replicaCount: 1
-
-  image:
-    registry: docker.io
-    pullPolicy: IfNotPresent
-
-  env: []
-
-  livenessProbe:
-    initialDelaySeconds: 10
-    failureThreshold: 3
-    timeoutSeconds: 5
-    httpGet:
-      path: /kael/health/
-      port: web
-
-  podSecurityContext: {}
-    # fsGroup: 2000
-
-  securityContext: {}
-    # capabilities:
-    #   drop:
-    #   - ALL
-    # readOnlyRootFilesystem: true
-    # runAsNonRoot: true
-    # runAsUser: 1000
-
-  service:
-    type: ClusterIP
-    web:
-      port: 8083
-
-  resources: {}
-    ## We usually recommend not to specify default resources and to leave this as a conscious
-    ## choice for the user. This also increases chances charts run on environments with little
-    ## resources, such as Minikube. If you do want to specify resources, uncomment the following
-    ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    # limits:
-    #   cpu: 100m
-    #   memory: 128Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 128Mi
-
-  persistence:
-    storageClassName: jumpserver-data
-    accessModes:
-      - ReadWriteMany
-    size: 10Gi
-    annotations:
-      "helm.sh/resource-policy": keep
-    finalizers:
-      - kubernetes.io/pvc-protection
-    # subPath: ""
-    # existingClaim: ""
-
-  volumeMounts: []
-
-  volumes: []
-
-  nodeSelector: {}
-
-  tolerations: []
-
-  affinity: {}
-
-xpack:
-  enabled: false
 
 xrdp:
   labels:
@@ -677,6 +599,8 @@ razor:
 
   service:
     type: ClusterIP
+    web:
+      port: 8084
     rdp:
       port: 3389
 

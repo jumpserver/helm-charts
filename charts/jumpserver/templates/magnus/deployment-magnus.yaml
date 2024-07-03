@@ -1,4 +1,4 @@
-{{- if .Values.magnus.enabled }}
+{{- if .Values.xpack.enabled }}
 {{- with .Values.magnus }}
 {{- $fullName := include "jumpserver.fullname" $ }}
 {{- $containerName := "jms-magnus" }}
@@ -109,12 +109,10 @@ spec:
             - name: postgresql
               containerPort: {{ $postgresqlPort }}
               protocol: TCP
-            {{- if $.Values.xpack.enabled }}
             {{- range $port := untilStep $oraclePortStart $oraclePortEnd 1 }}
             - name: oracle-{{ $port }}
               containerPort: {{ $port }}
               protocol: TCP
-            {{- end }}
             {{- end }}
           livenessProbe:
             {{- toYaml .livenessProbe | nindent 12 }}

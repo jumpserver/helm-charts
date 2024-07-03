@@ -1,4 +1,4 @@
-{{- if .Values.magnus.enabled }}
+{{- if .Values.xpack.enabled }}
 {{- with .Values.magnus }}
 {{- $fullName := include "jumpserver.fullname" $ }}
 {{- $mysqlPort := printf "%s" (include "jumpserver.magnus.mysql.port" $) }}
@@ -32,12 +32,10 @@ spec:
       targetPort: redis
       protocol: TCP
       name: redis
-    {{- if $.Values.xpack.enabled }}
     - port: {{ .service.postgresql.port }}
       targetPort: postgresql
       protocol: TCP
       name: postgresql
-    {{- if $.Values.xpack.enabled }}
     {{- range $port := untilStep $oraclePortStart $oraclePortEnd 1 }}
     - port: {{ $port }}
       {{- if eq $.Values.magnus.service.type "NodePort" }}
@@ -46,8 +44,6 @@ spec:
       targetPort: oracle-{{ $port }}
       protocol: TCP
       name: oracle-{{ $port }}
-    {{- end }}
-    {{- end }}
     {{- end }}
   sessionAffinity: ClientIP
   sessionAffinityConfig:

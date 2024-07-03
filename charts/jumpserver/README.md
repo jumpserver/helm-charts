@@ -39,9 +39,7 @@ helm repo add jumpserver https://jumpserver.github.io/helm-charts
 | `core.enabled`            | 开启 core          | `true`      |
 | `koko.enabled`            | 开启 koko          | `true`      |
 | `lion.enabled`            | 开启 lion          | `true`      |
-| `magnus.enabled`          | 开启 magnus        | `true`      |
 | `chen.enabled`            | 开启 chen          | `true`      |
-| `kael.enabled`            | 开启 kael          | `true`      |
 | `web.enabled`             | 开启 web           | `true`      |
 | `xpack.enable`            | 开启 xpack         | `false`     |
 
