@@ -6,7 +6,8 @@
 {{- $imageOwner :=  $.Values.global.imageOwner | default "jumpserver" }}
 {{- $imageName := "razor" }}
 {{- $imageTag := $.Chart.AppVersion }}
-{{- $imageWithTag := printf "%s/%s/%s:%s" $registryName $imageOwner $imageName $imageTag | quote }}
+{{- $imageSuffix := $.Values.xpack.enabled | ternary "ee" "ce" }}
+{{- $imageWithTag := printf "%s/%s/%s:v%s-%s" $registryName $imageOwner $imageName $imageTag $imageSuffix | quote }}
 
 apiVersion: apps/v1
 kind: Deployment
