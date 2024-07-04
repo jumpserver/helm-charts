@@ -10,9 +10,10 @@
 {{- $sqlserverPort := printf "%s" (include "jumpserver.magnus.sqlserver.port" $) }}
 {{- $postgresqlPort := printf "%s" (include "jumpserver.magnus.postgresql.port" $) }}
 {{- $oraclePorts := printf "%s" (include "jumpserver.magnus.oracle.ports" $) }}
-{{- $imageName := $.Values.xpack.enabled | ternary "core-ee" "core-ce" }}
+{{- $imageName := "core" }}
 {{- $imageTag := $.Chart.AppVersion }}
-{{- $imageWithTag := printf "%s/%s/%s:%s" $registryName $imageOwner $imageName $imageTag | quote }}
+{{- $imageSuffix := $.Values.xpack.enabled | ternary "ee" "ce" }}
+{{- $imageWithTag := printf "%s/%s/%s:v%s-%s" $registryName $imageOwner $imageName $imageTag $imageSuffix | quote }}
 
 apiVersion: apps/v1
 kind: Deployment
