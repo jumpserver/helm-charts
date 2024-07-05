@@ -20,6 +20,10 @@ metadata:
 spec:
   type: {{ .service.type }}
   ports:
+    - port: {{ .service.web.port }}
+      targetPort: web
+      protocol: TCP
+      name: web
     - port: {{ .service.mysql.port }}
       targetPort: mysql
       protocol: TCP

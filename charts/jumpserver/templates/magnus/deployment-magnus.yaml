@@ -14,7 +14,7 @@
 {{- $imageName := "magnus" }}
 {{- $imageTag := $.Chart.AppVersion }}
 {{- $imageSuffix := $.Values.xpack.enabled | ternary "ee" "ce" }}
-{{- $imageWithTag := printf "%s/%s/%s:v%s-%s" $registryName $imageOwner $imageName $imageTag $imageSuffix | quote }}
+{{- $imageWithTag := printf "%s/%s/%s:%s-%s" $registryName $imageOwner $imageName $imageTag $imageSuffix | quote }}
 
 apiVersion: apps/v1
 kind: Deployment
@@ -98,6 +98,9 @@ spec:
               value: {{ $val | quote }}
             {{- end }}
           ports:
+            - name: web
+              containerPort: {{ .service.web.port }}
+              protocol: TCP
             - name: mysql
               containerPort: {{ $mysqlPort }}
               protocol: TCP

@@ -13,7 +13,7 @@
 {{- $imageName := "core" }}
 {{- $imageTag := $.Chart.AppVersion }}
 {{- $imageSuffix := $.Values.xpack.enabled | ternary "ee" "ce" }}
-{{- $imageWithTag := printf "%s/%s/%s:v%s-%s" $registryName $imageOwner $imageName $imageTag $imageSuffix | quote }}
+{{- $imageWithTag := printf "%s/%s/%s:%s-%s" $registryName $imageOwner $imageName $imageTag $imageSuffix | quote }}
 
 apiVersion: apps/v1
 kind: Deployment
@@ -99,6 +99,7 @@ spec:
             - name: REDIS_PASSWORD
               value: {{ include "jumpserver.redis.password" $ | quote }}
             {{- end }}
+            {{- if $.Values.xpack.enabled }}
             - name: MAGNUS_MYSQL_PORT
               value: {{ $mysqlPort | quote }}
             - name: MAGNUS_MARIADB_PORT
@@ -111,6 +112,7 @@ spec:
               value: {{ $sqlserverPort | quote }}
             - name: MAGNUS_ORACLE_PORTS
               value: {{ $oraclePorts | quote }}
+            {{- end }}
             {{- range $key, $val := .env }}
             - name: {{ $key }}
               value: {{ $val | quote }}
