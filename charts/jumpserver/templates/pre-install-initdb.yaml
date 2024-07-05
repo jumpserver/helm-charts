@@ -6,7 +6,7 @@
 {{- $imageName := "core" }}
 {{- $imageTag := $.Chart.AppVersion }}
 {{- $imageSuffix := $.Values.xpack.enabled | ternary "ee" "ce" }}
-{{- $imageWithTag := printf "%s/%s/%s:v%s-%s" $registryName $imageOwner $imageName $imageTag $imageSuffix | quote }}
+{{- $imageWithTag := printf "%s/%s/%s:%s-%s" $registryName $imageOwner $imageName $imageTag $imageSuffix | quote }}
 
 apiVersion: batch/v1
 kind: Job

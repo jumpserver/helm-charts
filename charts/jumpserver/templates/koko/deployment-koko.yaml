@@ -7,7 +7,7 @@
 {{- $imageName := "koko" }}
 {{- $imageTag := $.Chart.AppVersion }}
 {{- $imageSuffix := $.Values.xpack.enabled | ternary "ee" "ce" }}
-{{- $imageWithTag := printf "%s/%s/%s:v%s-%s" $registryName $imageOwner $imageName $imageTag $imageSuffix | quote }}
+{{- $imageWithTag := printf "%s/%s/%s:%s-%s" $registryName $imageOwner $imageName $imageTag $imageSuffix | quote }}
 
 apiVersion: apps/v1
 kind: Deployment
