@@ -98,6 +98,9 @@ spec:
               value: {{ $val | quote }}
             {{- end }}
           ports:
+            - name: web
+              containerPort: {{ .service.web.port }}
+              protocol: TCP
             - name: mysql
               containerPort: {{ $mysqlPort }}
               protocol: TCP

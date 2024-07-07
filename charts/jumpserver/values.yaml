@@ -105,11 +105,9 @@ core:
     initialDelaySeconds: 90
     failureThreshold: 3
     timeoutSeconds: 5
-    exec:
-      command:
-      - curl
-      - -fsL
-      - http://localhost:8080/api/health/
+    httpGet:
+      path: /api/health/
+      port: web
 
   podSecurityContext: {}
     # fsGroup: 2000
@@ -351,7 +349,8 @@ chen:
     initialDelaySeconds: 60
     failureThreshold: 3
     timeoutSeconds: 5
-    tcpSocket:
+    httpGet:
+      path: /chen
       port: web
 
   podSecurityContext: {}
@@ -427,8 +426,9 @@ magnus:
     initialDelaySeconds: 10
     failureThreshold: 3
     timeoutSeconds: 5
-    tcpSocket:
-      port: 9090
+    httpGet:
+      path: /health
+      port: web
 
   podSecurityContext: {}
     # fsGroup: 2000
@@ -443,6 +443,8 @@ magnus:
 
   service:
     type: ClusterIP
+    web:
+      port: 8088
     mysql:
       port: 33061
     mariadb:
@@ -583,8 +585,9 @@ razor:
     initialDelaySeconds: 10
     failureThreshold: 3
     timeoutSeconds: 5
-    tcpSocket:
-      port: rdp
+    httpGet:
+      path: /razor/health/
+      port: web
 
   podSecurityContext: {}
     # fsGroup: 2000
