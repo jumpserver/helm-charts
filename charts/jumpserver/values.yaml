@@ -8,7 +8,7 @@ fullnameOverride: ""
 ## @param global.imageRegistry Global Docker image registry
 ## @param global.imagePullSecrets Global Docker registry secret names as an array
 ## @param global.storageClass Global StorageClass for Persistent Volume(s)
-## @param global.redis.password Global Redis&trade; password (overrides `auth.password`)
+## @param global.redis.password Global Redis™ password (overrides `externalRedis.password`)
 ##
 global:
   imageRegistry: docker.io
@@ -20,14 +20,14 @@ global:
   imagePullSecrets: []
   storageClass: ""
 
-## Please configure your MySQL server first
-## Jumpserver will not start the external MySQL server.
+## Please configure your PostgreSQL server first
+## Jumpserver will not start the external PostgreSQL server.
 ##
 externalDatabase:
-  engine: mysql
+  engine: postgresql
   host: localhost
-  port: 3306
-  user: root
+  port: 5432
+  user: postgres
   password: ""
   database: jumpserver
 
@@ -62,7 +62,6 @@ ingress:
     nginx.ingress.kubernetes.io/server-snippets: |
       proxy_set_header Upgrade "websocket";
       proxy_set_header Connection "Upgrade";
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 
   hosts:
     - "test.jumpserver.org"

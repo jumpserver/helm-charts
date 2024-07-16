@@ -1,13 +1,15 @@
-apiVersion: v1
+annotations:
+  category: "Application"
+  licenses: "GPL-3.0"
+apiVersion: v2
 appVersion: "v4.0.0"
 description: A Helm chart for Deploying Jumpserver on Kubernetes
-engine: gotpl
 home: https://jumpserver.org
 icon: https://jumpserver.org/images/logo/favicon.ico
 maintainers:
-- email: support@fit2cloud.com
-  name: jumpserver
+- name: FIT2CLOUD, Inc. All Rights Reserved.
+  url: https://github.com/jumpserver/helm-charts
 sources:
-- https://github.com/jumpserver/
+- https://github.com/jumpserver/helm-charts/tree/main/charts/jumpserver
 name: jumpserver
 version: 4.0.0
