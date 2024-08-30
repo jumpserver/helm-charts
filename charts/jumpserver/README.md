@@ -52,7 +52,7 @@ helm repo add jumpserver https://jumpserver.github.io/helm-charts
 | `global.storageClass`          | 持久化存储                                    | `nil`                  |
 | `core.config.secretKey`        | 加密秘钥 生产环境中请修改为随机字符串，请勿外泄  | `nil`                  |
 | `core.config.bootstrapToken`   | 预共享 Token 组件注册需要使用                  | `nil`                  |
-| `externalDatabase.engine`      | 数据库引擎                                    | `mysql`                |
+| `externalDatabase.engine`      | 数据库引擎                                    | `postgresql`                |
 | `externalDatabase.host`        | 数据库 IP 地址                                | `nil`                  |
 | `externalDatabase.port`        | 数据库端口                                    | `3306`                 |
 | `externalDatabase.user`        | 数据库用户名                                  | `jumpserver`           |

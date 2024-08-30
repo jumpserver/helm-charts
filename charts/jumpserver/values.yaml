@@ -22,9 +22,9 @@ global:
 
 ## Please configure your PostgreSQL server first
 ## Jumpserver will not start the external PostgreSQL server.
-##
+## postgresql as default after 4.0.0
 externalDatabase:
-  engine: postgresql
+  engine: postgresql  # Options: postgresql, mysql
   host: localhost
   port: 5432
   user: postgres
