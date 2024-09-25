@@ -17,7 +17,7 @@ The Installation is Complete.
 {{- if .Values.ingress.enabled }}
 {{- range $host := .Values.ingress.hosts }}
   http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $host }}
-  username: admin  password: admin
+  username: admin  password: ChangeMe
 {{- end }}
 {{- end }}
 
