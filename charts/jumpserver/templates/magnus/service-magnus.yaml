@@ -1,10 +1,6 @@
 {{- if .Values.xpack.enabled }}
 {{- with .Values.magnus }}
 {{- $fullName := include "jumpserver.fullname" $ }}
-{{- $mysqlPort := printf "%s" (include "jumpserver.magnus.mysql.port" $) }}
-{{- $mariadbPort := printf "%s" (include "jumpserver.magnus.mariadb.port" $) }}
-{{- $redisPort := printf "%s" (include "jumpserver.magnus.redis.port" $) }}
-{{- $postgresqlPort := printf "%s" (include "jumpserver.magnus.postgresql.port" $) }}
 {{- $oraclePortStart := printf "%s" (include "jumpserver.magnus.oracle.port.start" $) | int }}
 {{- $oraclePortEnd := printf "%s" (include "jumpserver.magnus.oracle.port.end" $) | int}}
 
@@ -25,21 +21,40 @@ spec:
       protocol: TCP
       name: web
     - port: {{ .service.mysql.port }}
+      {{- if eq .service.type "NodePort" }}
+      nodePort: {{ .service.mysql.port }}
+      {{- end }}
       targetPort: mysql
       protocol: TCP
       name: mysql
     - port: {{ .service.mariadb.port }}
+      {{- if eq .service.type "NodePort" }}
+      nodePort: {{ .service.mariadb.port }}
+      {{- end }}
       targetPort: mariadb
       protocol: TCP
       name: mariadb
     - port: {{ .service.redis.port }}
+      {{- if eq .service.type "NodePort" }}
+      nodePort: {{ .service.redis.port }}
+      {{- end }}
       targetPort: redis
       protocol: TCP
       name: redis
     - port: {{ .service.postgresql.port }}
+      {{- if eq .service.type "NodePort" }}
+      nodePort: {{ .service.postgresql.port }}
+      {{- end }}
       targetPort: postgresql
       protocol: TCP
       name: postgresql
+    - port: {{ .service.sqlserver.port }}
+      {{- if eq .service.type "NodePort" }}
+      nodePort: {{ .service.sqlserver.port }}
+      {{- end }}
+      targetPort: sqlserver
+      protocol: TCP
+      name: sqlserver
     {{- range $port := untilStep $oraclePortStart $oraclePortEnd 1 }}
     - port: {{ $port }}
       {{- if eq $.Values.magnus.service.type "NodePort" }}

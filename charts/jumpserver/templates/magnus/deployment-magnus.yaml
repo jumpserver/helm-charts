@@ -8,6 +8,7 @@
 {{- $mariadbPort := printf "%s" (include "jumpserver.magnus.mariadb.port" $) }}
 {{- $redisPort := printf "%s" (include "jumpserver.magnus.redis.port" $) }}
 {{- $postgresqlPort := printf "%s" (include "jumpserver.magnus.postgresql.port" $) }}
+{{- $sqlserverPort := printf "%s" (include "jumpserver.magnus.sqlserver.port" $) }}
 {{- $oraclePorts := printf "%s" (include "jumpserver.magnus.oracle.ports" $) }}
 {{- $oraclePortStart := printf "%s" (include "jumpserver.magnus.oracle.port.start" $) | int }}
 {{- $oraclePortEnd := printf "%s" (include "jumpserver.magnus.oracle.port.end" $) | int }}
@@ -91,6 +92,8 @@ spec:
               value: {{ $redisPort | quote }}
             - name: MAGNUS_POSTGRESQL_PORT
               value: {{ $postgresqlPort | quote }}
+            - name: MAGNUS_SQLSERVER_PORT
+              value: {{ $sqlserverPort | quote }}
             - name: MAGNUS_ORACLE_PORTS
               value: {{ $oraclePorts | quote }}
             {{- range $key, $val := .env }}
