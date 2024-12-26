@@ -12,7 +12,7 @@
 - Kubernetes 1.20+
 - Helm 3.0
 
-## Usage
+###  Usage
 
 [Helm](https://helm.sh) must be installed to use the charts.
 Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
@@ -45,3 +45,7 @@ helm install jms-k8s jumpserver/jumpserver -n default -f values.yaml
 
 ### Docs
 [Docs](https://github.com/jumpserver/helm-charts/tree/main/charts/jumpserver)
+
+###  Thanks
+
+Thanks [xiaomaimuchanyiyiba](https://github.com/xiaomaimuchanyiyiba) contribute, [Origin repo](https://github.com/xiaomaimuchanyiyiba/jumpserver)
