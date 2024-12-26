@@ -33,14 +33,15 @@ You can then run `helm search repo jumpserver` to see the charts.
 
 -->
 
-## [Documentation](https://docs.jumpserver.org/zh/master/install/setup_by_fast/)
-
 ```bash
 wget https://raw.githubusercontent.com/jumpserver/helm-charts/main/charts/jumpserver/values.yaml
 vi values.yaml
 ```
 
-### install
+### Install
 ```bash
 helm install jms-k8s jumpserver/jumpserver -n default -f values.yaml
 ```
+
+### Docs
+[Docs](https://github.com/jumpserver/helm-charts/tree/main/charts/jumpserver)
