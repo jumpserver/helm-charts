@@ -24,35 +24,35 @@ spec:
       {{- if eq .service.type "NodePort" }}
       nodePort: {{ .service.mysql.port }}
       {{- end }}
-      targetPort: mysql
+      targetPort: 33061
       protocol: TCP
       name: mysql
     - port: {{ .service.mariadb.port }}
       {{- if eq .service.type "NodePort" }}
       nodePort: {{ .service.mariadb.port }}
       {{- end }}
-      targetPort: mariadb
+      targetPort: 33062
       protocol: TCP
       name: mariadb
     - port: {{ .service.redis.port }}
       {{- if eq .service.type "NodePort" }}
       nodePort: {{ .service.redis.port }}
       {{- end }}
-      targetPort: redis
+      targetPort: 63790
       protocol: TCP
       name: redis
     - port: {{ .service.postgresql.port }}
       {{- if eq .service.type "NodePort" }}
       nodePort: {{ .service.postgresql.port }}
       {{- end }}
-      targetPort: postgresql
+      targetPort: 54320
       protocol: TCP
       name: postgresql
     - port: {{ .service.sqlserver.port }}
       {{- if eq .service.type "NodePort" }}
       nodePort: {{ .service.sqlserver.port }}
       {{- end }}
-      targetPort: sqlserver
+      targetPort: 14330
       protocol: TCP
       name: sqlserver
     {{- range $port := untilStep $oraclePortStart $oraclePortEnd 1 }}
