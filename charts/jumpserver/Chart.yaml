@@ -2,7 +2,7 @@ annotations:
   category: "Application"
   licenses: "GPL-3.0"
 apiVersion: v2
-appVersion: "v4.10.8"
+appVersion: "v4.10.9"
 description: A Helm chart for Deploying Jumpserver on Kubernetes
 home: https://jumpserver.org
 icon: https://jumpserver.org/images/logo/favicon.ico
@@ -12,4 +12,4 @@ maintainers:
 sources:
 - https://github.com/jumpserver/helm-charts/tree/main/charts/jumpserver
 name: jumpserver
-version: v4.10.8
+version: v4.10.9
