@@ -454,8 +454,10 @@ magnus:
       port: 54320
     sqlserver:
       port: 14330
+    mongodb:
+      port: 27018
     oracle:
-      ports: 30000-30100
+      port: 15210
 
   resources: {}
     ## We usually recommend not to specify default resources and to leave this as a conscious

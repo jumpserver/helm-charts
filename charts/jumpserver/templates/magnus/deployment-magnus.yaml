@@ -9,9 +9,8 @@
 {{- $redisPort := printf "%s" (include "jumpserver.magnus.redis.port" $) }}
 {{- $postgresqlPort := printf "%s" (include "jumpserver.magnus.postgresql.port" $) }}
 {{- $sqlserverPort := printf "%s" (include "jumpserver.magnus.sqlserver.port" $) }}
-{{- $oraclePorts := printf "%s" (include "jumpserver.magnus.oracle.ports" $) }}
-{{- $oraclePortStart := printf "%s" (include "jumpserver.magnus.oracle.port.start" $) | int }}
-{{- $oraclePortEnd := printf "%s" (include "jumpserver.magnus.oracle.port.end" $) | int }}
+{{- $mongodbPort := printf "%s" (include "jumpserver.magnus.mongodb.port" $) }}
+{{- $oraclePort := printf "%s" (include "jumpserver.magnus.oracle.port" $) }}
 {{- $imageName := "magnus" }}
 {{- $imageTag := $.Chart.AppVersion }}
 {{- $imageSuffix := $.Values.xpack.enabled | ternary "ee" "ce" }}
@@ -94,8 +93,10 @@ spec:
               value: {{ $postgresqlPort | quote }}
             - name: MAGNUS_SQLSERVER_PORT
               value: {{ $sqlserverPort | quote }}
-            - name: MAGNUS_ORACLE_PORTS
-              value: {{ $oraclePorts | quote }}
+            - name: MAGNUS_MONGODB_PORT
+              value: {{ $mongodbPort | quote }}
+            - name: MAGNUS_ORACLE_PORT
+              value: {{ $oraclePort | quote }}
             {{- range $key, $val := .env }}
             - name: {{ $key }}
               value: {{ $val | quote }}
@@ -116,11 +117,12 @@ spec:
             - name: postgresql
               containerPort: {{ $postgresqlPort }}
               protocol: TCP
-            {{- range $port := untilStep $oraclePortStart $oraclePortEnd 1 }}
-            - name: oracle-{{ $port }}
-              containerPort: {{ $port }}
+            - name: mongodb
+              containerPort: {{ $mongodbPort }}
               protocol: TCP
-            {{- end }}
+            - name: oracle
+              containerPort: {{ $oraclePort }}
+              protocol: TCP
           livenessProbe:
             {{- toYaml .livenessProbe | nindent 12 }}
           readinessProbe:

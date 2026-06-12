@@ -9,7 +9,8 @@
 {{- $redisPort := printf "%s" (include "jumpserver.magnus.redis.port" $) }}
 {{- $sqlserverPort := printf "%s" (include "jumpserver.magnus.sqlserver.port" $) }}
 {{- $postgresqlPort := printf "%s" (include "jumpserver.magnus.postgresql.port" $) }}
-{{- $oraclePorts := printf "%s" (include "jumpserver.magnus.oracle.ports" $) }}
+{{- $mongodbPort := printf "%s" (include "jumpserver.magnus.mongodb.port" $) }}
+{{- $oraclePort := printf "%s" (include "jumpserver.magnus.oracle.port" $) }}
 {{- $imageName := "core" }}
 {{- $imageTag := $.Chart.AppVersion }}
 {{- $imageSuffix := $.Values.xpack.enabled | ternary "ee" "ce" }}
@@ -107,8 +108,10 @@ spec:
               value: {{ $postgresqlPort | quote }}
             - name: MAGNUS_SQLSERVER_PORT
               value: {{ $sqlserverPort | quote }}
-            - name: MAGNUS_ORACLE_PORTS
-              value: {{ $oraclePorts | quote }}
+            - name: MAGNUS_MONGODB_PORT
+              value: {{ $mongodbPort | quote }}
+            - name: MAGNUS_ORACLE_PORT
+              value: {{ $oraclePort | quote }}
             {{- end }}
             {{- range $key, $val := .env }}
             - name: {{ $key }}

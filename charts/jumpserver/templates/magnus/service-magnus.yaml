@@ -1,8 +1,8 @@
 {{- if .Values.xpack.enabled }}
 {{- with .Values.magnus }}
 {{- $fullName := include "jumpserver.fullname" $ }}
-{{- $oraclePortStart := printf "%s" (include "jumpserver.magnus.oracle.port.start" $) | int }}
-{{- $oraclePortEnd := printf "%s" (include "jumpserver.magnus.oracle.port.end" $) | int}}
+{{- $mongodbPort := printf "%s" (include "jumpserver.magnus.mongodb.port" $) }}
+{{- $oraclePort := printf "%s" (include "jumpserver.magnus.oracle.port" $) }}
 
 apiVersion: v1
 kind: Service
@@ -55,15 +55,20 @@ spec:
       targetPort: 14330
       protocol: TCP
       name: sqlserver
-    {{- range $port := untilStep $oraclePortStart $oraclePortEnd 1 }}
-    - port: {{ $port }}
+    - port: {{ $mongodbPort }}
       {{- if eq $.Values.magnus.service.type "NodePort" }}
-      nodePort: {{ $port }}
+      nodePort: {{ $mongodbPort }}
       {{- end }}
-      targetPort: oracle-{{ $port }}
+      targetPort: mongodb
       protocol: TCP
-      name: oracle-{{ $port }}
-    {{- end }}
+      name: mongodb
+    - port: {{ $oraclePort }}
+      {{- if eq $.Values.magnus.service.type "NodePort" }}
+      nodePort: {{ $oraclePort }}
+      {{- end }}
+      targetPort: oracle
+      protocol: TCP
+      name: oracle
   sessionAffinity: ClientIP
   sessionAffinityConfig:
     clientIP:
