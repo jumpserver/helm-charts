@@ -406,6 +406,8 @@ xpack:
   enabled: false
 
 magnus:
+  enabled: true
+  
   labels:
     app.jumpserver.org/name: jms-magnus
 
@@ -454,8 +456,10 @@ magnus:
       port: 54320
     sqlserver:
       port: 14330
+    mongodb:
+      port: 27018
     oracle:
-      ports: 30000-30100
+      port: 15210
 
   resources: {}
     ## We usually recommend not to specify default resources and to leave this as a conscious
@@ -492,6 +496,8 @@ magnus:
   affinity: {}
 
 xrdp:
+  enabled: false
+
   labels:
     app.jumpserver.org/name: jms-xrdp
 
@@ -565,6 +571,8 @@ xrdp:
   affinity: {}
 
 razor:
+  enabled: true
+
   labels:
     app.jumpserver.org/name: jms-razor
 
@@ -641,6 +649,8 @@ razor:
   affinity: {}
 
 video:
+  enabled: true
+
   labels:
     app.jumpserver.org/name: jms-video
 
@@ -698,6 +708,160 @@ video:
     accessModes:
       - ReadWriteMany
     size: 50Gi
+    annotations:
+      "helm.sh/resource-policy": keep
+    finalizers:
+      - kubernetes.io/pvc-protection
+    # subPath: ""
+    # existingClaim: ""
+
+  volumeMounts: []
+
+  volumes: []
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+facelive:
+  enabled: true
+
+  labels:
+    app.jumpserver.org/name: jms-facelive
+
+  config:
+    log:
+      level: ERROR
+
+  replicaCount: 1
+
+  image:
+    registry: registry.fit2cloud.com
+    pullPolicy: IfNotPresent
+
+  env: []
+
+  livenessProbe:
+    initialDelaySeconds: 10
+    failureThreshold: 3
+    timeoutSeconds: 5
+    httpGet:
+      path: /facelive/health/
+      port: web
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    web:
+      port: 9999
+
+  resources: {}
+    ## We usually recommend not to specify default resources and to leave this as a conscious
+    ## choice for the user. This also increases chances charts run on environments with little
+    ## resources, such as Minikube. If you do want to specify resources, uncomment the following
+    ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  persistence:
+    storageClassName: jumpserver-data
+    accessModes:
+      - ReadWriteMany
+    size: 10Gi
+    annotations:
+      "helm.sh/resource-policy": keep
+    finalizers:
+      - kubernetes.io/pvc-protection
+    # subPath: ""
+    # existingClaim: ""
+
+  volumeMounts: []
+
+  volumes: []
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+nec:
+  enabled: true
+
+  labels:
+    app.jumpserver.org/name: jms-nec
+
+  config:
+    log:
+      level: ERROR
+
+  replicaCount: 1
+
+  image:
+    registry: registry.fit2cloud.com
+    pullPolicy: IfNotPresent
+
+  env: []
+
+  livenessProbe:
+    initialDelaySeconds: 10
+    failureThreshold: 3
+    timeoutSeconds: 5
+    httpGet:
+      path: /nec/health/
+      port: web
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    web:
+      port: 8085
+    vnc:
+      port: 15900
+
+  resources: {}
+    ## We usually recommend not to specify default resources and to leave this as a conscious
+    ## choice for the user. This also increases chances charts run on environments with little
+    ## resources, such as Minikube. If you do want to specify resources, uncomment the following
+    ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  persistence:
+    storageClassName: jumpserver-data
+    accessModes:
+      - ReadWriteMany
+    size: 10Gi
     annotations:
       "helm.sh/resource-policy": keep
     finalizers:

@@ -205,6 +205,22 @@ Define JumpServer StorageClass.
 {{- end -}}
 {{- end -}}
 
+{{- define "jumpserver.facelive.storageClass" -}}
+{{- if .Values.global.storageClass }}
+{{- .Values.global.storageClass }}
+{{- else -}}
+{{- .Values.facelive.persistence.storageClassName -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.nec.storageClass" -}}
+{{- if .Values.global.storageClass }}
+{{- .Values.global.storageClass }}
+{{- else -}}
+{{- .Values.nec.persistence.storageClassName -}}
+{{- end -}}
+{{- end -}}
+
 {{- define "jumpserver.web.storageClass" -}}
 {{- if .Values.global.storageClass }}
 {{- .Values.global.storageClass }}
@@ -237,22 +253,10 @@ Define JumpServer magnus ports.
 {{- default 14330 .Values.magnus.service.sqlserver.port -}}
 {{- end -}}
 
-{{- define "jumpserver.magnus.oracle.ports" -}}
-{{- default "30000-30100" .Values.magnus.service.oracle.ports -}}
+{{- define "jumpserver.magnus.mongodb.port" -}}
+{{- default 27018 .Values.magnus.service.mongodb.port -}}
 {{- end -}}
 
-{{- define "jumpserver.magnus.oracle.port.start" -}}
-{{- if .Values.magnus.service.oracle.ports }}
-{{- .Values.magnus.service.oracle.ports | splitList "-" | first }}
-{{- else -}}
-{{- default 30000 -}}
-{{- end -}}
-{{- end -}}
-
-{{- define "jumpserver.magnus.oracle.port.end" -}}
-{{- if .Values.magnus.service.oracle.ports }}
-{{- add (.Values.magnus.service.oracle.ports | splitList "-" | last) 1 }}
-{{- else -}}
-{{- default 30101 -}}
-{{- end -}}
+{{- define "jumpserver.magnus.oracle.port" -}}
+{{- default 15210 .Values.magnus.service.oracle.port -}}
 {{- end -}}

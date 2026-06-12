@@ -1,0 +1,32 @@
+{{- if and .Values.xpack.enabled .Values.facelive.enabled }}
+{{- with .Values.facelive }}
+{{- $fullName := include "jumpserver.fullname" $ }}
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ $fullName }}-jms-facelive"
+  labels:
+    {{- include "jumpserver.labels" $ | nindent 4 }}
+    {{- toYaml .labels | nindent 4 }}
+  {{- with .service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .service.type }}
+  ports:
+    - port: {{ .service.web.port }}
+      targetPort: web
+      protocol: TCP
+      name: web
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
+  selector:
+    app.kubernetes.io/name: {{ include "jumpserver.name" $ }}
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    {{- toYaml .labels | nindent 4 }}
+{{- end }}
+{{- end }}

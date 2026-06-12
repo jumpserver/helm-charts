@@ -1,0 +1,39 @@
+{{- if and .Values.xpack.enabled .Values.nec.enabled }}
+{{- with .Values.nec }}
+{{- $fullName := include "jumpserver.fullname" $ }}
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ $fullName }}-jms-nec"
+  labels:
+    {{- include "jumpserver.labels" $ | nindent 4 }}
+    {{- toYaml .labels | nindent 4 }}
+  {{- with .service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .service.type }}
+  ports:
+    - port: {{ .service.web.port }}
+      targetPort: web
+      protocol: TCP
+      name: web
+    - port: {{ .service.vnc.port }}
+      {{- if eq .service.type "NodePort" }}
+      nodePort: {{ .service.vnc.port }}
+      {{- end }}
+      targetPort: vnc
+      protocol: TCP
+      name: vnc
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
+  selector:
+    app.kubernetes.io/name: {{ include "jumpserver.name" $ }}
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    {{- toYaml .labels | nindent 4 }}
+{{- end }}
+{{- end }}
