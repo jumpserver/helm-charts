@@ -213,6 +213,14 @@ Define JumpServer StorageClass.
 {{- end -}}
 {{- end -}}
 
+{{- define "jumpserver.nec.storageClass" -}}
+{{- if .Values.global.storageClass }}
+{{- .Values.global.storageClass }}
+{{- else -}}
+{{- .Values.nec.persistence.storageClassName -}}
+{{- end -}}
+{{- end -}}
+
 {{- define "jumpserver.web.storageClass" -}}
 {{- if .Values.global.storageClass }}
 {{- .Values.global.storageClass }}
