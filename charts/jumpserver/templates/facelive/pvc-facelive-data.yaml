@@ -1,0 +1,30 @@
+{{- if and .Values.xpack.enabled .Values.facelive.enabled (not .Values.facelive.persistence.existingClaim)}}
+{{- with .Values.facelive }}
+{{- $fullName := include "jumpserver.fullname" $ }}
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: "{{ $fullName }}-jms-facelive-data"
+  labels:
+    {{- include "jumpserver.labels" $ | nindent 4 }}
+    {{- toYaml .labels | nindent 4 }}
+  {{- with .persistence.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+  {{- end }}
+  {{- with .persistence.finalizers }}
+  finalizers:
+{{ toYaml . | indent 4 }}
+  {{- end }}
+spec:
+  accessModes:
+    {{- range .persistence.accessModes }}
+    - {{ . | quote }}
+    {{- end }}
+  resources:
+    requests:
+      storage: {{ .persistence.size | quote }}
+  storageClassName: {{ include "jumpserver.facelive.storageClass" $ }}
+{{- end }}
+{{- end }}
