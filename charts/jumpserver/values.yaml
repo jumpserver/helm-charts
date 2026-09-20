@@ -174,8 +174,16 @@ koko:
     registry: docker.io
     pullPolicy: IfNotPresent
 
-  env: []
+  env:
     ## See: https://docs.jumpserver.org/zh/master/admin-guide/env/#koko
+    # Koko handles graphical sessions and runs guacd in the same container.
+    JUMPSERVER_ENABLE_FONT_SMOOTHING: true
+    # JUMPSERVER_COLOR_DEPTH: 32
+    # JUMPSERVER_ENABLE_WALLPAPER: true
+    # JUMPSERVER_ENABLE_THEMING: true
+    # JUMPSERVER_ENABLE_FULL_WINDOW_DRAG: true
+    # JUMPSERVER_ENABLE_DESKTOP_COMPOSITION: true
+    # JUMPSERVER_ENABLE_MENU_ANIMATIONS: true
     # LANGUAGE_CODE: zh
     # REUSE_CONNECTION: true
     # ENABLE_LOCAL_PORT_FORWARD: true
@@ -225,90 +233,6 @@ koko:
     accessModes:
       - ReadWriteMany
     size: 10Gi
-    annotations:
-      "helm.sh/resource-policy": keep
-    finalizers:
-      - kubernetes.io/pvc-protection
-    # subPath: ""
-    # existingClaim: ""
-
-  volumeMounts: []
-
-  volumes: []
-
-  nodeSelector: {}
-
-  tolerations: []
-
-  affinity: {}
-
-lion:
-  enabled: true
-
-  labels:
-    app.jumpserver.org/name: jms-lion
-
-  config:
-    log:
-      level: ERROR
-
-  replicaCount: 1
-
-  image:
-    registry: docker.io
-    pullPolicy: IfNotPresent
-
-  env:
-    ## See: https://docs.jumpserver.org/zh/master/admin-guide/env/#lion
-    JUMPSERVER_ENABLE_FONT_SMOOTHING: true
-    # JUMPSERVER_COLOR_DEPTH: 32
-    # JUMPSERVER_ENABLE_WALLPAPER: true
-    # JUMPSERVER_ENABLE_THEMING: true
-    # JUMPSERVER_ENABLE_FULL_WINDOW_DRAG: true
-    # JUMPSERVER_ENABLE_DESKTOP_COMPOSITION: true
-    # JUMPSERVER_ENABLE_MENU_ANIMATIONS: true
-
-  livenessProbe:
-    initialDelaySeconds: 90
-    failureThreshold: 3
-    timeoutSeconds: 5
-    httpGet:
-      path: /lion/health/
-      port: web
-
-  podSecurityContext: {}
-    # fsGroup: 2000
-
-  securityContext: {}
-    # capabilities:
-    #   drop:
-    #   - ALL
-    # readOnlyRootFilesystem: true
-    # runAsNonRoot: true
-    # runAsUser: 1000
-
-  service:
-    type: ClusterIP
-    web:
-      port: 8081
-
-  resources: {}
-    ## We usually recommend not to specify default resources and to leave this as a conscious
-    ## choice for the user. This also increases chances charts run on environments with little
-    ## resources, such as Minikube. If you do want to specify resources, uncomment the following
-    ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    # limits:
-    #   cpu: 100m
-    #   memory: 512Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 512Mi
-
-  persistence:
-    storageClassName: jumpserver-data
-    accessModes:
-      - ReadWriteMany
-    size: 50Gi
     annotations:
       "helm.sh/resource-policy": keep
     finalizers:

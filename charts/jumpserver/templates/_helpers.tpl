@@ -157,14 +157,6 @@ Define JumpServer StorageClass.
 {{- end -}}
 {{- end -}}
 
-{{- define "jumpserver.lion.storageClass" -}}
-{{- if .Values.global.storageClass }}
-{{- .Values.global.storageClass }}
-{{- else -}}
-{{- .Values.lion.persistence.storageClassName -}}
-{{- end -}}
-{{- end -}}
-
 {{- define "jumpserver.magnus.storageClass" -}}
 {{- if .Values.global.storageClass }}
 {{- .Values.global.storageClass }}

@@ -12,6 +12,14 @@ helm repo add jumpserver https://jumpserver.github.io/helm-charts
 
 当前 Chart 包含了 Jumpserver 所需的基本组件
 
+图形会话已合并到 Koko，不再部署独立 Lion。请使用包含图形会话和 guacd 的 Koko 镜像，并与 Core、Web 的版本保持一致。图形会话通过 `/koko/lion/` 访问，使用 `koko.service.web.port` 和 Koko 数据卷；guacd 在 Koko 容器内运行，无需单独部署。
+
+### 从独立 Lion 升级
+
+- 将原 `lion.env` 中需要保留的图形会话配置移到 `koko.env`，例如 `JUMPSERVER_ENABLE_FONT_SMOOTHING`。副本数、资源和持久化容量统一由 `koko` 配置，需要按合并后的负载调整。
+- `lion.*` 参数不再生效；关闭 `koko.enabled` 会同时关闭终端和图形会话。
+- 新的图形会话录像和文件写入 Koko 数据卷。旧 Lion PVC 默认带有 `helm.sh/resource-policy: keep`，升级后保留，但不会自动挂载或迁移到 Koko；升级前应处理未上传的录像及需要保留的文件。
+
 ## 依赖
 
 - Kubernetes 1.20+
@@ -38,7 +46,6 @@ helm repo add jumpserver https://jumpserver.github.io/helm-charts
 | `ingress.enabled`         | 开启 ingress       | `true`      |
 | `core.enabled`            | 开启 core          | `true`      |
 | `koko.enabled`            | 开启 koko          | `true`      |
-| `lion.enabled`            | 开启 lion          | `true`      |
 | `chen.enabled`            | 开启 chen          | `true`      |
 | `web.enabled`             | 开启 web           | `true`      |
 | `xpack.enable`            | 开启 xpack         | `false`     |

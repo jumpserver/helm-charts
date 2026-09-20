@@ -26,5 +26,5 @@ spec:
     requests:
       storage: {{ .persistence.size | quote }}
       {{- end }}
-  storageClassName: {{ include "jumpserver.lion.storageClass" . }}
+  storageClassName: {{ include "jumpserver.video.storageClass" . }}
 {{- end }}
