@@ -158,6 +158,21 @@ core:
 
   affinity: {}
 
+celery:
+  ## Celery configuration
+  ## Celery is the task queue worker for JumpServer core
+  ## If not specified, it will inherit the configuration from core
+  # podSecurityContext: {}
+    # fsGroup: 2000
+  securityContext:
+    privileged: true
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
 koko:
   enabled: true
 
