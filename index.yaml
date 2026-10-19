@@ -43,6 +43,25 @@ entries:
       category: Application
       licenses: GPL-3.0
     apiVersion: v2
+    appVersion: v4.10.20
+    created: "2026-10-19T03:05:10.228982391Z"
+    description: A Helm chart for Deploying Jumpserver on Kubernetes
+    digest: fbffd5e113b9dbf069080a164ef8195b705812bd77996d07c7d40eab813e80c4
+    home: https://jumpserver.org
+    icon: https://jumpserver.org/images/logo/favicon.ico
+    maintainers:
+    - name: FIT2CLOUD, Inc. All Rights Reserved.
+      url: https://github.com/jumpserver/helm-charts
+    name: jumpserver
+    sources:
+    - https://github.com/jumpserver/helm-charts/tree/main/charts/jumpserver
+    urls:
+    - https://github.com/jumpserver/helm-charts/releases/download/jumpserver-v4.10.20/jumpserver-v4.10.20.tgz
+    version: v4.10.20
+  - annotations:
+      category: Application
+      licenses: GPL-3.0
+    apiVersion: v2
     appVersion: v4.10.19
     created: "2026-08-20T10:03:06.749816683Z"
     description: A Helm chart for Deploying Jumpserver on Kubernetes
@@ -2320,4 +2339,4 @@ entries:
     urls:
     - https://github.com/wojiushixiaobai/helm-charts/releases/download/jumpserver-2.16.3/jumpserver-2.16.3.tgz
     version: 2.16.3
-generated: "2026-10-15T12:51:25.416897554Z"
+generated: "2026-10-19T03:05:10.229235697Z"
