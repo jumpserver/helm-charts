@@ -12,9 +12,11 @@ helm repo add jumpserver https://jumpserver.github.io/helm-charts
 
 当前 Chart 包含了 Jumpserver 所需的基本组件
 
-图形会话已合并到 Koko，不再部署独立 Lion。请使用包含图形会话和 guacd 的 Koko 镜像，并与 Core、Web 的版本保持一致。图形会话通过 `/koko/lion/` 访问，使用 `koko.service.web.port` 和 Koko 数据卷；guacd 在 Koko 容器内运行，无需单独部署。
+v4（包括 v4.10）仍使用独立 Lion 提供图形会话，保留 `lion.*` 配置、`/lion/` 路由和原有 Lion PVC。`lion.enabled: false` 仅在 v4 中禁用独立 Lion。
 
-### 从独立 Lion 升级
+v5 起，图形会话已合并到 Koko，不再部署独立 Lion。请使用包含图形会话和 guacd 的 Koko 镜像，并与 Core、Web 的版本保持一致。图形会话通过 `/koko/lion/` 访问，使用 `koko.service.web.port` 和 Koko 数据卷；guacd 在 Koko 容器内运行，无需单独部署。
+
+### 从 v4 独立 Lion 升级到 v5
 
 - 将原 `lion.env` 中需要保留的图形会话配置移到 `koko.env`，例如 `JUMPSERVER_ENABLE_FONT_SMOOTHING`。副本数、资源和持久化容量统一由 `koko` 配置，需要按合并后的负载调整。
 - `lion.*` 参数不再生效；关闭 `koko.enabled` 会同时关闭终端和图形会话。
@@ -46,6 +48,7 @@ helm repo add jumpserver https://jumpserver.github.io/helm-charts
 | `ingress.enabled`         | 开启 ingress       | `true`      |
 | `core.enabled`            | 开启 core          | `true`      |
 | `koko.enabled`            | 开启 koko          | `true`      |
+| `lion.enabled`            | v4 开启 lion（v5 忽略） | `true`   |
 | `chen.enabled`            | 开启 chen          | `true`      |
 | `web.enabled`             | 开启 web           | `true`      |
 | `xpack.enable`            | 开启 xpack         | `false`     |
@@ -133,3 +136,13 @@ $ helm delete jms-k8s -n default
 ## 鸣谢说明
 
 本项目初始代码是由 [xiaomaimuchanyiyiba](https://github.com/xiaomaimuchanyiyiba) 贡献。[原仓库地址](https://github.com/xiaomaimuchanyiyiba/jumpserver)
+
+## 图形会话回归检查
+
+需要 Helm 3、Python 3 和 PyYAML，在仓库根目录运行：
+
+```bash
+python3 tests/test_graphical_sessions.py
+```
+
+检查覆盖 v4 独立 Lion、v5 Koko 图形会话、禁用 Lion、现有 PVC、存储类和企业版；只在临时目录渲染，不连接 Kubernetes 集群。

@@ -252,3 +252,16 @@ Define JumpServer magnus ports.
 {{- define "jumpserver.magnus.oracle.port" -}}
 {{- default 15210 .Values.magnus.service.oracle.port -}}
 {{- end -}}
+
+{{/* Standalone Lion is required before v5; v5 embeds it in Koko. */}}
+{{- define "jumpserver.lion.enabled" -}}
+{{- if and (semverCompare "<5.0.0-0" .Chart.AppVersion) .Values.lion.enabled -}}true{{- else -}}false{{- end -}}
+{{- end -}}
+
+{{- define "jumpserver.lion.storageClass" -}}
+{{- if .Values.global.storageClass }}
+{{- .Values.global.storageClass }}
+{{- else -}}
+{{- .Values.lion.persistence.storageClassName -}}
+{{- end -}}
+{{- end -}}
