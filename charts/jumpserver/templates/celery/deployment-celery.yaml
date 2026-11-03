@@ -42,11 +42,19 @@ spec:
       {{- end }}
       serviceAccountName: {{ template "jumpserver.serviceAccountName" $ }}
       securityContext:
+        {{- if hasKey $.Values.celery "podSecurityContext" }}
+        {{- toYaml $.Values.celery.podSecurityContext | nindent 8 }}
+        {{- else }}
         {{- toYaml .podSecurityContext | nindent 8 }}
+        {{- end }}
       containers:
         - name: {{ $containerName }}
           securityContext:
+            {{- if hasKey $.Values.celery "securityContext" }}
+            {{- toYaml $.Values.celery.securityContext | nindent 12 }}
+            {{- else }}
             {{- toYaml .securityContext | nindent 12 }}
+            {{- end }}
           image: {{ $imageWithTag }}
           imagePullPolicy: {{ .image.pullPolicy | quote }}
           args: ["start", "task"]
