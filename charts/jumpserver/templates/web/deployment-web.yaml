@@ -25,6 +25,8 @@ spec:
       {{- toYaml .labels | nindent 6 }}
   template:
     metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/web/configmap-web.yaml") $ | sha256sum }}
       labels:
         app.kubernetes.io/name: {{ include "jumpserver.name" $ }}
         app.kubernetes.io/instance: {{ $.Release.Name }}

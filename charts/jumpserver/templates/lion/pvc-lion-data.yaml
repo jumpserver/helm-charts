@@ -1,0 +1,30 @@
+{{- if and .Values.lion.enabled (not .Values.lion.persistence.existingClaim)}}
+{{- with .Values.lion }}
+{{- $fullName := include "jumpserver.fullname" $ }}
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: "{{ $fullName }}-jms-lion-data"
+  labels:
+    {{- include "jumpserver.labels" $ | nindent 4 }}
+    {{- toYaml .labels | nindent 4 }}
+  {{- with .persistence.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+  {{- end }}
+  {{- with .persistence.finalizers }}
+  finalizers:
+{{ toYaml . | indent 4 }}
+  {{- end }}
+spec:
+  accessModes:
+    {{- range .persistence.accessModes }}
+    - {{ . | quote }}
+    {{- end }}
+  resources:
+    requests:
+      storage: {{ .persistence.size | quote }}
+      {{- end }}
+  storageClassName: {{ include "jumpserver.lion.storageClass" . }}
+{{- end }}
