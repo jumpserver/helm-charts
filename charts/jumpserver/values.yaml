@@ -273,7 +273,12 @@ chen:
     failureThreshold: 3
     timeoutSeconds: 5
     httpGet:
-      path: /chen
+      path: /healthy
+      port: web
+
+  readinessProbe:
+    httpGet:
+      path: /ready
       port: web
 
   podSecurityContext: {}
