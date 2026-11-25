@@ -6,6 +6,8 @@ on:
       - 'main'
     paths:
       - 'README.md'
+      - 'README.zh-hans.md'
+      - 'README.zh-hant.md'
 
 jobs:
   build:
@@ -15,14 +17,18 @@ jobs:
 
       - run: |
           cp -f README.md ${{ runner.temp }}/README.md
+          cp -f README.zh-hans.md ${{ runner.temp }}/README.zh-hans.md
+          cp -f README.zh-hant.md ${{ runner.temp }}/README.zh-hant.md
       - uses: actions/checkout@v2
         with:
           ref: gh-pages
 
       - run: |
           cp -f ${{ runner.temp }}/README.md .
+          cp -f ${{ runner.temp }}/README.zh-hans.md .
+          cp -f ${{ runner.temp }}/README.zh-hant.md .
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          git add README.md
+          git add README.md README.zh-hans.md README.zh-hant.md
           git commit --signoff -m "Sync README from master"
           git push
