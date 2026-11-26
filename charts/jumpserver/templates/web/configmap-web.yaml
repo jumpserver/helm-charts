@@ -10,7 +10,14 @@ metadata:
     {{- include "jumpserver.labels" $ | nindent 4 }}
     {{- toYaml .labels | nindent 4 }}
 data:
-{{- $path := printf "%s/%s/%s" "configs" "jms-web" "default.conf" -}}
-{{- tpl (( $.Files.Glob $path ).AsConfig) $ | nindent 2 }}
+  default.conf: |
+    {{- $nginxConfigContent := "" }}
+    {{- if .nginxConfig }}
+      {{- $nginxConfigContent = .nginxConfig }}
+    {{- else }}
+      {{- $path := printf "%s/%s/%s" "configs" "jms-web" "default.conf" -}}
+      {{- $nginxConfigContent = $.Files.Get $path }}
+    {{- end }}
+    {{- tpl $nginxConfigContent $ | nindent 4 }}
 {{- end }}
 {{- end }}
