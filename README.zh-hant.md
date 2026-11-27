@@ -175,9 +175,11 @@ kubectl -n jumpserver delete pvc <pvc-name>
 - [JumpServer 官網](https://www.jumpserver.org/)
 - [問題回報](https://github.com/jumpserver/helm-charts/issues)
 
-## 授權
+## 許可證
 
-本專案依 [GPL-3.0](https://github.com/jumpserver/helm-charts/blob/main/LICENSE) 授權條款授權。
+Copyright (c) 2014-2026 FIT2CLOUD, All rights reserved.
+
+本項目基於 GNU General Public License version 3（GPLv3）許可，與 [JumpServer 主倉庫](https://github.com/jumpserver/jumpserver)一致。完整許可文本請參閱 [LICENSE](LICENSE)。
 
 ## 致謝
 
